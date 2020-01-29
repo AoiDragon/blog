@@ -59,8 +59,6 @@ int main(void)
     
     <a href="/" class="waves-effect waves-light">
       
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
       <span>首页</span>
     </a>
     
@@ -69,8 +67,6 @@ int main(void)
   <li class="hide-on-med-and-down nav-item">
     
     <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
       
       <span>标签</span>
     </a>
@@ -81,8 +77,6 @@ int main(void)
     
     <a href="/categories" class="waves-effect waves-light">
       
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
       <span>分类</span>
     </a>
     
@@ -91,8 +85,6 @@ int main(void)
   <li class="hide-on-med-and-down nav-item">
     
     <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
       
       <span>归档</span>
     </a>
@@ -103,31 +95,7 @@ int main(void)
     
     <a href="/about" class="waves-effect waves-light">
       
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
       <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
     </a>
     
   </li>
@@ -161,7 +129,7 @@ int main(void)
 	  
 		<a href="/" class="waves-effect waves-light">
 			
-			    <i class="fa-fw fas fa-home"></i>
+				<i class="fas fa-fw fa-link"></i>
 			
 			首页
 		</a>
@@ -172,7 +140,7 @@ int main(void)
 	  
 		<a href="/tags" class="waves-effect waves-light">
 			
-			    <i class="fa-fw fas fa-tags"></i>
+				<i class="fas fa-fw fa-link"></i>
 			
 			标签
 		</a>
@@ -183,7 +151,7 @@ int main(void)
 	  
 		<a href="/categories" class="waves-effect waves-light">
 			
-			    <i class="fa-fw fas fa-bookmark"></i>
+				<i class="fas fa-fw fa-link"></i>
 			
 			分类
 		</a>
@@ -194,7 +162,7 @@ int main(void)
 	  
 		<a href="/archives" class="waves-effect waves-light">
 			
-			    <i class="fa-fw fas fa-archive"></i>
+				<i class="fas fa-fw fa-link"></i>
 			
 			归档
 		</a>
@@ -205,31 +173,9 @@ int main(void)
 	  
 		<a href="/about" class="waves-effect waves-light">
 			
-			    <i class="fa-fw fas fa-user-circle"></i>
+				<i class="fas fa-fw fa-link"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -739,7 +685,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
     <footer class="page-footer bg-color">
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2020</span>
@@ -765,6 +711,50 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             </span>
             
             <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "1";
+                    var startDate = "29";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
             
             <br>
             
