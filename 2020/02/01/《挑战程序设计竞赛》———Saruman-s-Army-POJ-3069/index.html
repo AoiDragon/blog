@@ -444,20 +444,20 @@ int x[1050];
 int main(void)
 {
     cin&gt;&gt;R&gt;&gt;N;
-    for(int i=0; i<N; i++)
+    for(int i=0; i&lt;N; i++)
         cin&gt;&gt;x[i];
     int i=0, ans=0;
-    while(i<N)
+    while(i&lt;N)
     {
         int s=x[i];//起点
-        while(x[i]<=s+R&&i<N)
+        while(x[i]&lt;=s+R&&i&lt;N)
             i++;
         int p=x[i-1];//标记点
-        while(x[i]<=p+R&&i<n)
+        while(x[i]&lt;=p+R&&i&lt;n)
             i++;
         ans++;
     }
-    cout<<ans<<endl;
+    cout&lt;&lt;ans&lt;&lt;endl;
     return 0;  
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>书上的题解省去了我自己题解中许多不必要的变量。比如直接用i来判断是否全部处理、用while循环来寻找起点和标记点等，值得我学习。</p>
