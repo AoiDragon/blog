@@ -28,7 +28,8 @@
     
     <script src="/libs/jquery/jquery.min.js"></script>
     
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-duotone-light.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -358,12 +359,109 @@
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>本题输入包括多个用例。</p>
 <p>对于每个用例，第一行为水晶球的最大观察半径R(0&lt;=R&lt;=1000)和萨鲁曼部队数量n(1&lt;=n&lt;=1000)。第二行为每支部队所在的位置x1,…,xn。当R=n=-1时，结束输入。</p>
 <h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>对每个样例，输出所需水晶球的最小个数</p>
-<h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span> <span class="number">3</span></span><br><span class="line"><span class="number">10</span> <span class="number">20</span> <span class="number">20</span></span><br><span class="line"><span class="number">10</span> <span class="number">7</span></span><br><span class="line"><span class="number">70</span> <span class="number">30</span> <span class="number">1</span> <span class="number">7</span> <span class="number">15</span> <span class="number">20</span> <span class="number">50</span></span><br><span class="line"><span class="number">-1</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h2><pre class="line-numbers language-c++"><code class="language-c++">0 3
+10 20 20
+10 7
+70 30 1 7 15 20 50
+-1 -1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a>输出样例</h2><pre class="line-numbers language-c++"><code class="language-c++">2
+4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1 id="个人题解"><a href="#个人题解" class="headerlink" title="个人题解"></a>个人题解</h1><p>本题的基本思路是贪心。开始操作前先对所给位置进行排序方便操作。</p>
+<p>首先从左侧第一点开始考虑。这一点必须处在监视半径内，所以我们可以先将这个点的坐标加上半径值，得出水晶球最远可以放在哪里。题目的要求是水晶球的最少数目，所以一个水晶球自然是覆盖越多部队越好。所以我们从左侧的点开始对每一个点进行判断，找出最远点左侧最近的部队位置，也就是水晶球摆放的最佳位置（称为标记点）。然后我们再以第一个标记点的坐标加上半径，得出它右侧的覆盖范围，这范围内的所有点就不再需要考虑了。而在范围外的第一个点的情况是不是就和我们一开始左侧第一点的情况完全一样了呢。所以接下来重复上面的操作即可。</p>
+<p>总结下来就是两步。</p>
+<ol>
+<li>从起点开始，通过半径判断标志点的最佳摆放位置。</li>
+<li>从标记点开始，通过半径判断下一个起点的位置。</li>
+</ol>
+<p>每一个循环后都能找到一个标记点，递增答案即可。</p>
+<p>思路其实并不复杂，但还有几个细节需要注意。</p>
+<ol>
+<li><p>如何判断所有的点都已被纳入考虑。</p>
+<p>我一开始是判断当前的位置有没有超过输入中最远点的位置。但输入样例中的第一个数据就会产生问题。当遇到最远点不止一个的情况下会产生遗漏。最后我选择用flag记录已经判断过的点的数量，再与n比较即可。</p>
+</li>
+<li><p>格式</p>
+<p>这个纯粹是个人的粗心大意（或者说刷题不够）。比如由于有多组样例，ans和flag在每一次循环后要归零。还有要仔细读题，看清楚变量的输入顺序。我提交后wa了一次就是因为循环内的读取顺序错了导致只能读取一次输入。。。</p>
+</li>
+</ol>
+<p>下面是我的代码。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include &lt;iostream>
+#include &lt;algorithm>
 
-<h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a>输出样例</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+using namespace std;
 
-<h1 id="个人题解"><a href="#个人题解" class="headerlink" title="个人题解"></a>个人题解</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, R, <span class="built_in">max</span>, ans, j, flag;</span><br><span class="line"><span class="keyword">int</span> x[<span class="number">1050</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;R&gt;&gt;n;</span><br><span class="line">    <span class="keyword">while</span>(n!=<span class="number">-1</span>&amp;&amp;R!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;x[i];</span><br><span class="line">        sort(x, x+n);</span><br><span class="line">        <span class="keyword">int</span> mile=x[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(flag!=n)</span><br><span class="line">        &#123;</span><br><span class="line">            mile+=R;</span><br><span class="line">            <span class="keyword">for</span>(j=num; j&lt;n; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(x[j]&gt;mile)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    flag++;</span><br><span class="line">            &#125;</span><br><span class="line">            ans++;</span><br><span class="line">            mile=x[j<span class="number">-1</span>]+R;</span><br><span class="line">            num=j;</span><br><span class="line">            <span class="keyword">for</span>(j=num; j&lt;n; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(x[j]&gt;mile)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    flag++;</span><br><span class="line">            &#125;</span><br><span class="line">            mile=x[j]; </span><br><span class="line">            num=j;   </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        ans=<span class="number">0</span>;</span><br><span class="line">        flag=<span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;R&gt;&gt;n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+int n, R, max, ans, j, flag;
+int x[1050];
 
+int main(void)
+{
+    cin>>R>>n;
+    while(n!=-1&&R!=-1)
+    {
+        for(int i=0; i&lt;n; i++)
+            cin>>x[i];
+        sort(x, x+n);
+        int mile=x[0];
+        int num=0;
+        while(flag!=n)
+        {
+            mile+=R;
+            for(j=num; j&lt;n; j++)
+            {
+                if(x[j]>mile)
+                    break;
+                else
+                    flag++;
+            }
+            ans++;
+            mile=x[j-1]+R;
+            num=j;
+            for(j=num; j&lt;n; j++)
+            {
+                if(x[j]>mile)
+                    break;
+                else
+                    flag++;
+            }
+            mile=x[j]; 
+            num=j;   
+        }
+        cout>>ans>>endl;
+        ans=0;
+        flag=0;
+        cin&lt;&lt;R&lt;&lt;n;
+    }
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="书本题解"><a href="#书本题解" class="headerlink" title="书本题解"></a>书本题解</h1><p>书本上的题解要简略许多，发上来学习一下（这里只是处理一次输入的版本）。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+int N, R;
+int x[1050];
+
+int main(void)
+{
+    cin&gt;&gt;R&gt;&gt;N;
+    for(int i=0; i<N; i++)
+        cin&gt;&gt;x[i];
+    int i=0, ans=0;
+    while(i<N)
+    {
+        int s=x[i];//起点
+        while(x[i]<=s+R&&i<N)
+            i++;
+        int p=x[i-1];//标记点
+        while(x[i]<=p+R&&i<n)
+            i++;
+        ans++;
+    }
+    cout<<ans<<endl;
+    return 0;  
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>书上的题解省去了我自己题解中许多不必要的变量。比如直接用i来判断是否全部处理、用while循环来寻找起点和标记点等，值得我学习。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>这是我的第一篇题解，写的过程中还遇到了网站代码块显示不正常的bug，让我找了一天。。。好歹现在凑活能看了。先定一个小目标，每天写一份题解。接下来的冬训好好加油！</p>
 
             </div>
             <hr/>
