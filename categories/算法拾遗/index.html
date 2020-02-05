@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="标签, AoiDragon">
-    <meta name="description" content="标签 | AoiDragon">
+    <meta name="keywords" content="分类: 算法拾遗, AoiDragon">
+    <meta name="description" content="分类: 算法拾遗 | AoiDragon">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>标签 | AoiDragon</title>
+    <title>分类: 算法拾遗 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -228,58 +228,42 @@
 
     
 
-<div id="tags" class="container chip-container">
+<div id="category-cloud" class="container chip-container">
     <div class="card">
         <div class="card-content">
             <div class="tag-title center-align">
-                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
             </div>
             <div class="tag-chips">
                 
                 
-                <a href="/tags/%E8%B4%AA%E5%BF%83/" title="贪心: 1">
+                
+                <a href="/categories/%E6%95%99%E7%A8%8B/" title="教程: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="贪心" style="background-color: #F9EBEA;">贪心
+                            style="background-color: #F9EBEA;">教程
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" title="博客搭建: 1">
+                <a href="/categories/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/" title="《挑战程序设计竞赛》: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="博客搭建" style="background-color: #F5EEF8;">博客搭建
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" title="优先队列: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="优先队列" style="background-color: #D5F5E3;">优先队列
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/ACM%E9%A2%98%E8%A7%A3/" title="ACM题解: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="ACM题解" style="background-color: #E8F8F5;">ACM题解
+                            style="background-color: #F5EEF8;">《挑战程序设计竞赛》
                         <span class="tag-length">2</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" title="并查集: 1">
+                <a href="/categories/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97/" title="算法拾遗: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="并查集" style="background-color: #FEF9E7;">并查集
+                             chip-active "
+                            style="background-color: #D5F5E3;">算法拾遗
                         <span class="tag-length">1</span>
                     </span>
                 </a>
+                
                 
             </div>
         </div>
@@ -287,31 +271,67 @@
 </div>
 
     
-    <link rel="stylesheet" type="text/css" href="/libs/jqcloud/jqcloud.css">
-<style type="text/css">
-    #tag-wordcloud {
-        width: 100%;
-        height: 300px;
-    }
-</style>
 
-<div class="container" data-aos="fade-up">
-    <div class="card">
-        <div id="tag-wordcloud" class="card-content"></div>
-    </div>
-</div>
+    <article id="articles" class="container articles">
+        <div class="row tags-posts">
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2020/02/05/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="算法拾遗——并查集">
+                            
+                            <span class="card-title">算法拾遗——并查集</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                并查集介绍并查集是一种用来管理元素分组情况的数据结构。并查集可以高效地进行如下操作。
 
-<script type="text/javascript" src="/libs/jqcloud/jqcloud-1.0.4.min.js"></script>
-<script type="text/javascript">
-    
+查询元素a和元素b是否属于同一组。
+合并元素a和元素b所在的组。
 
-    $('#tag-wordcloud').jQCloud([{"text":"贪心","weight":1,"link":"https://aoidragon.github.io/tags/贪心/"},{"text":"博客搭建","weight":1,"link":"https://aoidragon.github.io/tags/博客搭建/"},{"text":"优先队列","weight":1,"link":"https://aoidragon.github.io/tags/优先队列/"},{"text":"ACM题解","weight":2,"link":"https://aoidragon.github.io/tags/ACM题解/"},{"text":"并查集","weight":1,"link":"https://aoidragon.github.io/tags/并查集/"}], {
-        autoResize: true
-    });
-</script>
-    
+注意：并查集可以进行合并操作，但不能进行分割操作。
+并查集的结构并查集使用树形结构实
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97/" class="post-category">
+                                    算法拾遗
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                            <span class="chip bg-color">并查集</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </article>
 </main>
+
+
 
 
     <footer class="page-footer bg-color">

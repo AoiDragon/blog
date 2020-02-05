@@ -4,8 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="我的博客搭建教程, AoiDragon">
-    <meta name="description" content="前言——关于为什么要搭个人博客那点事这一切还得从让人又爱又恨的DEV C++说起。在见证它n次莫名其妙的bug后，我终于痛定思痛，投入了VS Code的怀抱真香！。但当我好不容易把它调教好后，它不能用中文命名的特性着实为我整理代码带来了不少">
+    <meta name="keywords" content="算法拾遗——并查集, AoiDragon">
+    <meta name="description" content="并查集介绍并查集是一种用来管理元素分组情况的数据结构。并查集可以高效地进行如下操作。
+
+查询元素a和元素b是否属于同一组。
+合并元素a和元素b所在的组。
+
+注意：并查集可以进行合并操作，但不能进行分割操作。
+并查集的结构并查集使用树形结构实">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>我的博客搭建教程 | AoiDragon</title>
+    <title>算法拾遗——并查集 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -187,12 +193,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">我的博客搭建教程</h1>
+                    <h1 class="description center-align post-title">算法拾遗——并查集</h1>
                 </div>
             </div>
         </div>
@@ -309,8 +315,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
-                                <span class="chip bg-color">博客搭建</span>
+                            <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                                <span class="chip bg-color">并查集</span>
                             </a>
                         
                     </div>
@@ -321,8 +327,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%95%99%E7%A8%8B/" class="post-category">
-                                教程
+                            <a href="/categories/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97/" class="post-category">
+                                算法拾遗
                             </a>
                         
                     </div>
@@ -334,7 +340,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-01-30
+                    2020-02-05
                 </div>
                 
 
@@ -351,20 +357,80 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="前言——关于为什么要搭个人博客那点事"><a href="#前言——关于为什么要搭个人博客那点事" class="headerlink" title="前言——关于为什么要搭个人博客那点事"></a>前言——关于为什么要搭个人博客那点事</h1><p>这一切还得从让人又爱又恨的DEV C++说起。在见证它n次莫名其妙的bug后，我终于痛定思痛，投入了VS Code的怀抱<del>真香！</del>。但当我好不容易把它调教好后，它不能用中文命名的特性着实为我整理代码带来了不少困难，加上被拉进了ACM的坑，我愈发想找到一个解决办法。</p>
-<p>于是个人博客进入了我的视野，但我对CSDN这种第三方平台的界面实在是接受不能。就在这时，godweiyang大佬的知乎回答提供了一个看起来颇为诱人的解决方案(学计算机专业的本科生需不需要写博客？ godweiyang的回答 - 知乎 <a href="https://www.zhihu.com/question/291529957/answer/477066081)。我的博客搭建之路从这里正式开始。" target="_blank" rel="noopener">https://www.zhihu.com/question/291529957/answer/477066081)。我的博客搭建之路从这里正式开始。</a></p>
-<p>接下来我会介绍我的博客搭建的具体过程以及在过程中我参考的资料，如果你有搭建个人博客的想法，那么顺着我推荐的文章和视频一路看下去，你也一定能拥有自己的博客！</p>
-<p>注：虽然我的博客算是搭建成功了，但本菜鸡对其中的技术原理可谓一窍不通，本质上说只是对Github上大佬的主题做了些个性化处理。所以我自己的介绍就不涉及技术原理啦，相关的知识在我提供的资料里应该写的比较清楚了。</p>
-<h1 id="工欲善其事，必先利其器——Git、Github和Hexo"><a href="#工欲善其事，必先利其器——Git、Github和Hexo" class="headerlink" title="工欲善其事，必先利其器——Git、Github和Hexo"></a>工欲善其事，必先利其器——Git、Github和Hexo</h1><p>当我开始阅读<a href="https://godweiyang.com/2018/04/13/hexo-blog/#toc-heading-14" target="_blank" rel="noopener">godweiyang的教程</a>时,我发现这并不适合像我一样的纯新手。因此我转而去寻找其中涉及到的基础知识的教程，而它们当中最为重要的就是Git。什么是Git？不要问我，<a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">廖雪峰老师的教程</a>写的绝对比我的一知半解更权威，也更易懂。这份教程主要是介绍我们在搭建博客时用到的最基本的工具Git的使用方法。虽然其中介绍的命令和搭建博客时有些区别，但认真看完它绝对不亏。因为其他教程基本都是是建立在默认你已经掌握了Git的操作上编写的。</p>
-<p>不过个人认为看完“远程仓库”一节即可。在这一节提到了我们博客建立的地方——GitHub。在这里它的作用可能只是为我们提供一个域名，但他的魅力和作用远大于此（我自己也没搞明白）。可以直接在知乎上搜索“GitHub”，有不少相关的介绍，和Git的教程结合起来看效果拔群哦！</p>
-<p>最后是Hexo。可以把它理解为我们搭建博客的模板。在我看来，它相较于第三方平台的优势在于自由度高。它没有碍眼的小广告，在github上还有大量优秀的主题供你自己选择和修改。这里是<a href="https://www.bilibili.com/video/av44544186?t=24" target="_blank" rel="noopener">b站up主程序羊的教程</a>，可以说是一个保姆级的教学了。</p>
-<h1 id="万丈高楼平地起——从Next到matery"><a href="#万丈高楼平地起——从Next到matery" class="headerlink" title="万丈高楼平地起——从Next到matery"></a>万丈高楼平地起——从Next到matery</h1><p>其实在看完上面三个教程之后，你已经掌握了搭建一个个人博客的所有基础知识。如果不是很在意网站外观的话，你完全可以直接开始在上面发表博客了。而如果你还不满意，希望接下来的内容能对你胃口。</p>
-<p>这一节主要是对于博客界面的美化。上一节提到过，Hexo中有许多优秀的主题，这里我为大家介绍两个。</p>
-<p>第一个是Next主题。它主打简约风格，在GitHub上是非常受欢迎的一个项目，我们就从它入手。这里我推荐<a href="https://www.bilibili.com/video/av71716827?from=search&seid=569553462375072140" target="_blank" rel="noopener">b站up主dp2px_com的视频</a>。此外你也可以直接访问这个主题的<a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">使用文档</a>获取更多信息。</p>
-<p>如果说简约化的风格不能够满足你，那你也许该试试<a href="https://github.com/blinkfox/hexo-theme-matery/blob/develop/README_CN.md" target="_blank" rel="noopener">matery主题</a>。这也是我现在使用的主题，拉我入坑的godweiyang大佬的博客也是基于这个主题。GitHub上有中文介绍。下载下来后只要做一些自己的个性化处理就可以了。具体方法就是在你储存博客的文件夹下\themes\hexo-theme-matery路径中找到_config.yml文件。打开后进行修改即可。作者对每一段的作用都有注释，还有不清楚的地方可以去Github主页上看介绍。</p>
-<p><img src="%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/1.jpg" alt=""></p>
-<h1 id="光说不练假把式——Markdown-语法和Typora"><a href="#光说不练假把式——Markdown-语法和Typora" class="headerlink" title="光说不练假把式——Markdown 语法和Typora"></a>光说不练假把式——Markdown 语法和Typora</h1><p>到此为止关于博客搭建的部分就告一段落了，我们也该回归自己的初衷，向自己的网站上面发表博客了。<a href="https://godweiyang.com/2018/04/13/hexo-blog/#toc-heading-14" target="_blank" rel="noopener">操作方法在这里</a>（参见“写文章和发布文章部分”）。Markdown是我们写博客需要用来进行排版的语言。<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="noopener">菜鸟教程</a>上有非常清晰的教程。这里再为大家安利一个超级好用的Markdown编辑器：<a href="https://www.typora.io/" target="_blank" rel="noopener">Typora</a>。</p>
-<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>感谢寒假让我有了空闲时间来不务正业一把。我自己走完上面一套流程大概花了3天左右，还有很多地方需要改进。未来可能考虑自己买个域名，自己整个网站logo，再自己找一段骚话放在副标题上。最重要的是，希望自己能够物尽其用，利用这个网站记录学习编程中的心得。希望自己能够从ACM竞赛中有所收获，加油，奥里给！</p>
+                <h1 id="并查集介绍"><a href="#并查集介绍" class="headerlink" title="并查集介绍"></a>并查集介绍</h1><p>并查集是一种用来管理元素分组情况的数据结构。并查集可以高效地进行如下操作。</p>
+<ol>
+<li>查询元素a和元素b是否属于同一组。</li>
+<li>合并元素a和元素b所在的组。</li>
+</ol>
+<p>注意：并查集可以进行合并操作，但不能进行分割操作。</p>
+<h1 id="并查集的结构"><a href="#并查集的结构" class="headerlink" title="并查集的结构"></a>并查集的结构</h1><p>并查集使用树形结构实现，但不是二叉树。基本操作如下：</p>
+<ol>
+<li><p>初始化</p>
+<p>我们用n个结点来表示n给元素。最开始时没有边。</p>
+</li>
+<li><p>合并</p>
+<p>从一个组的根向另一个组的根连边，将两颗树变成一棵树。也就把两个组并为一个组了</p>
+</li>
+<li><p>查询</p>
+<p>为了查询两个节点是否属于同一组，我们需要沿着树往上走，来查询包含这个元素的根是谁。如果两个结点走到了同一个根，那么就可以知道它们属于同一组。</p>
+</li>
+</ol>
+<h1 id="并查集实现中的注意点"><a href="#并查集实现中的注意点" class="headerlink" title="并查集实现中的注意点"></a>并查集实现中的注意点</h1><p>在树形结构里，如果发生了退化的情况，那么复杂度就会变得很高。在并查集中需要采用如下方法：</p>
+<ol>
+<li>对于每棵树，记录这棵树的高度(rank)。合并时如果两颗树的rank不同，那么从rank小的向rank大的连边。</li>
+<li>通过路径压缩，可以使并查集更加高效。对于每个节点，一旦向上走到了一次根节点，就把这个节点到父亲的边改为直接连向根。(在使用这种简化的方法时，为了简单起见，即使树的高度发生了变化，我们也不修改rank的值)。</li>
+</ol>
+<h1 id="并查集的实现"><a href="#并查集的实现" class="headerlink" title="并查集的实现"></a>并查集的实现</h1><pre class="line-numbers language-c++"><code class="language-c++">int par[MAX_N]; //记录每个节点的父亲编号
+int rank[MAX_N]; //树的高度
+
+//初始化n个元素
+void init(int n)
+{
+    for(int i=0; i&lt;n; i++)
+    {
+        //开始时没有边，树的高度为0
+        rank[i]=0;
+        //如果一个节点的父亲是自己，那它就是根节点
+        //开始时所有节点都是根节点
+        par[i]=i;
+    }
+}
+
+//查询树的根
+int find(int x)
+{
+    if(par[x]==x)
+        return x;
+    else
+        //如果不是根节点，就继续向上寻找
+        par[x]=find(par[x]);
+    return par[x];
+}
+
+//合并x和y所属的集合
+void unite(int x, int y)
+{
+    x=find(x);
+    y=find(y);
+    //如果是同一颗树就不用合并了
+    if(x==y)
+        return;
+    //rank小的向rank大的连边
+    if(rank[x]&lt;rank[y])
+        par[x]=y;
+    else
+        par[y]=x;
+    //高度相等，合并后高度加1
+    if(rank[x]==rank[y])
+        rank[x]++;
+}
+
+//判断x和y是否属于同一个集合
+bool same(int x, int y)
+{
+    return find(x)==find(y);
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -390,7 +456,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/01/30/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">https://aoidragon.github.io/2020/01/30/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/</a>
+                    <a href="https://aoidragon.github.io/2020/02/05/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">https://aoidragon.github.io/2020/02/05/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -428,8 +494,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
-                                    <span class="chip bg-color">博客搭建</span>
+                                <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                                    <span class="chip bg-color">并查集</span>
                                 </a>
                             
                         </div>
@@ -467,31 +533,87 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/02/01/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E2%80%94Saruman-s-Army-POJ-3069/">
+                <a href="/2020/02/05/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="《挑战程序设计竞赛》———Saruman's Army(POJ 3069)">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="算法拾遗——并查集">
                         
-                        <span class="card-title">《挑战程序设计竞赛》———Saruman's Army(POJ 3069)</span>
+                        <span class="card-title">算法拾遗——并查集</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目描述vjudge上的原题在这里
-题目描述是建立再《魔戒》的基础上的，读起来还蛮有意思的。
-大意是白袍萨鲁曼老爷子要带领军队从大本营Isengard出发前往攻打洛汗的圣盔谷。为了掌握军队的动向，他把若干个水晶球放置在了队伍中。水晶球有一定
+                            并查集介绍并查集是一种用来管理元素分组情况的数据结构。并查集可以高效地进行如下操作。
+
+查询元素a和元素b是否属于同一组。
+合并元素a和元素b所在的组。
+
+注意：并查集可以进行合并操作，但不能进行分割操作。
+并查集的结构并查集使用树形结构实
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-01
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97/" class="post-category">
+                                    算法拾遗
+                                </a>
+                            
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                        <span class="chip bg-color">并查集</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/02/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Expedition-POJ-2431/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——Expedition(POJ 2431)">
+                        
+                        <span class="card-title">《挑战程序设计竞赛》——Expedition(POJ 2431)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            题目原题链接
+你需要驾驶一辆卡车行驶L单位距离。 最开始时，卡车上有P单位的汽油。卡车每开1单位距离需要消耗一单位汽油。如果在途中车上的汽油耗尽，卡车就无法继续前行，因而无法到达终点。在途中一共有N个加油站。第i个加油站在距离终点Ai单位距
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -507,62 +629,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%B4%AA%E5%BF%83/">
-                        <span class="chip bg-color">贪心</span>
+                    <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">优先队列</span>
                     </a>
                     
                     <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
                         <span class="chip bg-color">ACM题解</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/01/30/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="我的博客搭建教程">
-                        
-                        <span class="card-title">我的博客搭建教程</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            前言——关于为什么要搭个人博客那点事这一切还得从让人又爱又恨的DEV C++说起。在见证它n次莫名其妙的bug后，我终于痛定思痛，投入了VS Code的怀抱真香！。但当我好不容易把它调教好后，它不能用中文命名的特性着实为我整理代码带来了不少
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-30
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%95%99%E7%A8%8B/" class="post-category">
-                                    教程
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
-                        <span class="chip bg-color">博客搭建</span>
                     </a>
                     
                 </div>
