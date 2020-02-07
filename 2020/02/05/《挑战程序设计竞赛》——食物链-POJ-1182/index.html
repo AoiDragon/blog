@@ -4,14 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="算法拾遗——并查集, AoiDragon">
-    <meta name="description" content="并查集介绍并查集是一种用来管理元素分组情况的数据结构。并查集可以高效地进行如下操作。
-
-查询元素a和元素b是否属于同一组。
-合并元素a和元素b所在的组。
-
-注意：并查集可以进行合并操作，但不能进行分割操作。
-并查集的结构并查集使用树形结构实">
+    <meta name="keywords" content="《挑战程序设计竞赛》——食物链(POJ 1182), AoiDragon">
+    <meta name="description" content="题目原题链接
+题目描述动物王国中有三类动物A,B,C，这三类动物的食物链构成了有趣的环形。
+A吃B， B吃C，C吃A。
+现有N个动物，以1－N编号。
+每个动物都是A,B,C中的一种，但是我们并不知道它到底是哪一种。
+有人用两种说法对这N个动">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +18,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>算法拾遗——并查集 | AoiDragon</title>
+    <title>《挑战程序设计竞赛》——食物链(POJ 1182) | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -198,7 +197,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">算法拾遗——并查集</h1>
+                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——食物链(POJ 1182)</h1>
                 </div>
             </div>
         </div>
@@ -315,6 +314,10 @@
                     
                     <div class="article-tag">
                         
+                            <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
+                                <span class="chip bg-color">ACM题解</span>
+                            </a>
+                        
                             <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
                                 <span class="chip bg-color">并查集</span>
                             </a>
@@ -327,8 +330,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97/" class="post-category">
-                                算法拾遗
+                            <a href="/categories/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/" class="post-category">
+                                《挑战程序设计竞赛》
                             </a>
                         
                     </div>
@@ -357,80 +360,238 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="并查集介绍"><a href="#并查集介绍" class="headerlink" title="并查集介绍"></a>并查集介绍</h1><p>并查集是一种用来管理元素分组情况的数据结构。并查集可以高效地进行如下操作。</p>
+                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://vjudge.net/problem/POJ-1182" target="_blank" rel="noopener">原题链接</a></p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>动物王国中有三类动物A,B,C，这三类动物的食物链构成了有趣的环形。</p>
+<p>A吃B， B吃C，C吃A。</p>
+<p>现有N个动物，以1－N编号。</p>
+<p>每个动物都是A,B,C中的一种，但是我们并不知道它到底是哪一种。</p>
+<p>有人用两种说法对这N个动物所构成的食物链关系进行描述：</p>
+<p>第一种说法是”1 X Y”，表示X和Y是同类。</p>
+<p>第二种说法是”2 X Y”，表示X吃Y。</p>
+<p>此人对N个动物，用上述两种说法，一句接一句地说出K句话，这K句话有的是真的，有的是假的。</p>
+<p>当一句话满足下列三条之一时，这句话就是假话，否则就是真话。</p>
 <ol>
-<li>查询元素a和元素b是否属于同一组。</li>
-<li>合并元素a和元素b所在的组。</li>
+<li>当前的话与前面的某些真的话冲突，就是假话；</li>
+<li>当前的话中X或Y比N大，就是假话；</li>
+<li>当前的话表示X吃X，就是假话。</li>
 </ol>
-<p>注意：并查集可以进行合并操作，但不能进行分割操作。</p>
-<h1 id="并查集的结构"><a href="#并查集的结构" class="headerlink" title="并查集的结构"></a>并查集的结构</h1><p>并查集使用树形结构实现，但不是二叉树。基本操作如下：</p>
+<p>你的任务是根据给定的N和K句话，输出假话的总数。</p>
+<h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行是两个整数N和K，以一个空格分隔。</p>
+<p>以下K行每行是三个正整数 D，X，Y，两数之间用一个空格隔开，其中D表示说法的种类。</p>
+<p>若D=1，则表示X和Y是同类。</p>
+<p>若D=2，则表示X吃Y。</p>
+<h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>只有一个整数，表示假话的数目。</p>
+<h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h2><p>1≤<em>N</em>≤50000,<br> 0≤<em>K</em>≤100000</p>
+<h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h2><pre class="line-numbers language-c++"><code class="language-c++">100 7
+1 101 1 
+2 1 2
+2 2 3 
+2 3 3 
+1 1 3 
+2 3 1 
+1 5 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a>输出样例</h2><pre class="line-numbers language-c++"><code class="language-c++">3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="思路1——种类并查集"><a href="#思路1——种类并查集" class="headerlink" title="思路1——种类并查集"></a>思路1——种类并查集</h1><p>如果仅仅涉及对不同种的动物进行分类，普通的并查集就足够了。但本题中还涉及了不同种类动物间的捕食关系。</p>
+<p>所以我们要对并查集做一定的修改。对于每只动物，我们创建3个元素i-A,i-B,i-C而不是只创建1个元素，并用这3*N个元素建立并查集。其中：</p>
 <ol>
-<li><p>初始化</p>
-<p>我们用n个结点来表示n给元素。最开始时没有边。</p>
-</li>
-<li><p>合并</p>
-<p>从一个组的根向另一个组的根连边，将两颗树变成一棵树。也就把两个组并为一个组了</p>
-</li>
-<li><p>查询</p>
-<p>为了查询两个节点是否属于同一组，我们需要沿着树往上走，来查询包含这个元素的根是谁。如果两个结点走到了同一个根，那么就可以知道它们属于同一组。</p>
-</li>
+<li><strong>i-x表示“i属于种类x”。</strong></li>
+<li><strong>并查集里的每一个组表示组内元素代表的情况都同时发生或不发生。</strong></li>
 </ol>
-<h1 id="并查集实现中的注意点"><a href="#并查集实现中的注意点" class="headerlink" title="并查集实现中的注意点"></a>并查集实现中的注意点</h1><p>在树形结构里，如果发生了退化的情况，那么复杂度就会变得很高。在并查集中需要采用如下方法：</p>
+<p>所以对于每一条信息我们只需要做如下操作：</p>
 <ol>
-<li>对于每棵树，记录这棵树的高度(rank)。合并时如果两颗树的rank不同，那么从rank小的向rank大的连边。</li>
-<li>通过路径压缩，可以使并查集更加高效。对于每个节点，一旦向上走到了一次根节点，就把这个节点到父亲的边改为直接连向根。(在使用这种简化的方法时，为了简单起见，即使树的高度发生了变化，我们也不修改rank的值)。</li>
+<li><strong>若x和y属于同一种类：合并x-A和y-A、x-B和y-B、x-C和y-C。</strong></li>
+<li><strong>若x捕食y：合并x-A和y-B、x-B和y-C、x-C和y-A。</strong></li>
 </ol>
-<h1 id="并查集的实现"><a href="#并查集的实现" class="headerlink" title="并查集的实现"></a>并查集的实现</h1><pre class="line-numbers language-c++"><code class="language-c++">int par[MAX_N]; //记录每个节点的父亲编号
-int rank[MAX_N]; //树的高度
+<p>仅凭一组输入无法判断动物的种类，那我们索性三种情况都考虑，再判断是否矛盾即可。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&lt;iostream>
+#include&lt;algorithm>
+#include&lt;cstdio>
 
-//初始化n个元素
-void init(int n)
-{
-    for(int i=0; i&lt;n; i++)
-    {
-        //开始时没有边，树的高度为0
-        rank[i]=0;
-        //如果一个节点的父亲是自己，那它就是根节点
-        //开始时所有节点都是根节点
-        par[i]=i;
-    }
-}
+using namespace std;
 
-//查询树的根
-int find(int x)
+int N, M, d, x, y, ans;
+int par[150050];
+
+int find (int n)
 {
-    if(par[x]==x)
-        return x;
+    if(par[n]==n)
+        return n;
     else
-        //如果不是根节点，就继续向上寻找
-        par[x]=find(par[x]);
-    return par[x];
+        return par[n]=find(par[n]);
 }
 
-//合并x和y所属的集合
 void unite(int x, int y)
 {
-    x=find(x);
-    y=find(y);
-    //如果是同一颗树就不用合并了
-    if(x==y)
-        return;
-    //rank小的向rank大的连边
-    if(rank[x]&lt;rank[y])
-        par[x]=y;
-    else
-        par[y]=x;
-    //高度相等，合并后高度加1
-    if(rank[x]==rank[y])
-        rank[x]++;
+    //合并操作一定是从两颗树的根节点处合并
+    //fx是根节点，不是父节点！！
+    int fx=find(x);
+    int fy=find(y);
+    par[fx]=fy;
+    return;
 }
 
-//判断x和y是否属于同一个集合
 bool same(int x, int y)
 {
     return find(x)==find(y);
-}  
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}
+
+int main(void)
+{
+    cin>>N>>M;
+    for(int i=0; i&lt;=3*N; i++)
+        par[i]=i;        
+    for(int i=0; i&lt;M; i++)
+    {
+        cin>>d>>x>>y;
+        //排除错误输入
+        if(x>N||y>N||x&lt;=0||y&lt;=0)
+        {
+            ans++;
+            continue;
+        }
+        //x和y同类
+        if(d==1)
+        {
+            //判断二者之前是否存在捕食关系
+            if(same(x, y+N)||same(x, y+2*N))
+                ans++;
+            //先判断，再合并，相当于舍弃矛盾数据
+            else
+            {
+                //此处也可理解为x的同类是y的同类，x的猎物是y的猎物，x的天敌是y的天敌
+                unite(x, y);
+                unite(x+N, y+N);
+                unite(x+2*N, y+2*N);
+            }
+        }
+        //x捕食y
+        else
+        {
+            //排除x捕食自己、x和y同种、x被y捕食的情况
+            if(x==y||same(x, y)||same(x, y+2*N))
+                ans++;
+            else
+            {
+                unite(x, y+N);
+                unite(x+N, y+2*N);
+                unite(x+2*N, y);
+            }                            
+        }
+    }
+    cout&lt;&lt;ans&lt;&lt;endl;
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>附上<a href="https://www.luogu.com.cn/problemnew/solution/P2024" target="_blank" rel="noopener">洛谷题解地址</a></p>
+<h1 id="思路2——带权并查集"><a href="#思路2——带权并查集" class="headerlink" title="思路2——带权并查集"></a>思路2——带权并查集</h1><p>第一种方法相当于用了3个并查集，有没有占用空间更小的办法呢？仔细思考一下，如果我们对每个节点再赋予一个值来表示它当前的状态怎么样呢？带权并查集大概就是做了这样的改动。</p>
+<h2 id="权值"><a href="#权值" class="headerlink" title="权值"></a>权值</h2><p>我们把这样的值称为<strong>权</strong>。在对并查集进行路径压缩和合并操作时，这些权值具有一定属性，即可将他们与父节点的关系，变化为与所在树的根结点关系。</p>
+<p>也就是说，权值代表着<strong>当前节点与父节点的某种关系（即使路径压缩了也是这样）</strong>，通过两者关系，也可以将同一棵树下两个节点的关系表示出来。</p>
+<p>在如<a href="https://vjudge.net/problem/HDU-3038" target="_blank" rel="noopener">HDU-3038</a>这样的题目中，权值是不同节点间的数值差。而对于本题，每一只动物和它的根节点间的关系只有3种：0–同类、1–捕食、2–被捕食。那么我们只需要在计算权值时对3取余即可。</p>
+<p>例如：现在有这样一条食物链：A-&gt;B-&gt;C-&gt;D-&gt;E，想要求出A关于根节点E的权值，我们只需将从A到E之间每个节点到其父节点对应的权值相加再对3取余（因为三种动物的捕食关系成环状，每隔三个状态就会循环一次）。</p>
+<p>最后注意一开始把权值都设为0（自己与自己是同类）</p>
+<h2 id="权值转移"><a href="#权值转移" class="headerlink" title="权值转移"></a>权值转移</h2><p>如何在并查集的两个基本操作合并和查找中转移权值？</p>
+<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p>参考下图，x、px属于一棵树，y、py属于另一棵，通过输入我们知道了x相对于y的权值。我们要把A树合并的到B树中，就需要确定px相对于py的权值。</p>
+<p>把权值看作向量一样的有向线段可以帮助我们理解。如下图，由向量的加法，易得w[px]=w[b]-w[a]+s。</p>
+<p>最后再处理一下细节。w[b]-w[a]可能小于0，所以我们先对其加3再取模。由题意s只可能是0（A、B同种）或1（A捕食B）。所以<strong>w[px]=(w[b]-w[a]+3)%3或w[px]=(1+w[b]-w[a]+3)%3</strong>。</p>
+<p><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1891384823,1346231271&fm=15&gp=0.jpg" alt=""></p>
+<h3 id="查找（路径压缩）"><a href="#查找（路径压缩）" class="headerlink" title="查找（路径压缩）"></a>查找（路径压缩）</h3><p>查找中的权值的转移出现于路径压缩中。</p>
+<p>借用上图，假设现在的树是x-&gt;y-&gt;py。我们调用函数find(x)寻找树的根节点。为了改善树的结构，防止出现退化这种极端情况，查询后我们将x直接与根节点相连。但x的权值必须做出相应的改变。</p>
+<p>路径压缩前，w[x]相当于从x指向y的向量，路径压缩后，相当于从x指向py的向量。根据向量的加法，我们只需将从x到根节点间的权值累加就得到了新的w[x]。之后再对3取余即可。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>在码代码之前，我们再整理一遍思路。</p>
+<p>只有在一棵树上的数据才能判断真假。如果在两棵树上就需要先合并，这样才能找到权值间的关系，然后进一步判断与输入数据是否矛盾。</p>
+<ol>
+<li><p>判断输入不合法的情况，直接continue;</p>
+</li>
+<li><p>x和y同种</p>
+<p>如果x、y已经在一棵树上，判断w[x]和w[y]是否相等；如果不在，合并后更新权值。</p>
+</li>
+<li><p>x和y不同种</p>
+<p>如果x、y已经在一棵树上，判断x和y是否为捕食关系((w[x]-w[y]+3)%3是否等于1);如果不在，合并后更新权值。</p>
+</li>
+</ol>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&lt;iostream>
+
+using namespace std;
+
+int par[50050];
+int w[50050];
+int N, M, d, x, y, ans;
+
+int find(int x)
+{
+    if(x==par[x])
+        return x;
+    else
+    {
+        //保存还没有路径合并时的父节点值
+        int n=par[x];
+        par[x]=find(par[x]);
+        //合并路径后所有子节点都直接指向根，如果前面没有保存父节点的信息就无法更新权值
+        w[x]=(w[x]+w[n])%3;
+    }
+    return par[x];
+}
+
+int main(void)
+{
+    cin>>N>>M;
+    for(int i=0; i&lt;=N; i++)
+    {
+        par[i]=i;
+        w[i]=0;
+    }
+    for(int i=0; i&lt;M; i++)
+    {
+        cin>>d>>x>>y;
+        //排除输入错误
+        if(x>N||y>N||(d==2&&x==y))
+        {
+            ans++;
+            continue;
+        }
+        int fx=find(x);
+        int fy=find(y);
+        //同种
+        if(d==1)
+        {
+            /*
+            我在这里犯了一个卡了自己一晚上的低级错误。我在写多层if-else嵌套时，像写for循环时一样
+            省略了内部只有一个语句的if循环的大括号，导致整个逻辑乱掉了。以后引以为戒！！！
+            */
+            if(fx==fy)
+            {
+                if(w[x]!=w[y])
+                    ans++;
+            } 
+            else
+            {
+                par[fx]=fy;
+                //加3再取余处理可能出现的负数
+                w[fx]=(w[y]-w[x]+3)%3;
+            }
+        }
+        //不同种
+        else
+        {
+            if(fx==fy)
+            {
+                /*
+                这里我也写了一个很迷的bug，如果省略a而直接将表达式放在if种判断似乎并不能得到正确的
+                结果，以后注意。
+                */
+                int a=(w[x]-w[y]+3)%3;
+                if(a!=1)
+                    ans++;
+            }
+            else
+            {
+                par[fx]=fy;
+                w[fx]=(w[y]-w[x]+3+1)%3;
+            }
+        }
+    }
+    cout&lt;&lt;ans&lt;&lt;endl;
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -456,7 +617,7 @@ bool same(int x, int y)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/02/05/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">https://aoidragon.github.io/2020/02/05/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/</a>
+                    <a href="https://aoidragon.github.io/2020/02/05/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E9%A3%9F%E7%89%A9%E9%93%BE-POJ-1182/">https://aoidragon.github.io/2020/02/05/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E9%A3%9F%E7%89%A9%E9%93%BE-POJ-1182/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -493,6 +654,10 @@ bool same(int x, int y)
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
+                            
+                                <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
+                                    <span class="chip bg-color">ACM题解</span>
+                                </a>
                             
                                 <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
                                     <span class="chip bg-color">并查集</span>
@@ -533,18 +698,66 @@ bool same(int x, int y)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/05/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                <a href="/2020/02/06/%E9%A2%98%E6%B5%B7%E6%8B%BE%E9%81%97%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="算法拾遗——并查集">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="题海拾遗——并查集">
                         
-                        <span class="card-title">算法拾遗——并查集</span>
+                        <span class="card-title">题海拾遗——并查集</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E9%A2%98%E6%B5%B7%E6%8B%BE%E9%81%97/" class="post-category">
+                                    题海拾遗
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                        <span class="chip bg-color">并查集</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/02/05/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="算法学习笔记——并查集">
+                        
+                        <span class="card-title">算法学习笔记——并查集</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -567,15 +780,14 @@ bool same(int x, int y)
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%AE%97%E6%B3%95%E6%8B%BE%E9%81%97/" class="post-category">
-                                    算法拾遗
+                            <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    算法学习笔记
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -583,58 +795,8 @@ bool same(int x, int y)
                         <span class="chip bg-color">并查集</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/02/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Expedition-POJ-2431/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——Expedition(POJ 2431)">
-                        
-                        <span class="card-title">《挑战程序设计竞赛》——Expedition(POJ 2431)</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            题目原题链接
-你需要驾驶一辆卡车行驶L单位距离。 最开始时，卡车上有P单位的汽油。卡车每开1单位距离需要消耗一单位汽油。如果在途中车上的汽油耗尽，卡车就无法继续前行，因而无法到达终点。在途中一共有N个加油站。第i个加油站在距离终点Ai单位距
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-03
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/" class="post-category">
-                                    《挑战程序设计竞赛》
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">
-                        <span class="chip bg-color">优先队列</span>
-                    </a>
-                    
-                    <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
-                        <span class="chip bg-color">ACM题解</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">算法笔记</span>
                     </a>
                     
                 </div>

@@ -4,9 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="《挑战程序设计竞赛》——Expedition(POJ 2431), AoiDragon">
-    <meta name="description" content="题目原题链接
-你需要驾驶一辆卡车行驶L单位距离。 最开始时，卡车上有P单位的汽油。卡车每开1单位距离需要消耗一单位汽油。如果在途中车上的汽油耗尽，卡车就无法继续前行，因而无法到达终点。在途中一共有N个加油站。第i个加油站在距离终点Ai单位距">
+    <meta name="keywords" content="算法学习笔记——并查集, AoiDragon">
+    <meta name="description" content="并查集介绍并查集是一种用来管理元素分组情况的数据结构。并查集可以高效地进行如下操作。
+
+查询元素a和元素b是否属于同一组。
+合并元素a和元素b所在的组。
+
+注意：并查集可以进行合并操作，但不能进行分割操作。
+并查集的结构并查集使用树形结构实">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>《挑战程序设计竞赛》——Expedition(POJ 2431) | AoiDragon</title>
+    <title>算法学习笔记——并查集 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -188,12 +193,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——Expedition(POJ 2431)</h1>
+                    <h1 class="description center-align post-title">算法学习笔记——并查集</h1>
                 </div>
             </div>
         </div>
@@ -310,12 +315,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">
-                                <span class="chip bg-color">优先队列</span>
+                            <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                                <span class="chip bg-color">并查集</span>
                             </a>
                         
-                            <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
-                                <span class="chip bg-color">ACM题解</span>
+                            <a href="/tags/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">算法笔记</span>
                             </a>
                         
                     </div>
@@ -326,8 +331,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/" class="post-category">
-                                《挑战程序设计竞赛》
+                            <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
+                                算法学习笔记
                             </a>
                         
                     </div>
@@ -339,7 +344,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-03
+                    2020-02-05
                 </div>
                 
 
@@ -356,79 +361,81 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://vjudge.net/problem/POJ-2431" target="_blank" rel="noopener">原题链接</a></p>
-<p>你需要驾驶一辆卡车行驶L单位距离。 最开始时，卡车上有P单位的汽油。卡车每开1单位距离需要消耗一单位汽油。如果在途中车上的汽油耗尽，卡车就无法继续前行，因而无法到达终点。在途中一共有N个加油站。第i个加油站在距离终点Ai单位距离的地方，最多可以给卡车加Bi单位的汽油。假设卡车的燃料箱的容量是无限大的，无论加多少油都没问题。那么请问卡车能否到达终点？如果可以，最少需要加多少次油？如果可以到达终点，输出最少的加油次数，否则输出-1.</p>
-<p>1&lt;=N&lt;=10000</p>
-<p>1&lt;=L&lt;=1000000,1&lt;=P&lt;=1000000</p>
-<p>1&lt;=Ai&lt;=L,1&lt;=Bi&lt;=L</p>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先考虑忽略数据大小的情况。</p>
-<p>加油站在途中按直线分布，位置确定。也就是说当卡车行驶到一点Xi时，可以选择在从起点到Xi间任意的加油站内加油。而为了能够尽量少的加油，我们应该在汽油尽量少后再加油。选择的加油站自然是油量最多的一家。关键是先忽略在途中加油，先考虑把油耗尽，再加油。</p>
-<p>为了模拟这一过程，我们可以创建一个数组，在油耗尽之前，每经过一个加油站就把其位置添加进数组内。当油耗尽后，再从数组内存储的加油站中选出油量最大的一个删除。如果油耗尽时数组内没有加油站且未到达终点，则卡车不能到达终点。</p>
-<p>但是“解题不看数据范围就是耍流氓”。本题的加油站最多可以有10000个。如果采用数组，每次选取最大值时的还需要对数组元素进行排序，这必然会导致超时。因此我们需要引入一种数据结构——优先队列。</p>
-<p>关于优先队列的具体内容这里就略去了。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-c++"><code class="language-c++">#include&lt;iostream>
-#include&lt;algorithm>
-#include&lt;queue>
-
-using namespace std;
-
-priority_queue &lt;int> q;
-int n, ans, i, flag, L, P, mile;
-struct NODE{
-    int a, b;
-}node[10050];
-
-bool cmp(NODE x, NODE y){
-    return x.a&lt;y.a;
-}
-
-int main(void)
-{
-    cin>>n;
-    for(i=0; i&lt;n; i++)
-        cin>>node[i].a>>node[i].b;
-    cin>>L>>P;
-    for(i=0; i&lt;n; i++)
-        node[i].a=L-node[i].a;
-    sort(node, node+i, cmp);
-    i=0;
-    while(node[i].a&lt;=P&&i&lt;n)//防越界
-    {
-        q.push(node[i].b);
-        i++;
-    }  
-    while(P&lt;L)
-    {   
-        if(q.empty())
-        {
-            flag=1;
-            break;
-        }
-        else
-        {
-            P+=q.top();
-            q.pop();
-            ans++;
-            while(node[i].a&lt;=P&&i&lt;n)//防越界
-            {
-                q.push(node[i].b);
-                i++;
-            } 
-        }
-    }
-    if(!flag)
-        cout&lt;&lt;ans&lt;&lt;endl;
-    else
-        cout&lt;&lt;-1&lt;&lt;endl;
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里我采用结构而非两个数组存储加油站信息。因为后续操作需要将加油站按据起点距离进行排序，采用第二种方法会使距离和加油量两组数据不匹配。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li><p>读题很重要。一开始题目的意思理解错了，把问题想得过于复杂。</p>
+                <h1 id="并查集介绍"><a href="#并查集介绍" class="headerlink" title="并查集介绍"></a>并查集介绍</h1><p>并查集是一种用来管理元素分组情况的数据结构。并查集可以高效地进行如下操作。</p>
+<ol>
+<li>查询元素a和元素b是否属于同一组。</li>
+<li>合并元素a和元素b所在的组。</li>
+</ol>
+<p>注意：并查集可以进行合并操作，但不能进行分割操作。</p>
+<h1 id="并查集的结构"><a href="#并查集的结构" class="headerlink" title="并查集的结构"></a>并查集的结构</h1><p>并查集使用树形结构实现，但不是二叉树。基本操作如下：</p>
+<ol>
+<li><p>初始化</p>
+<p>我们用n个结点来表示n给元素。最开始时没有边。</p>
 </li>
-<li><p>注意数组边界。出现用于数组计数的i时最好都加上限制条件，天知道会碰上什么坑爹的样例。</p>
+<li><p>合并</p>
+<p>从一个组的根向另一个组的根连边，将两颗树变成一棵树。也就把两个组并为一个组了</p>
+</li>
+<li><p>查询</p>
+<p>为了查询两个节点是否属于同一组，我们需要沿着树往上走，来查询包含这个元素的根是谁。如果两个结点走到了同一个根，那么就可以知道它们属于同一组。</p>
 </li>
 </ol>
+<h1 id="并查集实现中的注意点"><a href="#并查集实现中的注意点" class="headerlink" title="并查集实现中的注意点"></a>并查集实现中的注意点</h1><p>在树形结构里，如果发生了退化的情况，那么复杂度就会变得很高。在并查集中需要采用如下方法：</p>
+<ol>
+<li>对于每棵树，记录这棵树的高度(rank)。合并时如果两颗树的rank不同，那么从rank小的向rank大的连边。</li>
+<li>通过路径压缩，可以使并查集更加高效。对于每个节点，一旦向上走到了一次根节点，就把这个节点到父亲的边改为直接连向根。(在使用这种简化的方法时，为了简单起见，即使树的高度发生了变化，我们也不修改rank的值)。</li>
+</ol>
+<h1 id="并查集的实现"><a href="#并查集的实现" class="headerlink" title="并查集的实现"></a>并查集的实现</h1><pre class="line-numbers language-c++"><code class="language-c++">int par[MAX_N]; //记录每个节点的父亲编号
+int rank[MAX_N]; //树的高度
+
+//初始化n个元素
+void init(int n)
+{
+    for(int i=0; i&lt;n; i++)
+    {
+        //开始时没有边，树的高度为0
+        rank[i]=0;
+        //如果一个节点的父亲是自己，那它就是根节点
+        //开始时所有节点都是根节点
+        par[i]=i;
+    }
+}
+
+//查询树的根
+int find(int x)
+{
+    if(par[x]==x)
+        return x;
+    else
+        //如果不是根节点，就继续向上寻找
+        //这一步同时完成了路径压缩
+        par[x]=find(par[x]);
+    return par[x];
+}
+
+//合并x和y所属的集合
+void unite(int x, int y)
+{
+    x=find(x);
+    y=find(y);
+    //如果是同一颗树就不用合并了
+    if(x==y)
+        return;
+    //rank小的向rank大的连边
+    if(rank[x]&lt;rank[y])
+        par[x]=y;
+    else
+        par[y]=x;
+    //高度相等，合并后高度加1
+    if(rank[x]==rank[y])
+        rank[x]++;
+}
+
+//判断x和y是否属于同一个集合
+bool same(int x, int y)
+{
+    return find(x)==find(y);
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -454,7 +461,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/02/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Expedition-POJ-2431/">https://aoidragon.github.io/2020/02/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Expedition-POJ-2431/</a>
+                    <a href="https://aoidragon.github.io/2020/02/05/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">https://aoidragon.github.io/2020/02/05/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -492,12 +499,12 @@ int main(void)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">
-                                    <span class="chip bg-color">优先队列</span>
+                                <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                                    <span class="chip bg-color">并查集</span>
                                 </a>
                             
-                                <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
-                                    <span class="chip bg-color">ACM题解</span>
+                                <a href="/tags/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">算法笔记</span>
                                 </a>
                             
                         </div>
@@ -539,25 +546,24 @@ int main(void)
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/05/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                <a href="/2020/02/05/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E9%A3%9F%E7%89%A9%E9%93%BE-POJ-1182/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="算法学习笔记——并查集">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——食物链(POJ 1182)">
                         
-                        <span class="card-title">算法学习笔记——并查集</span>
+                        <span class="card-title">《挑战程序设计竞赛》——食物链(POJ 1182)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            并查集介绍并查集是一种用来管理元素分组情况的数据结构。并查集可以高效地进行如下操作。
-
-查询元素a和元素b是否属于同一组。
-合并元素a和元素b所在的组。
-
-注意：并查集可以进行合并操作，但不能进行分割操作。
-并查集的结构并查集使用树形结构实
+                            题目原题链接
+题目描述动物王国中有三类动物A,B,C，这三类动物的食物链构成了有趣的环形。
+A吃B， B吃C，C吃A。
+现有N个动物，以1－N编号。
+每个动物都是A,B,C中的一种，但是我们并不知道它到底是哪一种。
+有人用两种说法对这N个动
                         
                     </div>
                     <div class="publish-info">
@@ -568,8 +574,8 @@ int main(void)
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
-                                    算法学习笔记
+                            <a href="/categories/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/" class="post-category">
+                                    《挑战程序设计竞赛》
                                 </a>
                             
                             
@@ -579,12 +585,12 @@ int main(void)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
-                        <span class="chip bg-color">并查集</span>
+                    <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
+                        <span class="chip bg-color">ACM题解</span>
                     </a>
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">算法笔记</span>
+                    <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                        <span class="chip bg-color">并查集</span>
                     </a>
                     
                 </div>
@@ -598,26 +604,25 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/01/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E2%80%94Saruman-s-Army-POJ-3069/">
+                <a href="/2020/02/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Expedition-POJ-2431/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="《挑战程序设计竞赛》———Saruman's Army(POJ 3069)">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——Expedition(POJ 2431)">
                         
-                        <span class="card-title">《挑战程序设计竞赛》———Saruman's Army(POJ 3069)</span>
+                        <span class="card-title">《挑战程序设计竞赛》——Expedition(POJ 2431)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目描述vjudge上的原题在这里
-题目描述是建立再《魔戒》的基础上的，读起来还蛮有意思的。
-大意是白袍萨鲁曼老爷子要带领军队从大本营Isengard出发前往攻打洛汗的圣盔谷。为了掌握军队的动向，他把若干个水晶球放置在了队伍中。水晶球有一定
+                            题目原题链接
+你需要驾驶一辆卡车行驶L单位距离。 最开始时，卡车上有P单位的汽油。卡车每开1单位距离需要消耗一单位汽油。如果在途中车上的汽油耗尽，卡车就无法继续前行，因而无法到达终点。在途中一共有N个加油站。第i个加油站在距离终点Ai单位距
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-03
                             </span>
                         <span class="publish-author">
                             
@@ -634,8 +639,8 @@ int main(void)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%B4%AA%E5%BF%83/">
-                        <span class="chip bg-color">贪心</span>
+                    <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">优先队列</span>
                     </a>
                     
                     <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
