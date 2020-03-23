@@ -359,20 +359,20 @@
 <h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>最短路问题用<del>优先队列的bfs</del>堆优化Dijkstra。</p>
 <p>首先将起点入队，枚举相邻的边，如果距离更短就更新距离。如果采用普通的队列，可能会出现率先出列的点在之后的遍历中有距离更短的可能。优先队列以到起点的距离为依据从小到大让点出列，这样就保证了当一个点出列时，所有距离起点比它近的点都已经得到遍历，如果有更小的值一定已经更新过了。</p>
 <p>这一题要求的是次短路，我们只需要在更新距离的时候加入对次短路的判断即可。</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre class="line-numbers language-c++"><code class="language-c++">#include<iostream>
-#include<cstdio>
-#include<algorithm>
-#include<queue>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
+#include&ltcstdio>
+#include&ltalgorithm>
+#include&ltqueue>
 
 using namespace std;
 
 const int INF=0x3f3f3f3f;
-typedef pair<int, int> P;
-priority_queue<P, vector<P>, greater<P> > que;
+typedef pair&ltint, int> P;
+priority_queue&ltP, vector&ltP>, greater&ltP> > que;
 struct edge{
     int to, cost;
 };
-vector<edge>G[5005];
+vector&ltedge>G[5005];
 int dis[5005], dis1[5005];
 
 
@@ -380,14 +380,14 @@ int main(void)
 {
     int N, R;
     cin>>N>>R;
-    for(int i=1; i<=R; i++)
+    for(int i=1; i&lt=R; i++)
     {
         int r, s, t;
         scanf("%d%d%d", &r, &s, &t);
         G[r].push_back({s, t});
         G[s].push_back({r, t});
     }
-    for(int i=1; i<=N; i++)
+    for(int i=1; i&lt=N; i++)
             dis[i]=dis1[i]=INF;
     dis[1]=0;
     que.push(P(0,1));
@@ -396,7 +396,7 @@ int main(void)
         P p=que.top();
         int u=p.second, v=p.first;//u是点, v是离起点的距离
         que.pop();
-        for(int i=0; i<G[u].size(); i++)//枚举相邻点n
+        for(int i=0; i&ltG[u].size(); i++)//枚举相邻点n
         {
             edge e=G[u][i];
             int td=v+e.cost;//e.cost是取出的点与其相邻点的距离
@@ -405,7 +405,7 @@ int main(void)
                 swap(dis[e.to], td);
                 que.push(P(dis[e.to], e.to));
             }
-            if(dis1[e.to]>td&&dis[e.to]<td)//判断次短路
+            if(dis1[e.to]>td&&dis[e.to]&lttd)//判断次短路
             {
                 dis1[e.to]=td;
                 que.push(P(dis1[e.to], e.to));
