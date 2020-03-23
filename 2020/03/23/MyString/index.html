@@ -4,13 +4,18 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="《挑战程序设计竞赛》——食物链(POJ 1182), AoiDragon">
-    <meta name="description" content="题目原题链接
-题目描述动物王国中有三类动物A,B,C，这三类动物的食物链构成了有趣的环形。
-A吃B， B吃C，C吃A。
-现有N个动物，以1－N编号。
-每个动物都是A,B,C中的一种，但是我们并不知道它到底是哪一种。
-有人用两种说法对这N个动">
+    <meta name="keywords" content="MyString, AoiDragon">
+    <meta name="description" content="描述补足MyString类，使程序输出指定结果
+#include 
+#include 
+#include 
+using namespace std;
+class MyString
+{
+    char *p;
+
+public:
+    My">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +23,7 @@ A吃B， B吃C，C吃A。
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>《挑战程序设计竞赛》——食物链(POJ 1182) | AoiDragon</title>
+    <title>MyString | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -192,12 +197,12 @@ A吃B， B吃C，C吃A。
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——食物链(POJ 1182)</h1>
+                    <h1 class="description center-align post-title">MyString</h1>
                 </div>
             </div>
         </div>
@@ -312,17 +317,9 @@ A吃B， B吃C，C吃A。
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
-                                <span class="chip bg-color">ACM题解</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
-                                <span class="chip bg-color">并查集</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -330,8 +327,8 @@ A吃B， B吃C，C吃A。
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/" class="post-category">
-                                《挑战程序设计竞赛》
+                            <a href="/categories/C/" class="post-category">
+                                C++
                             </a>
                         
                     </div>
@@ -343,7 +340,7 @@ A吃B， B吃C，C吃A。
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-05
+                    2020-03-23
                 </div>
                 
 
@@ -360,238 +357,113 @@ A吃B， B吃C，C吃A。
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://vjudge.net/problem/POJ-1182" target="_blank" rel="noopener">原题链接</a></p>
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>动物王国中有三类动物A,B,C，这三类动物的食物链构成了有趣的环形。</p>
-<p>A吃B， B吃C，C吃A。</p>
-<p>现有N个动物，以1－N编号。</p>
-<p>每个动物都是A,B,C中的一种，但是我们并不知道它到底是哪一种。</p>
-<p>有人用两种说法对这N个动物所构成的食物链关系进行描述：</p>
-<p>第一种说法是”1 X Y”，表示X和Y是同类。</p>
-<p>第二种说法是”2 X Y”，表示X吃Y。</p>
-<p>此人对N个动物，用上述两种说法，一句接一句地说出K句话，这K句话有的是真的，有的是假的。</p>
-<p>当一句话满足下列三条之一时，这句话就是假话，否则就是真话。</p>
-<ol>
-<li>当前的话与前面的某些真的话冲突，就是假话；</li>
-<li>当前的话中X或Y比N大，就是假话；</li>
-<li>当前的话表示X吃X，就是假话。</li>
-</ol>
-<p>你的任务是根据给定的N和K句话，输出假话的总数。</p>
-<h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行是两个整数N和K，以一个空格分隔。</p>
-<p>以下K行每行是三个正整数 D，X，Y，两数之间用一个空格隔开，其中D表示说法的种类。</p>
-<p>若D=1，则表示X和Y是同类。</p>
-<p>若D=2，则表示X吃Y。</p>
-<h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>只有一个整数，表示假话的数目。</p>
-<h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h2><p>1≤<em>N</em>≤50000,<br> 0≤<em>K</em>≤100000</p>
-<h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h2><pre class="line-numbers language-c++"><code class="language-c++">100 7
-1 101 1 
-2 1 2
-2 2 3 
-2 3 3 
-1 1 3 
-2 3 1 
-1 5 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a>输出样例</h2><pre class="line-numbers language-c++"><code class="language-c++">3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="思路1——种类并查集"><a href="#思路1——种类并查集" class="headerlink" title="思路1——种类并查集"></a>思路1——种类并查集</h1><p>如果仅仅涉及对不同种的动物进行分类，普通的并查集就足够了。但本题中还涉及了不同种类动物间的捕食关系。</p>
-<p>所以我们要对并查集做一定的修改。对于每只动物，我们创建3个元素i-A,i-B,i-C而不是只创建1个元素，并用这3*N个元素建立并查集。其中：</p>
-<ol>
-<li><strong>i-x表示“i属于种类x”。</strong></li>
-<li><strong>并查集里的每一个组表示组内元素代表的情况都同时发生或不发生。</strong></li>
-</ol>
-<p>所以对于每一条信息我们只需要做如下操作：</p>
-<ol>
-<li><strong>若x和y属于同一种类：合并x-A和y-A、x-B和y-B、x-C和y-C。</strong></li>
-<li><strong>若x捕食y：合并x-A和y-B、x-B和y-C、x-C和y-A。</strong></li>
-</ol>
-<p>仅凭一组输入无法判断动物的种类，那我们索性三种情况都考虑，再判断是否矛盾即可。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&lt;iostream>
-#include&lt;algorithm>
-#include&lt;cstdio>
-
+                <h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>补足MyString类，使程序输出指定结果</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <iostream>
+#include <string>
+#include <cstring>
 using namespace std;
-
-int N, M, d, x, y, ans;
-int par[150050];
-
-int find (int n)
+class MyString
 {
-    if(par[n]==n)
-        return n;
-    else
-        return par[n]=find(par[n]);
-}
+    char *p;
 
-void unite(int x, int y)
-{
-    //合并操作一定是从两颗树的根节点处合并
-    //fx是根节点，不是父节点！！
-    int fx=find(x);
-    int fy=find(y);
-    par[fx]=fy;
-    return;
-}
-
-bool same(int x, int y)
-{
-    return find(x)==find(y);
-}
-
-int main(void)
-{
-    cin>>N>>M;
-    for(int i=0; i&lt;=3*N; i++)
-        par[i]=i;        
-    for(int i=0; i&lt;M; i++)
+public:
+    MyString(const char *s)
     {
-        cin>>d>>x>>y;
-        //排除错误输入
-        if(x>N||y>N||x&lt;=0||y&lt;=0)
+        if (s)
         {
-            ans++;
-            continue;
+            p = new char[strlen(s) + 1];
+            strcpy(p, s);
         }
-        //x和y同类
-        if(d==1)
-        {
-            //判断二者之前是否存在捕食关系
-            if(same(x, y+N)||same(x, y+2*N))
-                ans++;
-            //先判断，再合并，相当于舍弃矛盾数据
-            else
-            {
-                //此处也可理解为x的同类是y的同类，x的猎物是y的猎物，x的天敌是y的天敌
-                unite(x, y);
-                unite(x+N, y+N);
-                unite(x+2*N, y+2*N);
-            }
-        }
-        //x捕食y
         else
-        {
-            //排除x捕食自己、x和y同种、x被y捕食的情况
-            if(x==y||same(x, y)||same(x, y+2*N))
-                ans++;
-            else
-            {
-                unite(x, y+N);
-                unite(x+N, y+2*N);
-                unite(x+2*N, y);
-            }                            
-        }
+            p = NULL;
     }
-    cout&lt;&lt;ans&lt;&lt;endl;
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>附上<a href="https://www.luogu.com.cn/problemnew/solution/P2024" target="_blank" rel="noopener">洛谷题解地址</a></p>
-<h1 id="思路2——带权并查集"><a href="#思路2——带权并查集" class="headerlink" title="思路2——带权并查集"></a>思路2——带权并查集</h1><p>第一种方法相当于用了3个并查集，有没有占用空间更小的办法呢？仔细思考一下，如果我们对每个节点再赋予一个值来表示它当前的状态怎么样呢？带权并查集大概就是做了这样的改动。</p>
-<h2 id="权值"><a href="#权值" class="headerlink" title="权值"></a>权值</h2><p>我们把这样的值称为<strong>权</strong>。在对并查集进行路径压缩和合并操作时，这些权值具有一定属性，即可将他们与父节点的关系，变化为与所在树的根结点关系。</p>
-<p>也就是说，权值代表着<strong>当前节点与父节点的某种关系（即使路径压缩了也是这样）</strong>，通过两者关系，也可以将同一棵树下两个节点的关系表示出来。</p>
-<p>在如<a href="https://vjudge.net/problem/HDU-3038" target="_blank" rel="noopener">HDU-3038</a>这样的题目中，权值是不同节点间的数值差。而对于本题，每一只动物和它的根节点间的关系只有3种：0–同类、1–捕食、2–被捕食。那么我们只需要在计算权值时对3取余即可。</p>
-<p>例如：现在有这样一条食物链：A-&gt;B-&gt;C-&gt;D-&gt;E，想要求出A关于根节点E的权值，我们只需将从A到E之间每个节点到其父节点对应的权值相加再对3取余（因为三种动物的捕食关系成环状，每隔三个状态就会循环一次）。</p>
-<p>最后注意一开始把权值都设为0（自己与自己是同类）</p>
-<h2 id="权值转移"><a href="#权值转移" class="headerlink" title="权值转移"></a>权值转移</h2><p>如何在并查集的两个基本操作合并和查找中转移权值？</p>
-<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p>参考下图，x、px属于一棵树，y、py属于另一棵，通过输入我们知道了x相对于y的权值。我们要把A树合并的到B树中，就需要确定px相对于py的权值。</p>
-<p>把权值看作向量一样的有向线段可以帮助我们理解。如下图，由向量的加法，易得w[px]=w[b]-w[a]+s。</p>
-<p>最后再处理一下细节。w[b]-w[a]可能小于0，所以我们先对其加3再取模。由题意s只可能是0（A、B同种）或1（A捕食B）。所以<strong>w[px]=(w[b]-w[a]+3)%3或w[px]=(1+w[b]-w[a]+3)%3</strong>。</p>
-<p><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1891384823,1346231271&fm=15&gp=0.jpg" alt=""></p>
-<h3 id="查找（路径压缩）"><a href="#查找（路径压缩）" class="headerlink" title="查找（路径压缩）"></a>查找（路径压缩）</h3><p>查找中的权值的转移出现于路径压缩中。</p>
-<p>借用上图，假设现在的树是x-&gt;y-&gt;py。我们调用函数find(x)寻找树的根节点。为了改善树的结构，防止出现退化这种极端情况，查询后我们将x直接与根节点相连。但x的权值必须做出相应的改变。</p>
-<p>路径压缩前，w[x]相当于从x指向y的向量，路径压缩后，相当于从x指向py的向量。根据向量的加法，我们只需将从x到根节点间的权值累加就得到了新的w[x]。之后再对3取余即可。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>在码代码之前，我们再整理一遍思路。</p>
-<p>只有在一棵树上的数据才能判断真假。如果在两棵树上就需要先合并，这样才能找到权值间的关系，然后进一步判断与输入数据是否矛盾。</p>
-<ol>
-<li><p>判断输入不合法的情况，直接continue;</p>
-</li>
-<li><p>x和y同种</p>
-<p>如果x、y已经在一棵树上，判断w[x]和w[y]是否相等；如果不在，合并后更新权值。</p>
-</li>
-<li><p>x和y不同种</p>
-<p>如果x、y已经在一棵树上，判断x和y是否为捕食关系((w[x]-w[y]+3)%3是否等于1);如果不在，合并后更新权值。</p>
-</li>
-</ol>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&lt;iostream>
-
-using namespace std;
-
-int par[50050];
-int w[50050];
-int N, M, d, x, y, ans;
-
-int find(int x)
+    ~MyString()
+    {
+        if (p)
+            delete[] p;
+    }
+    // 在此处补充你的代码
+};
+int main()
 {
-    if(x==par[x])
-        return x;
+    char w1[200], w2[100];
+    while (cin >> w1 >> w2)
+    {
+        MyString s1(w1), s2 = s1;
+        MyString s3(NULL);
+        s3.Copy(w1);
+        cout << s1 << "," << s2 << "," << s3 << endl;
+
+        s2 = w2;
+        s3 = s2;
+        s1 = s3;
+        cout << s1 << "," << s2 << "," << s3 << endl;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre class="line-numbers language-c++"><code class="language-c++">abc def
+123 456<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre class="line-numbers language-c++"><code class="language-c++">abc,abc,abc
+def,def,def
+123,123,123
+456,456,456<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>首先分析我们需要对类添加哪些功能</p>
+<ul>
+<li>MyString s1(w1) 需要构造函数，题目已经给出</li>
+<li>s2 = s1需要复制构造函数（这里的=用于初始化而非赋值）</li>
+<li>s3.Copy(w1)需要自己编写Copy函数</li>
+<li>&lt;&lt;需要重载</li>
+<li>s3=s2需要对=重载</li>
+</ul>
+<p>s2=w2这条语句会由默认类型转换构造函数把w2转化为临时对象，再通过重载过的=赋值给s2，所以不需要我们编写。</p>
+<h2 id="复制构造函数"><a href="#复制构造函数" class="headerlink" title="复制构造函数"></a>复制构造函数</h2><pre class="line-numbers language-c++"><code class="language-c++">MyString(MyString& a)
+{
+    if(a.p)
+    {
+        p=new char[strlen(a.p)+1];
+        strcpy(p, a.p);
+    }
     else
     {
-        //保存还没有路径合并时的父节点值
-        int n=par[x];
-        par[x]=find(par[x]);
-        //合并路径后所有子节点都直接指向根，如果前面没有保存父节点的信息就无法更新权值
-        w[x]=(w[x]+w[n])%3;
+        p=NULL;
     }
-    return par[x];
-}
-
-int main(void)
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>复习：复制构造函数起作用的三种情况</p>
+<ul>
+<li>用一个对象去初始化同类的另一个对象</li>
+<li>某函数的一个参数是类A的对象，则函数被调用时类A的复制构造函数被调用</li>
+<li>函数的返回值是类A的对象，则函数返回时类A的复制构造函数被调用</li>
+</ul>
+<h2 id="Copy函数"><a href="#Copy函数" class="headerlink" title="Copy函数"></a>Copy函数</h2><pre class="line-numbers language-c++"><code class="language-c++">void Copy(const char *s)
 {
-    cin>>N>>M;
-    for(int i=0; i&lt;=N; i++)
+    if (p)
+        delete[] p;//防止空间浪费
+    if (s)
     {
-        par[i]=i;
-        w[i]=0;
+        p = new char[strlen(s) + 1];
+        strcpy(p, s);
     }
-    for(int i=0; i&lt;M; i++)
+    else
+         p = NULL;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="重载-lt-lt"><a href="#重载-lt-lt" class="headerlink" title="重载&lt;&lt;"></a>重载&lt;&lt;</h2><pre class="line-numbers language-c++"><code class="language-c++">friend ostream &operator<<(ostream &o, MyString a)
+{
+    cout << a.p;
+    return o;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>流插入运算符的返回值是ostream&amp;，所以参数列表应该有两个参数，不能直接在类的内部声明。可将其声明成MyString的友元函数并在类内部定义。</p>
+<h2 id="重载"><a href="#重载" class="headerlink" title="重载="></a>重载=</h2><pre class="line-numbers language-c++"><code class="language-c++">MyString &operator=(const MyString &a)
+{
+    if (p == a.p)
+        return *this;
+    else
     {
-        cin>>d>>x>>y;
-        //排除输入错误
-        if(x>N||y>N||(d==2&&x==y))
-        {
-            ans++;
-            continue;
-        }
-        int fx=find(x);
-        int fy=find(y);
-        //同种
-        if(d==1)
-        {
-            /*
-            我在这里犯了一个卡了自己一晚上的低级错误。我在写多层if-else嵌套时，像写for循环时一样
-            省略了内部只有一个语句的if循环的大括号，导致整个逻辑乱掉了。以后引以为戒！！！
-            */
-            if(fx==fy)
-            {
-                if(w[x]!=w[y])
-                    ans++;
-            } 
-            else
-            {
-                par[fx]=fy;
-                //加3再取余处理可能出现的负数
-                w[fx]=(w[y]-w[x]+3)%3;
-            }
-        }
-        //不同种
-        else
-        {
-            if(fx==fy)
-            {
-                /*
-                这里我也写了一个很迷的bug，如果省略a而直接将表达式放在if种判断似乎并不能得到正确的
-                结果，以后注意。
-                */
-                int a=(w[x]-w[y]+3)%3;
-                if(a!=1)
-                    ans++;
-            }
-            else
-            {
-                par[fx]=fy;
-                w[fx]=(w[y]-w[x]+3+1)%3;
-            }
-        }
+        delete[] p;
+        p = new char[strlen(a.p) + 1];
+        strcpy(p, a.p);
+        return *this;
     }
-    cout&lt;&lt;ans&lt;&lt;endl;
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>a必须声明为const类型，因为对于语句s2=w2,需要先通过类型转换函数将w2转化为临时对象，而临时对象均为const类型。</p>
 
             </div>
             <hr/>
@@ -617,7 +489,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/02/05/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E9%A3%9F%E7%89%A9%E9%93%BE-POJ-1182/">https://aoidragon.github.io/2020/02/05/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E9%A3%9F%E7%89%A9%E9%93%BE-POJ-1182/</a>
+                    <a href="https://aoidragon.github.io/2020/03/23/MyString/">https://aoidragon.github.io/2020/03/23/MyString/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -654,15 +526,7 @@ int main(void)
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
-                                    <span class="chip bg-color">ACM题解</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
-                                    <span class="chip bg-color">并查集</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -698,51 +562,53 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/02/06/%E9%A2%98%E6%B5%B7%E6%8B%BE%E9%81%97%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                <a href="/2020/03/23/MyString/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="题海拾遗——并查集">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="MyString">
                         
-                        <span class="card-title">题海拾遗——并查集</span>
+                        <span class="card-title">MyString</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. How Many Answers Are Wrong原题链接
-每一组输入包括三个数据：区间左端点，区间右端点，区间长度。我们需要根据数据判断有几组输入是矛盾的。
-有了食物链(POJ1182)的基础，再做这题就比较轻松了。本题的权值就是
+                            描述补足MyString类，使程序输出指定结果
+#include 
+#include 
+#include 
+using namespace std;
+class MyString
+{
+    char *p;
+
+public:
+    My
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-23
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E9%A2%98%E6%B5%B7%E6%8B%BE%E9%81%97/" class="post-category">
-                                    题海拾遗
+                            <a href="/categories/C/" class="post-category">
+                                    C++
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
-                        <span class="chip bg-color">并查集</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -753,30 +619,25 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/05/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">
+                <a href="/2020/02/07/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="算法学习笔记——并查集">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="算法学习笔记——扩展欧几里得算法">
                         
-                        <span class="card-title">算法学习笔记——并查集</span>
+                        <span class="card-title">算法学习笔记——扩展欧几里得算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            并查集介绍并查集是一种用来管理元素分组情况的数据结构。并查集可以高效地进行如下操作。
-
-查询元素a和元素b是否属于同一组。
-合并元素a和元素b所在的组。
-
-注意：并查集可以进行合并操作，但不能进行分割操作。
-并查集的结构并查集使用树形结构实
+                            一、辗转相除法（欧几里得算法）辗转相除法是计算最大公约数的算法，也是扩展欧几里得算法的基础。
+设gcd(a, b)是计算自然数a和b的最大公约数的函数。令a=p*b+q。观察到a可以拆成两项，一项含b，另一项含q。所以gcd(b, p)整除
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-07
                             </span>
                         <span class="publish-author">
                             
@@ -793,12 +654,12 @@ int main(void)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">
-                        <span class="chip bg-color">并查集</span>
-                    </a>
-                    
                     <a href="/tags/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
                         <span class="chip bg-color">算法笔记</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">扩展欧几里得算法</span>
                     </a>
                     
                 </div>

@@ -511,55 +511,50 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/07/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95/">
+                <a href="/2020/03/23/MyString/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="算法学习笔记——扩展欧几里得算法">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="MyString">
                         
-                        <span class="card-title">算法学习笔记——扩展欧几里得算法</span>
+                        <span class="card-title">MyString</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            一、辗转相除法（欧几里得算法）辗转相除法是计算最大公约数的算法，也是扩展欧几里得算法的基础。
-设gcd(a, b)是计算自然数a和b的最大公约数的函数。令a=p*b+q。观察到a可以拆成两项，一项含b，另一项含q。所以gcd(b, p)整除
+                            描述补足MyString类，使程序输出指定结果
+#include 
+#include 
+#include 
+using namespace std;
+class MyString
+{
+    char *p;
+
+public:
+    My
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-23
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
-                                    算法学习笔记
+                            <a href="/categories/C/" class="post-category">
+                                    C++
                                 </a>
                             
                             
                         </span>
                     </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">算法笔记</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">扩展欧几里得算法</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -583,7 +578,9 @@ int main(void)
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            1. How Many Answers Are Wrong原题链接
+每一组输入包括三个数据：区间左端点，区间右端点，区间长度。我们需要根据数据判断有几组输入是矛盾的。
+有了食物链(POJ1182)的基础，再做这题就比较轻松了。本题的权值就是
                         
                     </div>
                     <div class="publish-info">

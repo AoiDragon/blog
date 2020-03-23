@@ -5,7 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="题海拾遗——并查集, AoiDragon">
-    <meta name="description" content="题海拾遗——并查集 | AoiDragon">
+    <meta name="description" content="1. How Many Answers Are Wrong原题链接
+每一组输入包括三个数据：区间左端点，区间右端点，区间长度。我们需要根据数据判断有几组输入是矛盾的。
+有了食物链(POJ1182)的基础，再做这题就比较轻松了。本题的权值就是">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -351,7 +353,61 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="1-How-Many-Answers-Are-Wrong"><a href="#1-How-Many-Answers-Are-Wrong" class="headerlink" title="1. How Many Answers Are Wrong"></a>1. How Many Answers Are Wrong</h1><p><a href="https://vjudge.net/problem/HDU-3038" target="_blank" rel="noopener">原题链接</a></p>
+<p>每一组输入包括三个数据：区间左端点，区间右端点，区间长度。我们需要根据数据判断有几组输入是矛盾的。</p>
+<p>有了食物链(POJ1182)的基础，再做这题就比较轻松了。本题的权值就是各节点到根节点的距离。对一棵树上的数据判断是否矛盾，对不在一棵树上的数据合并。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&lt;iostream>
+#include&lt;cstdio>
+
+using namespace std;
+
+int N, M, a, b, s, ans;
+int par[200050];
+int w[200050];
+
+int find(int x)
+{
+    if(par[x]==x)
+        return par[x];
+    int fx=par[x];
+    par[x]=find(par[x]);
+    w[x]+=w[fx];
+    return par[x];
+}
+
+int main(void)
+{
+    while(scanf("%d%d", &N, &M)!=EOF)
+    {
+        ans=0;
+        for(int i=0; i&lt;=N; i++)
+        {
+            par[i]=i;
+            w[i]=0;
+        }
+        for(int i=0; i&lt;M; i++)
+        {
+            cin>>a>>b>>s;
+            //这样做是为了让[1,5][6,10]这样的区间可以正常合并
+            a--;
+            int fa=find(a);
+            int fb=find(b);
+            if(fa==fb)
+            {
+                if(w[b]-w[a]!=s)
+                    ans++;
+            }
+            else
+            {
+                par[fb]=fa;
+                w[fb]=w[a]-w[b]+s;
+            }
+        }   
+        cout&lt;&lt;ans&lt;&lt;endl;
+    }
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
             </div>
             <hr/>
 
