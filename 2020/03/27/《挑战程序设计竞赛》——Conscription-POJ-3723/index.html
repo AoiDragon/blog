@@ -4,11 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="《挑战程序设计竞赛》——Roadblocks-POJ-3255, AoiDragon">
+    <meta name="keywords" content="《挑战程序设计竞赛》——Conscription-POJ-3723, AoiDragon">
     <meta name="description" content="题目描述原题链接
-简单来说就是求次短路
-思路最短路问题用优先队列的bfs堆优化Dijkstra。
-首先将起点入队，枚举相邻的边，如果距离更短就更新距离。如果采用普通的队列，可能会出现率先出列的点在之后的遍历中有距离更短的可能。优先队列以到起">
+思路本题中虽然出现来两种不同的节点（男兵和女兵），但并没有实质上的区别，所以我们完全可以通过将一方的编号加上另一方的总数（男兵1，2，3……n，女兵1+n，2+n……）将他们视作相同的节点。
+首先将所有人想象成一个无向图，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>《挑战程序设计竞赛》——Roadblocks-POJ-3255 | AoiDragon</title>
+    <title>《挑战程序设计竞赛》——Conscription-POJ-3723 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -190,12 +189,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——Roadblocks-POJ-3255</h1>
+                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——Conscription-POJ-3723</h1>
                 </div>
             </div>
         </div>
@@ -312,8 +311,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF-ACM%E9%A2%98%E8%A7%A3/">
-                                <span class="chip bg-color">-最短路 -ACM题解</span>
+                            <a href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91-ACM%E9%A2%98%E8%A7%A3/">
+                                <span class="chip bg-color">-最小生成树 -ACM题解</span>
                             </a>
                         
                     </div>
@@ -337,7 +336,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-03-23
+                    2020-03-27
                 </div>
                 
 
@@ -355,66 +354,73 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><a href="https://vjudge.net/problem/POJ-3255" target="_blank" rel="noopener">原题链接</a></p>
-<p>简单来说就是求次短路</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>最短路问题用<del>优先队列的bfs</del>堆优化Dijkstra。</p>
-<p>首先将起点入队，枚举相邻的边，如果距离更短就更新距离。如果采用普通的队列，可能会出现率先出列的点在之后的遍历中有距离更短的可能。优先队列以到起点的距离为依据从小到大让点出列，这样就保证了当一个点出列时，所有距离起点比它近的点都已经得到遍历，如果有更小的值一定已经更新过了。</p>
-<p>这一题要求的是次短路，我们只需要在更新距离的时候加入对次短路的判断即可。</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltcstdio>
-#include&ltalgorithm>
-#include&ltqueue>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>本题中虽然出现来两种不同的节点（男兵和女兵），但并没有实质上的区别，所以我们完全可以通过将一方的编号加上另一方的总数（男兵1，2，3……n，女兵1+n，2+n……）将他们视作相同的节点。</p>
+<p>首先将所有人想象成一个无向图，如果发现某两人间存在关系，就连一条边。而由于每种关系只能用一次，所以图中不能存在环。这样将人看作顶点，关系看作边，问题就转化为求解无向图中的最大权森林问题。</p>
+<p>Kruskal算法首先对边权进行排序，保证了被采用的边一定是相关顶点间最大（或最小的），因为成环被舍弃的边一定劣于被采用的。本题要求最大权，将Kruskal中的权值取反即可。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre class="line-numbers language-c++"><code class="language-c++">#include&ltgiostream>
+#include&ltgcstdio>
+#include&ltgalgorithm>
 
 using namespace std;
 
-const int INF=0x3f3f3f3f;
-typedef pair&ltint, int> P;
-priority_queue&ltP, vector&ltP>, greater&ltP> > que;
-struct edge{
-    int to, cost;
-};
-vector&ltedge>G[5005];
-int dis[5005], dis1[5005];
+int par[50005];
+int x, y, d, N, M ,R;
+long long res;
+struct EDGE{
+    int start, to, cost;
+}edge[50005];
+void init(int n)
+{
+    for(int i=0; i&ltgn; i++)
+        par[i]=i;
+    return;
+}
 
+int find(int x)
+{
+    if(par[x]==x)
+        return x;
+    else
+        return par[x]=find(par[x]);
+}
+
+bool cmp(EDGE a, EDGE b)
+{
+    return a.cost&ltgb.cost;
+}
 
 int main(void)
 {
-    int N, R;
-    cin>>N>>R;
-    for(int i=1; i&lt=R; i++)
+    int T;
+    cin>>T;
+    while(T--)
     {
-        int r, s, t;
-        scanf("%d%d%d", &r, &s, &t);
-        G[r].push_back({s, t});
-        G[s].push_back({r, t});
-    }
-    for(int i=1; i&lt=N; i++)
-            dis[i]=dis1[i]=INF;
-    dis[1]=0;
-    que.push(P(0,1));
-    while(!que.empty())
-    {
-        P p=que.top();
-        int u=p.second, v=p.first;//u是点, v是离起点的距离
-        que.pop();
-        for(int i=0; i&ltG[u].size(); i++)//枚举相邻点n
+        res=0;
+        scanf("%d%d%d", &N, &M, &R);
+        for(int i=0; i&ltgR; i++)
         {
-            edge e=G[u][i];
-            int td=v+e.cost;//e.cost是取出的点与其相邻点的距离
-            if(dis[e.to]>td)//判断最短路
+            scanf("%d%d%d", &x, &y, &d);
+            edge[i].start=x;
+            edge[i].to=y+N;
+            edge[i].cost=-d;
+        }
+        init(N+M);
+        sort(edge, edge+R, cmp);
+        for(int i=0; i&ltgR; i++)//这里因为对算法的不熟悉，i循环的次数搞错过
+        {
+            EDGE a=edge[i];
+            int fx=find(a.start);
+            int fy=find(a.to);
+            if(fx!=fy)
             {
-                swap(dis[e.to], td);
-                que.push(P(dis[e.to], e.to));
-            }
-            if(dis1[e.to]>td&&dis[e.to]&lttd)//判断次短路
-            {
-                dis1[e.to]=td;
-                que.push(P(dis1[e.to], e.to));
+                par[fx]=fy;
+                res+=a.cost;
             }
         }
+        printf("%lld\n", (N+M)*10000+res);
     }
-    printf("%d\n", dis1[N]);
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -440,7 +446,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/03/23/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Roadblocks-POJ-3255/">https://aoidragon.github.io/2020/03/23/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Roadblocks-POJ-3255/</a>
+                    <a href="https://aoidragon.github.io/2020/03/27/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Conscription-POJ-3723/">https://aoidragon.github.io/2020/03/27/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Conscription-POJ-3723/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -478,8 +484,8 @@ int main(void)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF-ACM%E9%A2%98%E8%A7%A3/">
-                                    <span class="chip bg-color">-最短路 -ACM题解</span>
+                                <a href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91-ACM%E9%A2%98%E8%A7%A3/">
+                                    <span class="chip bg-color">-最小生成树 -ACM题解</span>
                                 </a>
                             
                         </div>
@@ -517,9 +523,10 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/03/27/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Conscription-POJ-3723/">
                     <div class="card-image">
@@ -539,9 +546,9 @@ int main(void)
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-27
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -554,6 +561,7 @@ int main(void)
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -572,24 +580,22 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/03/23/C++%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0%20MyString/">
+                <a href="/2020/03/23/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Roadblocks-POJ-3255/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="C++编程练习 MyString">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——Roadblocks-POJ-3255">
                         
-                        <span class="card-title">C++编程练习 MyString</span>
+                        <span class="card-title">《挑战程序设计竞赛》——Roadblocks-POJ-3255</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            描述补足MyString类，使程序输出指定结果
-#include &ltiostream>
-#include &ltstring>
-#include &ltcstring>
-using namespace std;
-class MyStri
+                            题目描述原题链接
+简单来说就是求次短路
+思路最短路问题用优先队列的bfs堆优化Dijkstra。
+首先将起点入队，枚举相邻的边，如果距离更短就更新距离。如果采用普通的队列，可能会出现率先出列的点在之后的遍历中有距离更短的可能。优先队列以到起
                         
                     </div>
                     <div class="publish-info">
@@ -600,8 +606,8 @@ class MyStri
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/C/" class="post-category">
-                                    C++
+                            <a href="/categories/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/" class="post-category">
+                                    《挑战程序设计竞赛》
                                 </a>
                             
                             
@@ -611,8 +617,8 @@ class MyStri
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C-%E5%9F%BA%E7%A1%80/">
-                        <span class="chip bg-color">C++基础</span>
+                    <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF-ACM%E9%A2%98%E8%A7%A3/">
+                        <span class="chip bg-color">-最短路 -ACM题解</span>
                     </a>
                     
                 </div>
