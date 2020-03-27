@@ -4,8 +4,21 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="a, AoiDragon">
-    <meta name="description" content="a | AoiDragon">
+    <meta name="keywords" content="C++练习 二维数组类, AoiDragon">
+    <meta name="description" content="描述写一个二维数组类 Array2
+#include 
+#include 
+using namespace std;
+
+class Array2
+{
+
+    // 在此处补充你的代码
+};
+
+int main()
+{
+    Array2">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +26,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>a | AoiDragon</title>
+    <title>C++练习 二维数组类 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -187,12 +200,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">a</h1>
+                    <h1 class="description center-align post-title">C++练习 二维数组类</h1>
                 </div>
             </div>
         </div>
@@ -307,12 +320,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%B1%BB/">
+                                <span class="chip bg-color">类</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/C-%E5%9F%BA%E7%A1%80/" class="post-category">
+                                C++基础
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -338,7 +364,77 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>写一个二维数组类 Array2</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <iostream>
+#include <cstring>
+using namespace std;
+
+class Array2
+{
+
+    // 在此处补充你的代码
+};
+
+int main()
+{
+    Array2 a(3, 4);
+    int i, j;
+    for (i = 0; i < 3; ++i)
+        for (j = 0; j < 4; j++)
+            a[i][j] = i * 4 + j;
+    for (i = 0; i < 3; ++i)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            cout << a(i, j) << ",";
+        }
+        cout << endl;
+    }
+    cout << "next" << endl;
+    Array2 b;
+    b = a;
+    for (i = 0; i < 3; ++i)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            cout << b[i][j] << ",";
+        }
+        cout << endl;
+    }
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h3><p>无</p>
+<h3 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h3><p>0,1,2,3,<br>4,5,6,7,<br>8,9,10,11,<br>next<br>0,1,2,3,<br>4,5,6,7,<br>8,9,10,11,</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>通过观察我们知道题目想让我们写一个类似二维数组的类。我们需要补充如下内容：</p>
+<ul>
+<li>构造函数Array2（i, j）,效果是初始化一个形如a[i] [j]的二维数组以及他的析构函数  </li>
+<li>重载()，让a(i, j)表示数组中的元素</li>
+<li>重载=，使b可以通过b=a被赋值</li>
+<li>重载[], 让b[i] [j]表示数组中的元素</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="构造函数和析构函数"><a href="#构造函数和析构函数" class="headerlink" title="构造函数和析构函数"></a>构造函数和析构函数</h3><p>在C++中，数组可以被视为一种类型。但是，不存在‘二维数组’这种类型。二维数组本身会被解释成一个一维数组：这个数组的元素类型为另一种一维数组。比如int[2] [3]这个二维数组，它会被编译器视作一个元素类型为‘int[3]’的一维数组。并且，‘int[3]’和’int[4]’会被当成不同的数据类型。</p>
+<p>假设a, b为两个int型变量，如果你希望这样生成一个二维数组：new int[a] [b]，是不会得到编译器允许的——因为你没有指定这个数组的元素类型。由于b的大小未知，编译器无法确定‘int[b]’到底是一个什么类型。</p>
+<p>我们采用指针间接引用的方法来构造二维数组</p>
+<pre class="line-numbers language-c++"><code class="language-c++">int h, w;//数组尺寸
+int** pt=nullptr;//数组指针
+Array2(int a, int b):h(a), w(b)
+{
+    pt=new int*[a]；//pt是一个元素类型为int*，元素个数为a的数组
+    for(int i=0; i<a; i++)
+    {
+        pt[i]=new int[b];//可以将pt[i]看作数组名
+    }
+}
+~Array2()
+{
+    for(int i=0; i<h; i++)//析构函数顺序从内向外
+        delete [] pt[i];//pt[i]看作数组名
+    delete [] pt;
+}
+Array(){}//自己编写默认构造函数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="和-的重载"><a href="#和-的重载" class="headerlink" title="()和[]的重载"></a>()和[]的重载</h3><pre class="line-numbers language-c++"><code class="language-c++"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="的重载"><a href="#的重载" class="headerlink" title="=的重载"></a>=的重载</h3><pre class="line-numbers language-c++"><code class="language-c++"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
             </div>
             <hr/>
 
@@ -400,7 +496,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E7%B1%BB/">
+                                    <span class="chip bg-color">类</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -445,15 +545,28 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="a">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="C++练习 二维数组类">
                         
-                        <span class="card-title">a</span>
+                        <span class="card-title">C++练习 二维数组类</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            描述写一个二维数组类 Array2
+#include 
+#include 
+using namespace std;
+
+class Array2
+{
+
+    // 在此处补充你的代码
+};
+
+int main()
+{
+    Array2
                         
                     </div>
                     <div class="publish-info">
@@ -462,13 +575,25 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            李依凡
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C-%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    C++基础
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%B1%BB/">
+                        <span class="chip bg-color">类</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
