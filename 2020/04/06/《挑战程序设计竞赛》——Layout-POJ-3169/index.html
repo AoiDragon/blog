@@ -4,21 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="C++编程练习 二维数组类, AoiDragon">
-    <meta name="description" content="描述写一个二维数组类 Array2
-#include 
-#include 
-using namespace std;
-
-class Array2
-{
-
-    // 在此处补充你的代码
-};
-
-int main()
-{
-    Array2">
+    <meta name="keywords" content="《挑战程序设计竞赛》——Layout-POJ-3169, AoiDragon">
+    <meta name="description" content="题目描述原题链接
+思路记第i头牛的位置为d[i]，则有d[AL]+DL&amp;gt;=d[BL]，d[AD]+DD&amp;lt;=d[BD]。这些不等式的两边都只出现了一个变量(指两头牛之间的距离)。这种特殊形式的不等式方程组称为差分约束系统。附上一篇">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -26,7 +14,7 @@ int main()
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>C++编程练习 二维数组类 | AoiDragon</title>
+    <title>《挑战程序设计竞赛》——Layout-POJ-3169 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -200,12 +188,12 @@ int main()
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">C++编程练习 二维数组类</h1>
+                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——Layout-POJ-3169</h1>
                 </div>
             </div>
         </div>
@@ -320,25 +308,12 @@ int main()
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E7%B1%BB/">
-                                <span class="chip bg-color">类</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/C-%E5%9F%BA%E7%A1%80/" class="post-category">
-                                C++基础
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -347,7 +322,7 @@ int main()
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-03-27
+                    2020-04-06
                 </div>
                 
 
@@ -364,115 +339,87 @@ int main()
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>写一个二维数组类 Array2</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include <iostream>
-#include <cstring>
+                <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><a href="https://vjudge.net/problem/POJ-3169" target="_blank" rel="noopener">原题链接</a></p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>记第i头牛的位置为d[i]，则有d[AL]+DL&gt;=d[BL]，d[AD]+DD&lt;=d[BD]。这些不等式的两边都只出现了一个变量(指两头牛之间的距离)。这种特殊形式的不等式方程组称为差分约束系统。<a href="https://www.cnblogs.com/csushl/p/9386509.html" target="_blank" rel="noopener">附上一篇较为详细的博客</a></p>
+<p>而通过对比差分约束和最短路问题，我们可以发现他们在表达形式上是相同的。在最短路问题中，设起点为s，到各顶点的距离为d[i] (i=u、v……）对于每条权值为w的边e=(v, u),都有d[v]+w&gt;=d[u]成立。同时，对于满足这些约束不等式的d中，有d[v]-d[s]&lt;=w成立(将上式移项)。即d[v]-d[s]的最大值就是所有w的最小值(w可以不直接连接v和s，看作从v到s的所有路径比较好理解)，也就是从s到v的最短距离。</p>
+<p>所以d[AL]+DL&gt;=d[BL]等价于从AL向BL连一条权为DL的边，d[AD]+DD&lt;=d[BD]等价于从BD向AD连一条权为-DD的边(移项)。我们要求d[N]-d[1]的最大值，对应点N到点1的最短路。同时由于图中存在负权边，我们采用SPFA处理。当某个点出列超过点的总数N时，说明图中存在负环。这是因为若没有负环，则任意最短路上的点必定少于N个，最短路共有N-1条，所以如果有一个点的入队次数超过N，就说明图中形成了负环。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>自己写的版本，POJ老是CE，正确性不能保证，问题应该不大(?)</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltcstdio>
+#include&ltcstring>
+#include&ltiostream>
+#include&ltqueue>
+#include&ltvector>
+#include&ltalgorithm>
+
 using namespace std;
 
-class Array2
-{
+typedef pair&ltint, int> p;
+vector&ltp> g[1005];
+queue&ltint> q;
+int N, ML, MD, flag=0;//ML关系好，MD关系差
+int dis[1005], vis[1005], out[1005];
 
-    // 在此处补充你的代码
-};
-
-int main()
+void SPFA()
 {
-    Array2 a(3, 4);
-    int i, j;
-    for (i = 0; i < 3; ++i)
-        for (j = 0; j < 4; j++)
-            a[i][j] = i * 4 + j;
-    for (i = 0; i < 3; ++i)
+    for(int i=0; i&lt=N; i++)
+        dis[i]=0x3f3f3f3f;
+    dis[1]=0;
+    vis[1]=1;
+    q.push(1);
+    while(!q.empty())
     {
-        for (j = 0; j < 4; j++)
+        int now=q.front();
+        q.pop();
+        out[now]++;
+        if(out[now]>N)
         {
-            cout << a(i, j) << ",";
+            flag=1;
+            break;
         }
-        cout << endl;
+        vis[now]=0;
+        for(int i=0; i&ltg[now].size(); i++)
+        {
+            pair&ltint, int> to=g[now][i];
+            if(dis[to.first]>dis[now]+to.second)
+            {
+                dis[to.first]=dis[now]+to.second;
+                if(vis[to.first]==0)
+                {
+                    q.push(to.first);
+                    vis[to.first]=1;
+                }
+            }
+        }
     }
-    cout << "next" << endl;
-    Array2 b;
-    b = a;
-    for (i = 0; i < 3; ++i)
+    if(flag)
+        cout&lt&lt-1&lt&ltendl;
+    else
     {
-        for (j = 0; j < 4; j++)
-        {
-            cout << b[i][j] << ",";
-        }
-        cout << endl;
+        if(dis[N]==0x3f3f3f3f)
+            cout&lt&lt-2&lt&ltendl;
+        else
+            cout&lt&ltdis[N]&lt&ltendl;
     }
+}
+
+int main(void)
+{
+    cin>>N>>ML>>MD;
+    for(int i=0; i&ltML; i++)
+    {
+        int A, B, D;
+        scanf("%d%d%d", &A, &B, &D);
+        g[A].push_back({B, D});
+    }
+    for(int i=0; i&ltMD; i++)
+    {
+        int A, B, D;
+        scanf("%d%d%d", &A, &B, &D);
+        g[B].push_back({A, -D});
+    }
+    SPFA();
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h3><p>无</p>
-<h3 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h3><p>0,1,2,3,<br>4,5,6,7,<br>8,9,10,11,<br>next<br>0,1,2,3,<br>4,5,6,7,<br>8,9,10,11,</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>通过观察我们知道题目想让我们写一个类似二维数组的类。我们需要补充如下内容：</p>
-<ul>
-<li>构造函数Array2（i, j）,效果是初始化一个形如a[i] [j]的二维数组以及他的析构函数  </li>
-<li>重载()，让a(i, j)表示数组中的元素</li>
-<li>重载=，使b可以通过b=a被赋值</li>
-<li>重载[], 让b[i] [j]表示数组中的元素</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="构造函数和析构函数"><a href="#构造函数和析构函数" class="headerlink" title="构造函数和析构函数"></a>构造函数和析构函数</h3><p>在C++中，数组可以被视为一种类型。但是，不存在‘二维数组’这种类型。二维数组本身会被解释成一个一维数组：这个数组的元素类型为另一种一维数组。比如int[2] [3]这个二维数组，它会被编译器视作一个元素类型为‘int[3]’的一维数组。并且，‘int[3]’和’int[4]’会被当成不同的数据类型。</p>
-<p>假设a, b为两个int型变量，如果你希望这样生成一个二维数组：new int[a] [b]，是不会得到编译器允许的——因为你没有指定这个数组的元素类型。由于b的大小未知，编译器无法确定‘int[b]’到底是一个什么类型。</p>
-<p>我们采用指针间接引用的方法来构造二维数组</p>
-<pre class="line-numbers language-c++"><code class="language-c++">int h, w;//数组尺寸
-int** pt=nullptr;//数组指针
-Array2(int a, int b):h(a), w(b)
-{
-    pt=new int*[a]；//pt是一个元素类型为int*，元素个数为a的数组
-    for(int i=0; i<a; i++)
-    {
-        pt[i]=new int[b];//可以将pt[i]看作数组名
-    }
-}
-~Array2()
-{
-    for(int i=0; i<h; i++)//析构函数顺序从内向外
-        delete [] pt[i];//pt[i]看作数组名
-    delete [] pt;
-}
-Array(){}//自己编写默认构造函数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="和-的重载"><a href="#和-的重载" class="headerlink" title="()和[]的重载"></a>()和[]的重载</h3><pre class="line-numbers language-c++"><code class="language-c++">cout << a(i, j) << ",";<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这句用到了()的重载，只需让()返回对应的数组元素即可。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">int& operator() (int i, int j)
-{
-    return pt[i][j];
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-c++"><code class="language-c++">a[i][j] = i * 4 + j;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这句用到了[]的重载</p>
-<pre class="line-numbers language-c++"><code class="language-c++">int* operator[](int i)
-{
-        return pt[i];
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这样a[i] [j]的执行结果相当于将a[i]当作数组名。</p>
-<h3 id="的重载"><a href="#的重载" class="headerlink" title="=的重载"></a>=的重载</h3><pre class="line-numbers language-c++"><code class="language-c++">b=a;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这句需要将a的内容赋值给b，但为什么不用赋值构造函数呢？</p>
-<p>因为默认的复制构造函数不会对指针进行拷贝，这样数组的内容并没有被赋值。所以我们要对=进行重载。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">Array2& operator=(const Array2 &rhs)
-    {
-        if (this == &rhs)
-            return *this;
-        if(pt)
-        {
-            for (int i = 0; i<h; i++)
-                delete[]pt[i];
-            delete[]pt;
-        }
-        h = rhs.h;
-        w = rhs.w;
-        pt = new int*[h];
-        for (int i = 0; i<h; i++)
-        {
-            pt[i] = new int[w];
-        }
-        for (int i = 0; i < h; i++)
-            for (int j = 0; j < w; j++)
-                pt[i][j] = rhs.pt[i][j];
-
-        return *this;
-
-    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>还需要注意一点，返回值的类型必须是引用。否则还会调用默认复制构造函数。</p>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -498,7 +445,7 @@ Array(){}//自己编写默认构造函数<span aria-hidden="true" class="line-nu
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/03/27/C++%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0%20%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%B1%BB/">https://aoidragon.github.io/2020/03/27/C++%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0%20%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%B1%BB/</a>
+                    <a href="https://aoidragon.github.io/2020/04/06/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Layout-POJ-3169/">https://aoidragon.github.io/2020/04/06/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Layout-POJ-3169/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -535,11 +482,7 @@ Array(){}//自己编写默认构造函数<span aria-hidden="true" class="line-nu
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E7%B1%BB/">
-                                    <span class="chip bg-color">类</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -575,9 +518,10 @@ Array(){}//自己编写默认构造函数<span aria-hidden="true" class="line-nu
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/04/06/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Layout-POJ-3169/">
                     <div class="card-image">
@@ -596,9 +540,9 @@ Array(){}//自己编写默认构造函数<span aria-hidden="true" class="line-nu
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -607,6 +551,7 @@ Array(){}//自己编写默认构造函数<span aria-hidden="true" class="line-nu
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -617,21 +562,32 @@ Array(){}//自己编写默认构造函数<span aria-hidden="true" class="line-nu
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/03/27/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Conscription-POJ-3723/">
+                <a href="/2020/03/27/C++%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0%20%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%B1%BB/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——Conscription(POJ 3723)">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="C++编程练习 二维数组类">
                         
-                        <span class="card-title">《挑战程序设计竞赛》——Conscription(POJ 3723)</span>
+                        <span class="card-title">C++编程练习 二维数组类</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目描述原题链接
-思路本题中虽然出现来两种不同的节点（男兵和女兵），但并没有实质上的区别，所以我们完全可以通过将一方的编号加上另一方的总数（男兵1，2，3……n，女兵1+n，2+n……）将他们视作相同的节点。
-首先将所有人想象成一个无向图，
+                            描述写一个二维数组类 Array2
+#include 
+#include 
+using namespace std;
+
+class Array2
+{
+
+    // 在此处补充你的代码
+};
+
+int main()
+{
+    Array2
                         
                     </div>
                     <div class="publish-info">
@@ -642,8 +598,8 @@ Array(){}//自己编写默认构造函数<span aria-hidden="true" class="line-nu
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/" class="post-category">
-                                    《挑战程序设计竞赛》
+                            <a href="/categories/C-%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    C++基础
                                 </a>
                             
                             
@@ -653,12 +609,8 @@ Array(){}//自己编写默认构造函数<span aria-hidden="true" class="line-nu
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
-                        <span class="chip bg-color">ACM题解</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/">
-                        <span class="chip bg-color">最小生成树</span>
+                    <a href="/tags/%E7%B1%BB/">
+                        <span class="chip bg-color">类</span>
                     </a>
                     
                 </div>
