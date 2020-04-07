@@ -4,9 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="《挑战程序设计竞赛》——Layout(POJ 3169), AoiDragon">
-    <meta name="description" content="题目描述原题链接
-思路记第i头牛的位置为d[i]，则有d[AL]+DL&amp;gt;=d[BL]，d[AD]+DD&amp;lt;=d[BD]。这些不等式的两边都只出现了一个变量(指两头牛之间的距离)。这种特殊形式的不等式方程组称为差分约束系统。附上一篇">
+    <meta name="keywords" content="《挑战程序设计竞赛》——DFS专题, AoiDragon">
+    <meta name="description" content="1.POJ 1979：Red and Black原题链接
+思路本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。
+代码#include&amp;ltiostream">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>《挑战程序设计竞赛》——Layout(POJ 3169) | AoiDragon</title>
+    <title>《挑战程序设计竞赛》——DFS专题 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -188,12 +189,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——Layout(POJ 3169)</h1>
+                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——DFS专题</h1>
                 </div>
             </div>
         </div>
@@ -314,8 +315,8 @@
                                 <span class="chip bg-color">ACM题解</span>
                             </a>
                         
-                            <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
-                                <span class="chip bg-color">最短路</span>
+                            <a href="/tags/DFS/">
+                                <span class="chip bg-color">DFS</span>
                             </a>
                         
                     </div>
@@ -339,7 +340,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-06
+                    2020-04-07
                 </div>
                 
 
@@ -356,88 +357,75 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><a href="https://vjudge.net/problem/POJ-3169" target="_blank" rel="noopener">原题链接</a></p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>记第i头牛的位置为d[i]，则有d[AL]+DL&gt;=d[BL]，d[AD]+DD&lt;=d[BD]。这些不等式的两边都只出现了一个变量(指两头牛之间的距离)。这种特殊形式的不等式方程组称为差分约束系统。<a href="https://www.cnblogs.com/csushl/p/9386509.html" target="_blank" rel="noopener">附上一篇较为详细的博客</a></p>
-<p>而通过对比差分约束和最短路问题，我们可以发现他们在表达形式上是相同的。在最短路问题中，设起点为s，到各顶点的距离为d[i] (i=u、v……）对于每条权值为w的边e=(v, u),都有d[v]+w&gt;=d[u]成立。同时，对于满足这些约束不等式的d中，有d[v]-d[s]&lt;=w成立(将上式移项)。即d[v]-d[s]的最大值就是所有w的最小值(w可以不直接连接v和s，看作从v到s的所有路径比较好理解)，也就是从s到v的最短距离。</p>
-<p>所以d[AL]+DL&gt;=d[BL]等价于从AL向BL连一条权为DL的边，d[AD]+DD&lt;=d[BD]等价于从BD向AD连一条权为-DD的边(移项)。我们要求d[N]-d[1]的最大值，对应点N到点1的最短路。同时由于图中存在负权边，我们采用SPFA处理。当某个点出列超过点的总数N时，说明图中存在负环。这是因为若没有负环，则任意最短路上的点必定少于N个，最短路共有N-1条，所以如果有一个点的入队次数超过N，就说明图中形成了负环。</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>自己写的版本，POJ老是CE，正确性不能保证，问题应该不大(?)</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltcstdio>
+                <h1 id="1-POJ-1979：Red-and-Black"><a href="#1-POJ-1979：Red-and-Black" class="headerlink" title="1.POJ 1979：Red and Black"></a>1.POJ 1979：Red and Black</h1><p><a href="https://vjudge.net/problem/POJ-1979" target="_blank" rel="noopener">原题链接</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
+#include&ltcstdio>
 #include&ltcstring>
-#include&ltiostream>
-#include&ltqueue>
-#include&ltvector>
 #include&ltalgorithm>
 
 using namespace std;
 
-typedef pair&ltint, int> p;
-vector&ltp> g[1005];
-queue&ltint> q;
-int N, ML, MD, flag=0;//ML关系好，MD关系差
-int dis[1005], vis[1005], out[1005];
+int w, h, sx, sy, ans, vis[25][25];
+int dx[4]={1, 0, -1, 0};
+int dy[4]={0, 1, 0, -1};
+char maze[25][25];
 
-void SPFA()
+void dfs(int x, int y)
 {
-    for(int i=0; i&lt=N; i++)
-        dis[i]=0x3f3f3f3f;
-    dis[1]=0;
-    vis[1]=1;
-    q.push(1);
-    while(!q.empty())
+    maze[x][y]='#';
+    for(int i=0; i&lt4; i++)
     {
-        int now=q.front();
-        q.pop();
-        out[now]++;
-        if(out[now]>N)
+        int nx=x+dx[i];
+        int ny=y+dy[i];
+        if(maze[nx][ny]=='.'&&nx>=0&&ny>=0&&nx&lth&&ny&ltw)
         {
-            flag=1;
-            break;
-        }
-        vis[now]=0;
-        for(int i=0; i&ltg[now].size(); i++)
-        {
-            pair&ltint, int> to=g[now][i];
-            if(dis[to.first]>dis[now]+to.second)
-            {
-                dis[to.first]=dis[now]+to.second;
-                if(vis[to.first]==0)
-                {
-                    q.push(to.first);
-                    vis[to.first]=1;
-                }
-            }
+            ans++;
+            dfs(nx, ny);
         }
     }
-    if(flag)
-        cout&lt&lt-1&lt&ltendl;
-    else
-    {
-        if(dis[N]==0x3f3f3f3f)
-            cout&lt&lt-2&lt&ltendl;
-        else
-            cout&lt&ltdis[N]&lt&ltendl;
-    }
+    return;
 }
 
 int main(void)
 {
-    cin>>N>>ML>>MD;
-    for(int i=0; i&ltML; i++)
+    scanf("%d%d", &w, &h);
+    while(w!=0||h!=0)
     {
-        int A, B, D;
-        scanf("%d%d%d", &A, &B, &D);
-        g[A].push_back({B, D});
+        ans=1;
+        memset(maze, 0, sizeof(maze));
+        memset(vis, 0, sizeof(vis));
+        for(int i=0; i&lth; i++)
+            scanf("%s", &maze[i]);
+        for(int i=0; i&lth; i++)
+            for(int j=0; j&ltw; j++)
+                if(maze[i][j]=='@')
+                {
+                    sx=i;
+                    sy=j;
+                    break;
+                }
+        dfs(sx, sy);
+        printf("%d\n", ans);
+        scanf("%d%d", &w, &h);
     }
-    for(int i=0; i&ltMD; i++)
-    {
-        int A, B, D;
-        scanf("%d%d%d", &A, &B, &D);
-        g[B].push_back({A, -D});
-    }
-    SPFA();
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在遍历可能出现的情况之后需要对状态进行回溯。一种方法是本题中使用的，不对改变现有的x,y值，而是新建变量完成后续操作。另一种写法如下：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">for (int i = 0; i < 4; i++)
+{
+    x += dx[i];
+    y += dy[i];
+    if (maze[x][y] == '.' && x >= 0 && y >= 0 && x < h && y < w)
+    {
+        ans++;
+        dfs(x, y);
+    }
+    x -= dx[i];
+    y -= dy[i];
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>完成对更新后x,y的操作后，一定要让其回复到原来的状态。</p>
+<h1 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h1>
             </div>
             <hr/>
 
@@ -462,7 +450,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/04/06/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Layout(POJ%203169)/">https://aoidragon.github.io/2020/04/06/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Layout(POJ%203169)/</a>
+                    <a href="https://aoidragon.github.io/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94DFS%E4%B8%93%E9%A2%98/">https://aoidragon.github.io/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94DFS%E4%B8%93%E9%A2%98/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -504,8 +492,8 @@ int main(void)
                                     <span class="chip bg-color">ACM题解</span>
                                 </a>
                             
-                                <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
-                                    <span class="chip bg-color">最短路</span>
+                                <a href="/tags/DFS/">
+                                    <span class="chip bg-color">DFS</span>
                                 </a>
                             
                         </div>
@@ -543,9 +531,10 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94DFS%E4%B8%93%E9%A2%98/">
                     <div class="card-image">
@@ -565,9 +554,9 @@ int main(void)
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -580,6 +569,7 @@ int main(void)
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -602,44 +592,32 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/03/27/C++%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0%20%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%B1%BB/">
+                <a href="/2020/04/06/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Layout(POJ%203169)/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="C++编程练习 二维数组类">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——Layout(POJ 3169)">
                         
-                        <span class="card-title">C++编程练习 二维数组类</span>
+                        <span class="card-title">《挑战程序设计竞赛》——Layout(POJ 3169)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            描述写一个二维数组类 Array2
-#include 
-#include 
-using namespace std;
-
-class Array2
-{
-
-    // 在此处补充你的代码
-};
-
-int main()
-{
-    Array2
+                            题目描述原题链接
+思路记第i头牛的位置为d[i]，则有d[AL]+DL&gt;=d[BL]，d[AD]+DD&lt;=d[BD]。这些不等式的两边都只出现了一个变量(指两头牛之间的距离)。这种特殊形式的不等式方程组称为差分约束系统。附上一篇
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-06
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/C-%E5%9F%BA%E7%A1%80/" class="post-category">
-                                    C++基础
+                            <a href="/categories/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/" class="post-category">
+                                    《挑战程序设计竞赛》
                                 </a>
                             
                             
@@ -649,8 +627,12 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%B1%BB/">
-                        <span class="chip bg-color">类</span>
+                    <a href="/tags/ACM%E9%A2%98%E8%A7%A3/">
+                        <span class="chip bg-color">ACM题解</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
+                        <span class="chip bg-color">最短路</span>
                     </a>
                     
                 </div>
