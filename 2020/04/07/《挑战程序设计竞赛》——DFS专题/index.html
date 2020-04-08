@@ -5,9 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="《挑战程序设计竞赛》——DFS专题, AoiDragon">
-    <meta name="description" content="1.POJ 1979：Red and Black原题链接
+    <meta name="description" content="1. POJ 1979：Red and Black原题链接
 思路本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。
-代码#include&amp;ltiostream">
+代码#include&amp;ltiostrea">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -357,7 +357,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-POJ-1979：Red-and-Black"><a href="#1-POJ-1979：Red-and-Black" class="headerlink" title="1.POJ 1979：Red and Black"></a>1.POJ 1979：Red and Black</h1><p><a href="https://vjudge.net/problem/POJ-1979" target="_blank" rel="noopener">原题链接</a></p>
+                <h1 id="1-POJ-1979：Red-and-Black"><a href="#1-POJ-1979：Red-and-Black" class="headerlink" title="1. POJ 1979：Red and Black"></a>1. POJ 1979：Red and Black</h1><p><a href="https://vjudge.net/problem/POJ-1979" target="_blank" rel="noopener">原题链接</a></p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
 #include&ltcstdio>
@@ -425,7 +425,128 @@ int main(void)
     y -= dy[i];
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>完成对更新后x,y的操作后，一定要让其回复到原来的状态。</p>
-<h1 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h1>
+<h1 id="2-Aizu-0033-Ball"><a href="#2-Aizu-0033-Ball" class="headerlink" title="2. Aizu 0033 Ball"></a>2. Aizu 0033 Ball</h1><p><a href="https://www.cnblogs.com/sky-stars/p/11182156.html" target="_blank" rel="noopener">翻译后的原题链接</a></p>
+<h2 id="代码ver1-0"><a href="#代码ver1-0" class="headerlink" title="代码ver1.0"></a>代码ver1.0</h2><pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
+#include&ltcstring>
+#include&ltalgorithm>
+#include&ltdeque>
+
+using namespace std;
+
+bool flag;
+int num;
+deque&ltint> ball, q1, q2;
+
+void dfs()
+{
+    if(num==10)
+        flag=true;
+    int now=ball.front();
+    if(q1.empty()||now>q1.back())
+    {
+        ball.pop_front();
+        q1.push_back(now);
+        num++;
+        dfs();
+        num--;
+        q1.pop_back();
+        ball.push_front(now);
+    }
+    else if(q2.empty()||now>q2.back())
+    {
+        ball.pop_front();
+        q2.push_back(now);
+        num++;
+        dfs();
+        num--;
+        q2.pop_back();
+        ball.push_front(now);
+    }
+}
+
+int main(void)
+{
+    int n;
+    cin>>n;
+    while(n--)
+    {
+        while(!q1.empty())
+            q1.pop_back();
+        while(!q2.empty())
+            q2.pop_back();
+        while(!ball.empty())
+            ball.pop_back();
+        for(int i=0; i&lt10; i++)
+        {
+            int temp;
+            cin>>temp;
+            ball.push_back(temp);
+        }
+        num=0;
+        flag=false;
+        dfs();
+        if(flag)
+            cout&lt&lt"YES"&lt&ltendl;
+        else
+            cout&lt&lt"NO"&lt&ltendl;
+    }
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>自己写的版本。用了双向队列模拟小球的运动，稍微繁琐了些。</p>
+<p>比较有收获的一点是明白了如何在判断条件成立后返回。答案是不返回。之前老是栽在这个坑里的原因就是因为递归函数的复杂性，即“你以为你在第二层，实际上你在第五层”。当你千辛万苦找到一个解，赶紧return true后，它并非直接回到了主函数，而是要继续一层一层回溯。所以我们干脆不通过返回值这种方法来告诉程序我们找到了解。直接设置一个全局变量flag，在dfs之前赋值为false，当找到解时改变flag的值。dfs结束后我们对flag的值进行判断即可。</p>
+<h2 id="代码ver2-0"><a href="#代码ver2-0" class="headerlink" title="代码ver2.0"></a>代码ver2.0</h2><pre class="line-numbers language-c++"><code class="language-c++">#include &ltiostream>
+
+using namespace std;
+
+int a[11], l = 0, r = 0, flag, n;
+
+int main()
+{
+    void solve();
+    cin >> n;
+    while (n--)
+    {
+        flag = 0;
+        for (int i = 0; i &lt 10; i++)
+            cin >> a[i];
+        solve();
+        if (flag)
+            cout &lt&lt "YES" &lt&lt endl;
+        else
+            cout &lt&lt "NO" &lt&lt endl;
+    }
+    return 0;
+}
+void solve()
+{
+    int dfs(int i);
+    dfs(0);
+}
+int dfs(int i)
+{
+    int iv;
+    if (i == 10)
+    {
+        flag = 1;
+        return (flag);
+    }
+    if (a[i] > l)
+    {
+        iv = l;
+        l = a[i];
+        dfs(i + 1);
+        l = iv;
+    }
+    if (a[i] > r)
+    {
+        iv = r;
+        r = a[i];
+        dfs(i + 1);
+        r = iv;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a href="https://blog.csdn.net/cc2855816075/article/details/104305055" target="_blank" rel="noopener">网上题解版本</a>   相比自己写的省去许多不必要的模拟过程，值得学习。</p>
+
             </div>
             <hr/>
 
@@ -548,9 +669,9 @@ int main(void)
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1.POJ 1979：Red and Black原题链接
+                            1. POJ 1979：Red and Black原题链接
 思路本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。
-代码#include&ltiostream
+代码#include&ltiostrea
                         
                     </div>
                     <div class="publish-info">
