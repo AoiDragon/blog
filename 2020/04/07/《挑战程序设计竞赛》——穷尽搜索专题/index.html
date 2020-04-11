@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="《挑战程序设计竞赛》——DFS专题, AoiDragon">
-    <meta name="description" content="1. POJ 1979：Red and Black原题链接
+    <meta name="keywords" content="《挑战程序设计竞赛》——穷尽搜索专题, AoiDragon">
+    <meta name="description" content="1. POJ 1979 Red and Black原题链接
 思路本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。
 代码#include&amp;ltiostrea">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>《挑战程序设计竞赛》——DFS专题 | AoiDragon</title>
+    <title>《挑战程序设计竞赛》——穷尽搜索专题 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -189,12 +189,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——DFS专题</h1>
+                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——穷尽搜索专题</h1>
                 </div>
             </div>
         </div>
@@ -319,6 +319,10 @@
                                 <span class="chip bg-color">DFS</span>
                             </a>
                         
+                            <a href="/tags/BFS/">
+                                <span class="chip bg-color">BFS</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -357,7 +361,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-POJ-1979：Red-and-Black"><a href="#1-POJ-1979：Red-and-Black" class="headerlink" title="1. POJ 1979：Red and Black"></a>1. POJ 1979：Red and Black</h1><p><a href="https://vjudge.net/problem/POJ-1979" target="_blank" rel="noopener">原题链接</a></p>
+                <h1 id="1-POJ-1979-Red-and-Black"><a href="#1-POJ-1979-Red-and-Black" class="headerlink" title="1. POJ 1979 Red and Black"></a>1. POJ 1979 Red and Black</h1><p><a href="https://vjudge.net/problem/POJ-1979" target="_blank" rel="noopener">原题链接</a></p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
 #include&ltcstdio>
@@ -546,6 +550,249 @@ int dfs(int i)
     }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><a href="https://blog.csdn.net/cc2855816075/article/details/104305055" target="_blank" rel="noopener">网上题解版本</a>   相比自己写的省去许多不必要的模拟过程，值得学习。</p>
+<h1 id="3-POJ-3009-Curling-2-0"><a href="#3-POJ-3009-Curling-2-0" class="headerlink" title="3. POJ - 3009 Curling 2.0"></a>3. POJ - 3009 Curling 2.0</h1><p><a href="https://vjudge.net/problem/POJ-3009" target="_blank" rel="noopener">原题链接</a></p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltcstdio>
+#include&ltcstring>
+#include&ltalgorithm>
+
+using namespace std;
+
+int w, h, sx, sy, ex, ey, ans, num;
+int dx[4]={1, 0, -1, 0};
+int dy[4]={0, 1, 0, -1};
+int map[25][25];
+const int INF=0x3f3f3f3f;
+
+void dfs(int x, int y)
+{
+    if(num>10)
+        return;
+    for(int i=0; i&lt4; i++)
+    {
+        int flag=0;
+        int nx=x;
+        int ny=y;
+        if(nx+dx[i]>=0&&ny+dy[i]>=0&&map[nx+dx[i]][ny+dy[i]]==1)
+            continue;
+        for(; ;)
+        {
+            nx+=dx[i];
+            ny+=dy[i];
+            if(nx&lt0||ny&lt0||nx>=h||ny>=w)
+                break;
+            if(map[nx][ny]==1)
+            {
+                flag=1;
+                break;
+            }
+            if(nx==ex&&ny==ey)
+            {
+                ans=min(ans, num);
+                break;
+            }
+        }
+        if(flag)
+        {
+            map[nx][ny]=0;
+            nx-=dx[i];
+            ny-=dy[i];
+            num++;
+            dfs(nx, ny);
+            num--;
+            nx+=dx[i];
+            ny+=dy[i];
+            map[nx][ny]=1;
+        }
+    }   
+}
+
+int main(void)
+{
+    scanf("%d%d", &w, &h);
+    while(h!=0||w!=0)
+    {
+        for(int i=0; i&lth; i++)
+            for(int j=0; j&ltw; j++)
+            {
+                scanf("%d", &map[i][j]);
+                if(map[i][j]==2)
+                {
+                    sx=i;
+                    sy=j;
+                }
+                else if(map[i][j]==3)
+                {
+                    ex=i;
+                    ey=j;
+                }
+            }
+        ans=INF;
+        num=1;
+        dfs(sx, sy);
+        if(ans==INF)
+            printf("-1\n");
+        else
+            printf("%d\n", ans);
+        scanf("%d%d", &w, &h);
+    }
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>总的来说还是比较正常的，需要递归回溯的DFS，只是每一步都要走到底。唯一出了问题的地方是一开始忘记在判断是否到达终点时数组下标可能出现负数。这种情况在数组下标由变量表示时可能经常出现，需要引起重视。</p>
+<h1 id="4-Aizu-0558-Cheese"><a href="#4-Aizu-0558-Cheese" class="headerlink" title="4. Aizu 0558 Cheese"></a>4. Aizu 0558 Cheese</h1><p><a href="https://vjudge.net/problem/Aizu-0558" target="_blank" rel="noopener">原题链接</a></p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
+#include&ltalgorithm>
+#include&ltqueue>
+#include&ltcstring>
+
+using namespace std;
+
+typedef pair&ltint, int> P;
+const int INF=0x3f3f3f3f;
+char map[1005][1005];
+int vis[1005][1005];
+int dx[4]={1, 0, -1, 0};
+int dy[4]={0, 1, 0, -1};
+int w, h, n, ans, sx, sy, ex, ey;
+queue&ltP> q;
+
+void bfs()
+{
+    while(!q.empty())
+    {
+        P now=q.front();
+        q.pop();
+        for(int i=0; i&lt4; i++)
+        {
+            int nx=now.first;
+            int ny=now.second;
+            nx+=dx[i];
+            ny+=dy[i];
+            if(nx>=0&&ny>=0&&nx&ltw&&ny&lth&&map[nx][ny]!='X'&&vis[nx][ny]==INF)
+            {
+                if(nx==ex&&ny==ey)
+                {
+                    vis[ex][ey]=vis[now.first][now.second]+1;
+                    return;
+                }
+                else
+                {
+                    q.push({nx, ny});
+                    vis[nx][ny]=vis[now.first][now.second]+1;
+                }
+            }
+        }
+    }
+}
+
+int main(void)
+{
+    cin>>w>>h>>n;
+    for(int i=0; i&ltw; i++)
+        for(int j=0; j&lth; j++)
+            cin>>map[i][j];
+    for(int i=0; i&ltn; i++)
+    {
+        for(int j=0; j&ltw; j++)
+            for(int k=0; k&lth; k++)
+            {
+                vis[j][k]=INF;
+                if(i==0)
+                {
+                    if(map[j][k]=='S')
+                    {
+                        vis[j][k]=0;
+                        sx=j;
+                        sy=k;
+                    }
+                }
+                if(map[j][k]==i+'0')
+                {
+                    vis[j][k]=0;
+                    sx=j;
+                    sy=k;
+                }
+                if(map[j][k]==i+1+'0')
+                {
+                    ex=j;
+                    ey=k;
+                }
+            }
+        q.push({sx, sy});
+        bfs();
+        ans+=vis[ex][ey];
+        while(!q.empty())
+            q.pop();
+    }
+    cout&lt&ltans&lt&ltendl;
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>相当于从S到1、从1到2……从n-1到n做多次BFS再累加结果。要将每一次BFS都看成独立的一次搜索，需要留意对数组的恢复和对点是否能走的判断（起点和之前搜索中经过的点也可以通行）。</p>
+<h1 id="5-POJ-3669-Meteor-Shower"><a href="#5-POJ-3669-Meteor-Shower" class="headerlink" title="5. POJ 3669 Meteor Shower"></a>5. POJ 3669 Meteor Shower</h1><p><a href="https://vjudge.net/problem/POJ-3669" target="_blank" rel="noopener">原题链接</a></p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltcstdio>
+#include&ltalgorithm>
+#include&ltqueue>
+
+using namespace std;
+
+typedef pair&ltint, int> P;
+const int INF=0x3f3f3f3f;
+int dx[4]={1, 0, -1, 0};
+int dy[4]={0, 1, 0, -1};
+int map[305][305], vis[305][305];
+int n, flag, ans;
+queue&ltP> q;
+
+int bfs()
+{
+    while(!q.empty())
+    {
+        P now=q.front();
+        q.pop();
+        int x=now.first;
+        int y=now.second;
+        if(map[x][y]==1001)
+            return vis[x][y];
+        for(int i=0; i&lt4; i++)
+        {
+            int nx=x+dx[i];
+            int ny=y+dy[i];
+            if(nx>=0&&ny>=0&&vis[nx][ny]==INF&&(vis[x][y]&lt=map[nx][ny]-2||map[nx][ny]==1001))
+            {
+                q.push({nx, ny});
+                vis[nx][ny]=vis[x][y]+1;
+            }
+        }
+    }
+    return -1;
+}
+
+int main(void)
+{
+    scanf("%d", &n);
+    for(int i=0; i&lt305; i++)
+        for(int j=0; j&lt305; j++)
+        {
+            map[i][j]=1001;
+            vis[i][j]=INF;
+        }
+    for(int i=0; i&ltn; i++)
+    {
+        int x, y, w;
+        scanf("%d%d%d", &x, &y, &w);//cin会超时
+        if(x>=1)
+            map[x-1][y]=min(w,map[x-1][y]);//防止被后续的更新
+        if(y>=1)
+            map[x][y-1]=min(w, map[x][y-1]);
+        map[x][y]=min(w, map[x][y]);
+        map[x+1][y]=min(w, map[x+1][y]);
+        map[x][y+1]=min(w, map[x][y+1]);
+    }
+    q.push({0, 0});
+    vis[0][0]=0;
+    printf("%d\n", bfs());
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>本质上是BFS。相当于将被波及的区域以坠落时间标记，求从原点走到一个未被标记的点所需的最短时间。首先对地图进行处理。由于坠落区域可能发生重叠，所以要记得取最小值。一开始将每个点初始化为0，但题目中流星是可以在t=0时坠落的（惨 Bessie 惨），所以我换成了恰好大于流星最晚坠落时间的1001，也方便取最小值。还有一点是用cin会超时，必须换成scanf。</p>
 
             </div>
             <hr/>
@@ -571,7 +818,7 @@ int dfs(int i)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94DFS%E4%B8%93%E9%A2%98/">https://aoidragon.github.io/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94DFS%E4%B8%93%E9%A2%98/</a>
+                    <a href="https://aoidragon.github.io/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E7%A9%B7%E5%B0%BD%E6%90%9C%E7%B4%A2%E4%B8%93%E9%A2%98/">https://aoidragon.github.io/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E7%A9%B7%E5%B0%BD%E6%90%9C%E7%B4%A2%E4%B8%93%E9%A2%98/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -617,6 +864,10 @@ int dfs(int i)
                                     <span class="chip bg-color">DFS</span>
                                 </a>
                             
+                                <a href="/tags/BFS/">
+                                    <span class="chip bg-color">BFS</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -657,19 +908,19 @@ int dfs(int i)
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94DFS%E4%B8%93%E9%A2%98/">
+                <a href="/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E7%A9%B7%E5%B0%BD%E6%90%9C%E7%B4%A2%E4%B8%93%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——DFS专题">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——穷尽搜索专题">
                         
-                        <span class="card-title">《挑战程序设计竞赛》——DFS专题</span>
+                        <span class="card-title">《挑战程序设计竞赛》——穷尽搜索专题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. POJ 1979：Red and Black原题链接
+                            1. POJ 1979 Red and Black原题链接
 思路本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。
 代码#include&ltiostrea
                         
@@ -700,6 +951,10 @@ int dfs(int i)
                     
                     <a href="/tags/DFS/">
                         <span class="chip bg-color">DFS</span>
+                    </a>
+                    
+                    <a href="/tags/BFS/">
+                        <span class="chip bg-color">BFS</span>
                     </a>
                     
                 </div>
