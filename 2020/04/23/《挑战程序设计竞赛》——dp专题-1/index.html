@@ -4,10 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="《挑战程序设计竞赛》——穷尽搜索专题, AoiDragon">
-    <meta name="description" content="1. POJ 1979 Red and Black原题链接
-思路本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。
-代码#include&amp;ltiostrea">
+    <meta name="keywords" content="《挑战程序设计竞赛》——dp专题, AoiDragon">
+    <meta name="description" content="1.POJ-3176  Cow Bowling原题链接
+#include&amp;ltiostream&gt;
+#include&amp;ltalgorithm&gt;
+#include&amp;ltcstring&gt;
+
+using namespace std;
+
+int s[">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +20,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>《挑战程序设计竞赛》——穷尽搜索专题 | AoiDragon</title>
+    <title>《挑战程序设计竞赛》——dp专题 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -189,12 +194,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——穷尽搜索专题</h1>
+                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——dp专题</h1>
                 </div>
             </div>
         </div>
@@ -315,12 +320,8 @@
                                 <span class="chip bg-color">ACM题解</span>
                             </a>
                         
-                            <a href="/tags/DFS/">
-                                <span class="chip bg-color">DFS</span>
-                            </a>
-                        
-                            <a href="/tags/BFS/">
-                                <span class="chip bg-color">BFS</span>
+                            <a href="/tags/dp/">
+                                <span class="chip bg-color">dp</span>
                             </a>
                         
                     </div>
@@ -344,7 +345,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-07
+                    2020-04-23
                 </div>
                 
 
@@ -361,438 +362,76 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-POJ-1979-Red-and-Black"><a href="#1-POJ-1979-Red-and-Black" class="headerlink" title="1. POJ 1979 Red and Black"></a>1. POJ 1979 Red and Black</h1><p><a href="https://vjudge.net/problem/POJ-1979" target="_blank" rel="noopener">原题链接</a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltcstdio>
-#include&ltcstring>
+                <h1 id="1-POJ-3176-Cow-Bowling"><a href="#1-POJ-3176-Cow-Bowling" class="headerlink" title="1.POJ-3176  Cow Bowling"></a>1.POJ-3176  Cow Bowling</h1><p><a href="https://vjudge.net/problem/POJ-3176" target="_blank" rel="noopener">原题链接</a></p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
 #include&ltalgorithm>
+#include&ltcstring>
 
 using namespace std;
 
-int w, h, sx, sy, ans, vis[25][25];
-int dx[4]={1, 0, -1, 0};
-int dy[4]={0, 1, 0, -1};
-char maze[25][25];
-
-void dfs(int x, int y)
-{
-    maze[x][y]='#';
-    for(int i=0; i&lt4; i++)
-    {
-        int nx=x+dx[i];
-        int ny=y+dy[i];
-        if(maze[nx][ny]=='.'&&nx>=0&&ny>=0&&nx&lth&&ny&ltw)
-        {
-            ans++;
-            dfs(nx, ny);
-        }
-    }
-    return;
-}
+int s[355][355], dp[355][355];
 
 int main(void)
 {
-    scanf("%d%d", &w, &h);
-    while(w!=0||h!=0)
+    int n, ans;
+    while(cin>>n)
     {
-        ans=1;
-        memset(maze, 0, sizeof(maze));
-        memset(vis, 0, sizeof(vis));
-        for(int i=0; i&lth; i++)
-            scanf("%s", &maze[i]);
-        for(int i=0; i&lth; i++)
-            for(int j=0; j&ltw; j++)
-                if(maze[i][j]=='@')
-                {
-                    sx=i;
-                    sy=j;
-                    break;
-                }
-        dfs(sx, sy);
-        printf("%d\n", ans);
-        scanf("%d%d", &w, &h);
+        ans=0;
+        memset(s, 0, sizeof(s));
+        memset(dp, 0, sizeof(dp));
+        for(int i=1; i&lt=n; i++)//第一行和第一列从下标为1开始，留白，不用对边界特判
+            for(int j=1; j&lt=i; j++)
+            {
+                cin>>s[i][j];
+                dp[i][j]=s[i][j]+max(dp[i-1][j-1], dp[i-1][j]);
+            }
+        for(int i=1; i&lt=n; i++)
+            ans=max(ans, dp[n][i]);
+        cout&lt&ltans&lt&ltendl;
     }
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>在遍历可能出现的情况之后需要对状态进行回溯。一种方法是本题中使用的，不对改变现有的x,y值，而是新建变量完成后续操作。另一种写法如下：</p>
-<pre class="line-numbers language-c++"><code class="language-c++">for (int i = 0; i < 4; i++)
-{
-    x += dx[i];
-    y += dy[i];
-    if (maze[x][y] == '.' && x >= 0 && y >= 0 && x < h && y < w)
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>dp问题的关键就是确定状态方程的值和转移方式。状态方程的值一般与题目要求我们求出的值一致，本题中是途经数字之和的最大值。本题中每一层的状态均有上一层相邻的状态转移而来，选出上一层较大者再加上自身即可。对最后一层的所有结果取最大值就得到最终结果。</p>
+<h1 id="2-POJ-2229-Sumsets"><a href="#2-POJ-2229-Sumsets" class="headerlink" title="2.POJ-2229 Sumsets"></a>2.POJ-2229 Sumsets</h1><p><a href="">原题链接</a>(<a href="https://vjudge.net/problem/POJ-2229">https://vjudge.net/problem/POJ-2229</a>)</p>
+<p>本题实际上是完全背包问题。问题也可以表述为从体积为2^i(i=0,1,2,3……)的物品中任选，是其能够填满一个体积为n的背包，其中每件物品可以选择任意次。</p>
+<p>dp[i] [j]代表从前i件物品中选取总体积为j的方案数</p>
+<pre class="line-numbers language-c++"><code class="language-c++">for(int i=0; i<num; i++)
+    for(int j=1; j<=n; j++)
     {
-        ans++;
-        dfs(x, y);
+        dp[i][j]=dp[i-1][j];
+        if(j>=w[i])
+            dp[i][j]+=dp[i-1][j-w[i]];
     }
-    x -= dx[i];
-    y -= dy[i];
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>完成对更新后x,y的操作后，一定要让其回复到原来的状态。</p>
-<h1 id="2-Aizu-0033-Ball"><a href="#2-Aizu-0033-Ball" class="headerlink" title="2. Aizu 0033 Ball"></a>2. Aizu 0033 Ball</h1><p><a href="https://www.cnblogs.com/sky-stars/p/11182156.html" target="_blank" rel="noopener">翻译后的原题链接</a></p>
-<h2 id="代码ver1-0"><a href="#代码ver1-0" class="headerlink" title="代码ver1.0"></a>代码ver1.0</h2><pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltcstring>
+//前者是不选第i件物品的情况，此时方案数与在前i-1件物品中选取总体积为j的方案数相同,即dp[i-1][j]
+//后者是选择第i件物品的情况，则选取前i-1物品后需要为w[i]预留位置，即dp[i-1][j-w[i]]
+//需要对j进行特判，看是否放得下<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>先写出二维形式有助于理解转移方程的原理，接下来就可以进行状态压缩了。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">for(int i=0; i<num; i++)
+    for(int j=w[i]; j<=n; j++)
+        dp[j]+=dp[j-w[i]];
+//如果j<w[i]，则方程为dp[j]=dp[j]，所以可以省略，j直接从w[i]开始遍历<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
 #include&ltalgorithm>
-#include&ltdeque>
 
 using namespace std;
 
-bool flag;
-int num;
-deque&ltint> ball, q1, q2;
-
-void dfs()
-{
-    if(num==10)
-        flag=true;
-    int now=ball.front();
-    if(q1.empty()||now>q1.back())
-    {
-        ball.pop_front();
-        q1.push_back(now);
-        num++;
-        dfs();
-        num--;
-        q1.pop_back();
-        ball.push_front(now);
-    }
-    else if(q2.empty()||now>q2.back())
-    {
-        ball.pop_front();
-        q2.push_back(now);
-        num++;
-        dfs();
-        num--;
-        q2.pop_back();
-        ball.push_front(now);
-    }
-}
+const int MaxN=1e6+5;
+int dp[MaxN], w[MaxN], num;
 
 int main(void)
 {
     int n;
     cin>>n;
-    while(n--)
-    {
-        while(!q1.empty())
-            q1.pop_back();
-        while(!q2.empty())
-            q2.pop_back();
-        while(!ball.empty())
-            ball.pop_back();
-        for(int i=0; i&lt10; i++)
-        {
-            int temp;
-            cin>>temp;
-            ball.push_back(temp);
-        }
-        num=0;
-        flag=false;
-        dfs();
-        if(flag)
-            cout&lt&lt"YES"&lt&ltendl;
-        else
-            cout&lt&lt"NO"&lt&ltendl;
-    }
+    w[0]=1;
+    dp[0]=1;
+    for(num=1; w[num-1]&lt=n; num++)
+        w[num]=w[num-1]*2;
+    for(int i=0; i&ltnum; i++)
+        for(int j=w[i]; j&lt=n; j++)
+            dp[j]=(dp[j]+dp[j-w[i]])%(int)1e9;
+    cout&lt&ltdp[n]&lt&ltendl;
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>自己写的版本。用了双向队列模拟小球的运动，稍微繁琐了些。</p>
-<p>比较有收获的一点是明白了如何在判断条件成立后返回。答案是不返回。之前老是栽在这个坑里的原因就是因为递归函数的复杂性，即“你以为你在第二层，实际上你在第五层”。当你千辛万苦找到一个解，赶紧return true后，它并非直接回到了主函数，而是要继续一层一层回溯。所以我们干脆不通过返回值这种方法来告诉程序我们找到了解。直接设置一个全局变量flag，在dfs之前赋值为false，当找到解时改变flag的值。dfs结束后我们对flag的值进行判断即可。</p>
-<h2 id="代码ver2-0"><a href="#代码ver2-0" class="headerlink" title="代码ver2.0"></a>代码ver2.0</h2><pre class="line-numbers language-c++"><code class="language-c++">#include &ltiostream>
-
-using namespace std;
-
-int a[11], l = 0, r = 0, flag, n;
-
-int main()
-{
-    void solve();
-    cin >> n;
-    while (n--)
-    {
-        flag = 0;
-        for (int i = 0; i &lt 10; i++)
-            cin >> a[i];
-        solve();
-        if (flag)
-            cout &lt&lt "YES" &lt&lt endl;
-        else
-            cout &lt&lt "NO" &lt&lt endl;
-    }
-    return 0;
-}
-void solve()
-{
-    int dfs(int i);
-    dfs(0);
-}
-int dfs(int i)
-{
-    int iv;
-    if (i == 10)
-    {
-        flag = 1;
-        return (flag);
-    }
-    if (a[i] > l)
-    {
-        iv = l;
-        l = a[i];
-        dfs(i + 1);
-        l = iv;
-    }
-    if (a[i] > r)
-    {
-        iv = r;
-        r = a[i];
-        dfs(i + 1);
-        r = iv;
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><a href="https://blog.csdn.net/cc2855816075/article/details/104305055" target="_blank" rel="noopener">网上题解版本</a>   相比自己写的省去许多不必要的模拟过程，值得学习。</p>
-<h1 id="3-POJ-3009-Curling-2-0"><a href="#3-POJ-3009-Curling-2-0" class="headerlink" title="3. POJ - 3009 Curling 2.0"></a>3. POJ - 3009 Curling 2.0</h1><p><a href="https://vjudge.net/problem/POJ-3009" target="_blank" rel="noopener">原题链接</a></p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltcstdio>
-#include&ltcstring>
-#include&ltalgorithm>
-
-using namespace std;
-
-int w, h, sx, sy, ex, ey, ans, num;
-int dx[4]={1, 0, -1, 0};
-int dy[4]={0, 1, 0, -1};
-int map[25][25];
-const int INF=0x3f3f3f3f;
-
-void dfs(int x, int y)
-{
-    if(num>10)
-        return;
-    for(int i=0; i&lt4; i++)
-    {
-        int flag=0;
-        int nx=x;
-        int ny=y;
-        if(nx+dx[i]>=0&&ny+dy[i]>=0&&map[nx+dx[i]][ny+dy[i]]==1)
-            continue;
-        for(; ;)
-        {
-            nx+=dx[i];
-            ny+=dy[i];
-            if(nx&lt0||ny&lt0||nx>=h||ny>=w)
-                break;
-            if(map[nx][ny]==1)
-            {
-                flag=1;
-                break;
-            }
-            if(nx==ex&&ny==ey)
-            {
-                ans=min(ans, num);
-                break;
-            }
-        }
-        if(flag)
-        {
-            map[nx][ny]=0;
-            nx-=dx[i];
-            ny-=dy[i];
-            num++;
-            dfs(nx, ny);
-            num--;
-            nx+=dx[i];
-            ny+=dy[i];
-            map[nx][ny]=1;
-        }
-    }   
-}
-
-int main(void)
-{
-    scanf("%d%d", &w, &h);
-    while(h!=0||w!=0)
-    {
-        for(int i=0; i&lth; i++)
-            for(int j=0; j&ltw; j++)
-            {
-                scanf("%d", &map[i][j]);
-                if(map[i][j]==2)
-                {
-                    sx=i;
-                    sy=j;
-                }
-                else if(map[i][j]==3)
-                {
-                    ex=i;
-                    ey=j;
-                }
-            }
-        ans=INF;
-        num=1;
-        dfs(sx, sy);
-        if(ans==INF)
-            printf("-1\n");
-        else
-            printf("%d\n", ans);
-        scanf("%d%d", &w, &h);
-    }
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>总的来说还是比较正常的，需要递归回溯的DFS，只是每一步都要走到底。唯一出了问题的地方是一开始忘记在判断是否到达终点时数组下标可能出现负数。这种情况在数组下标由变量表示时可能经常出现，需要引起重视。</p>
-<h1 id="4-Aizu-0558-Cheese"><a href="#4-Aizu-0558-Cheese" class="headerlink" title="4. Aizu 0558 Cheese"></a>4. Aizu 0558 Cheese</h1><p><a href="https://vjudge.net/problem/Aizu-0558" target="_blank" rel="noopener">原题链接</a></p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
-#include&ltqueue>
-#include&ltcstring>
-
-using namespace std;
-
-typedef pair&ltint, int> P;
-const int INF=0x3f3f3f3f;
-char map[1005][1005];
-int vis[1005][1005];
-int dx[4]={1, 0, -1, 0};
-int dy[4]={0, 1, 0, -1};
-int w, h, n, ans, sx, sy, ex, ey;
-queue&ltP> q;
-
-void bfs()
-{
-    while(!q.empty())
-    {
-        P now=q.front();
-        q.pop();
-        for(int i=0; i&lt4; i++)
-        {
-            int nx=now.first;
-            int ny=now.second;
-            nx+=dx[i];
-            ny+=dy[i];
-            if(nx>=0&&ny>=0&&nx&ltw&&ny&lth&&map[nx][ny]!='X'&&vis[nx][ny]==INF)
-            {
-                if(nx==ex&&ny==ey)
-                {
-                    vis[ex][ey]=vis[now.first][now.second]+1;
-                    return;
-                }
-                else
-                {
-                    q.push({nx, ny});
-                    vis[nx][ny]=vis[now.first][now.second]+1;
-                }
-            }
-        }
-    }
-}
-
-int main(void)
-{
-    cin>>w>>h>>n;
-    for(int i=0; i&ltw; i++)
-        for(int j=0; j&lth; j++)
-            cin>>map[i][j];
-    for(int i=0; i&ltn; i++)
-    {
-        for(int j=0; j&ltw; j++)
-            for(int k=0; k&lth; k++)
-            {
-                vis[j][k]=INF;
-                if(i==0)
-                {
-                    if(map[j][k]=='S')
-                    {
-                        vis[j][k]=0;
-                        sx=j;
-                        sy=k;
-                    }
-                }
-                if(map[j][k]==i+'0')
-                {
-                    vis[j][k]=0;
-                    sx=j;
-                    sy=k;
-                }
-                if(map[j][k]==i+1+'0')
-                {
-                    ex=j;
-                    ey=k;
-                }
-            }
-        q.push({sx, sy});
-        bfs();
-        ans+=vis[ex][ey];
-        while(!q.empty())
-            q.pop();
-    }
-    cout&lt&ltans&lt&ltendl;
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>相当于从S到1、从1到2……从n-1到n做多次BFS再累加结果。要将每一次BFS都看成独立的一次搜索，需要留意对数组的恢复和对点是否能走的判断（起点和之前搜索中经过的点也可以通行）。</p>
-<h1 id="5-POJ-3669-Meteor-Shower"><a href="#5-POJ-3669-Meteor-Shower" class="headerlink" title="5. POJ 3669 Meteor Shower"></a>5. POJ 3669 Meteor Shower</h1><p><a href="https://vjudge.net/problem/POJ-3669" target="_blank" rel="noopener">原题链接</a></p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltcstdio>
-#include&ltalgorithm>
-#include&ltqueue>
-
-using namespace std;
-
-typedef pair&ltint, int> P;
-const int INF=0x3f3f3f3f;
-int dx[4]={1, 0, -1, 0};
-int dy[4]={0, 1, 0, -1};
-int map[305][305], vis[305][305];
-int n, flag, ans;
-queue&ltP> q;
-
-int bfs()
-{
-    while(!q.empty())
-    {
-        P now=q.front();
-        q.pop();
-        int x=now.first;
-        int y=now.second;
-        if(map[x][y]==1001)
-            return vis[x][y];
-        for(int i=0; i&lt4; i++)
-        {
-            int nx=x+dx[i];
-            int ny=y+dy[i];
-            if(nx>=0&&ny>=0&&vis[nx][ny]==INF&&(vis[x][y]&lt=map[nx][ny]-2||map[nx][ny]==1001))
-            {
-                q.push({nx, ny});
-                vis[nx][ny]=vis[x][y]+1;
-            }
-        }
-    }
-    return -1;
-}
-
-int main(void)
-{
-    scanf("%d", &n);
-    for(int i=0; i&lt305; i++)
-        for(int j=0; j&lt305; j++)
-        {
-            map[i][j]=1001;
-            vis[i][j]=INF;
-        }
-    for(int i=0; i&ltn; i++)
-    {
-        int x, y, w;
-        scanf("%d%d%d", &x, &y, &w);//cin会超时
-        if(x>=1)
-            map[x-1][y]=min(w,map[x-1][y]);//防止被后续的更新
-        if(y>=1)
-            map[x][y-1]=min(w, map[x][y-1]);
-        map[x][y]=min(w, map[x][y]);
-        map[x+1][y]=min(w, map[x+1][y]);
-        map[x][y+1]=min(w, map[x][y+1]);
-    }
-    q.push({0, 0});
-    vis[0][0]=0;
-    printf("%d\n", bfs());
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>本质上是BFS。相当于将被波及的区域以坠落时间标记，求从原点走到一个未被标记的点所需的最短时间。首先对地图进行处理。由于坠落区域可能发生重叠，所以要记得取最小值。一开始将每个点初始化为0，但题目中流星是可以在t=0时坠落的（惨 Bessie 惨），所以我换成了恰好大于流星最晚坠落时间的1001，也方便取最小值。还有一点是用cin会超时，必须换成scanf。</p>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -818,7 +457,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E7%A9%B7%E5%B0%BD%E6%90%9C%E7%B4%A2%E4%B8%93%E9%A2%98/">https://aoidragon.github.io/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E7%A9%B7%E5%B0%BD%E6%90%9C%E7%B4%A2%E4%B8%93%E9%A2%98/</a>
+                    <a href="https://aoidragon.github.io/2020/04/23/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94dp%E4%B8%93%E9%A2%98-1/">https://aoidragon.github.io/2020/04/23/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94dp%E4%B8%93%E9%A2%98-1/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -860,12 +499,8 @@ int main(void)
                                     <span class="chip bg-color">ACM题解</span>
                                 </a>
                             
-                                <a href="/tags/DFS/">
-                                    <span class="chip bg-color">DFS</span>
-                                </a>
-                            
-                                <a href="/tags/BFS/">
-                                    <span class="chip bg-color">BFS</span>
+                                <a href="/tags/dp/">
+                                    <span class="chip bg-color">dp</span>
                                 </a>
                             
                         </div>
@@ -903,9 +538,10 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/04/23/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94dp%E4%B8%93%E9%A2%98-1/">
                     <div class="card-image">
@@ -930,9 +566,9 @@ int s[
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -945,6 +581,7 @@ int s[
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -967,25 +604,26 @@ int s[
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/06/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94Layout(POJ%203169)/">
+                <a href="/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E7%A9%B7%E5%B0%BD%E6%90%9C%E7%B4%A2%E4%B8%93%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——Layout(POJ 3169)">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——穷尽搜索专题">
                         
-                        <span class="card-title">《挑战程序设计竞赛》——Layout(POJ 3169)</span>
+                        <span class="card-title">《挑战程序设计竞赛》——穷尽搜索专题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目描述原题链接
-思路记第i头牛的位置为d[i]，则有d[AL]+DL&gt;=d[BL]，d[AD]+DD&lt;=d[BD]。这些不等式的两边都只出现了一个变量(指两头牛之间的距离)。这种特殊形式的不等式方程组称为差分约束系统。附上一篇
+                            1. POJ 1979 Red and Black原题链接
+思路本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。
+代码#include&ltiostrea
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-07
                             </span>
                         <span class="publish-author">
                             
@@ -1006,8 +644,12 @@ int s[
                         <span class="chip bg-color">ACM题解</span>
                     </a>
                     
-                    <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
-                        <span class="chip bg-color">最短路</span>
+                    <a href="/tags/DFS/">
+                        <span class="chip bg-color">DFS</span>
+                    </a>
+                    
+                    <a href="/tags/BFS/">
+                        <span class="chip bg-color">BFS</span>
                     </a>
                     
                 </div>
