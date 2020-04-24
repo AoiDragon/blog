@@ -395,7 +395,7 @@ int main(void)
 <h1 id="2-POJ-2229-Sumsets"><a href="#2-POJ-2229-Sumsets" class="headerlink" title="2.POJ-2229 Sumsets"></a>2.POJ-2229 Sumsets</h1><p><a href="">原题链接</a>(<a href="https://vjudge.net/problem/POJ-2229">https://vjudge.net/problem/POJ-2229</a>)</p>
 <p>本题实际上是完全背包问题。问题也可以表述为从体积为2^i(i=0,1,2,3……)的物品中任选，是其能够填满一个体积为n的背包，其中每件物品可以选择任意次。</p>
 <p>dp[i] [j]代表从前i件物品中选取总体积为j的方案数</p>
-<pre class="line-numbers language-c++"><code class="language-c++">for(int i=0; i<num; i++)
+<pre class="line-numbers language-c++"><code class="language-c++">for(int i=0; i&ltnum; i++)
     for(int j=1; j<=n; j++)
     {
         dp[i][j]=dp[i-1][j];
@@ -406,7 +406,7 @@ int main(void)
 //后者是选择第i件物品的情况，则选取前i-1物品后需要为w[i]预留位置，即dp[i-1][j-w[i]]
 //需要对j进行特判，看是否放得下<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>先写出二维形式有助于理解转移方程的原理，接下来就可以进行状态压缩了。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">for(int i=0; i<num; i++)
+<pre class="line-numbers language-c++"><code class="language-c++">for(int i=0; i&ltnum; i++)
     for(int j=w[i]; j<=n; j++)
         dp[j]+=dp[j-w[i]];
 //如果j<w[i]，则方程为dp[j]=dp[j]，所以可以省略，j直接从w[i]开始遍历<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
@@ -432,6 +432,38 @@ int main(void)
     cout&lt&ltdp[n]&lt&ltendl;
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="3-POJ-2385-Apple-Catching"><a href="#3-POJ-2385-Apple-Catching" class="headerlink" title="3.POJ-2385 Apple Catching"></a>3.POJ-2385 Apple Catching</h1><p><a href="https://vjudge.net/problem/POJ-2385" target="_blank" rel="noopener">原题链接</a></p>
+<p>题目不难，但这是第一次碰上没做过的dp问题能够自己独立ac的，纪念一下。dp还是要多练才会有题感。</p>
+<p>dp[i] [j]代表第i次移动时(准确的说是第i-1次，这里将默认从树1的开始算作第一次移动，方便dp数组对最开始的转状态的转移)，第j个果子掉落后奶牛吃到的果子的最大值。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
+#include&ltalgorithm>
+
+using namespace std;
+
+int pos;
+int dp[35][1005], apple[1005];
+
+int main(void)
+{
+    int t, w;
+    cin>>t>>w;
+    for(int i=1; i&lt=t; i++)
+        cin>>apple[i];
+    pos=0;
+    for(int i=1; i&lt=w+1; i++)
+    {
+        for(int j=1; j&lt=t; j++)
+        {
+            //有两种方式转移到当前状态，不换树和换树
+            dp[i][j]=max(dp[i][j-1], dp[i-1][j-1]);           
+            if(apple[j]==pos+1)
+                dp[i][j]+=1;
+        }
+        pos=(pos+1)%2;
+    }
+    cout&lt&ltdp[w+1][t]&lt&ltendl;
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
