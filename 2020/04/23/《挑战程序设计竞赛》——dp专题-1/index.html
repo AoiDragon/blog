@@ -464,6 +464,43 @@ int main(void)
     cout&lt&ltdp[w+1][t]&lt&ltendl;
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="4-POJ-3616-Milking-Time"><a href="#4-POJ-3616-Milking-Time" class="headerlink" title="4.POJ-3616 Milking Time"></a>4.POJ-3616 Milking Time</h1><p><a href="https://vjudge.net/problem/POJ-3616" target="_blank" rel="noopener">原题链接</a></p>
+<p>是之前没见过的dp类型，没鼓捣出来。</p>
+<p>对于这种时间安排的问题，无论是贪心还是dp基本上都需要先对给出的时间进行排序。本题将各时间间隔按结束时间先后排序。dp[i]代表前i个时间间隔中获得牛奶的最大值。在转移方程上，先只算自己这个时间间隔内获得的牛奶，再依次遍历这次之前的时间间隔（由于事先的排序，遍历到的都是结束时间早于当前状态的时间间隔）。同时判断能不能兼容。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
+#include&ltalgorithm>
+
+using namespace std;
+
+struct node{
+    int a, b, eff;
+}farmer[1005];
+int dp[1005], res=0;
+
+bool cmp(node x, node y)
+{
+    return x.b&lty.b;
+}
+
+int main(void)
+{
+    int n, m, r;
+    cin>>n>>m>>r;
+    for(int i=1; i&lt=m; i++)
+        cin>>farmer[i].a>>farmer[i].b>>farmer[i].eff;
+    sort(farmer, farmer+m+1, cmp);
+    for(int i=1; i&lt=m; i++)
+    {        
+        dp[i]=farmer[i].eff;
+        for(int j=1; j&lti; j++)
+            if(farmer[j].b+r&lt=farmer[i].a)//判断能不能兼容
+                dp[i]=max(dp[i], dp[j]+farmer[i].eff);
+    }
+    for(int i=1; i&lt=m; i++)
+        res=max(res, dp[i]);
+    cout&lt&ltres&lt&ltendl;
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
