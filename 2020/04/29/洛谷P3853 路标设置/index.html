@@ -6,14 +6,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="洛谷P3853 路标设置, AoiDragon">
     <meta name="description" content="原题链接
-#include&amp;ltiostream&gt;
-#include&amp;ltalgorithm&gt;
-
-using namespace std;
-
-int point[100005], dis[100005], l, n, k;
-
-bool C(">
+有关最小的最大值或者最大的最小值都可以用二分搜索来解决。本题left代表不满足条件的值，right代表满足条件的值。在二分搜索的过程中right的值不断缩小，知道left与right相差不大于一,此时的right就是所有满足条件的">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -364,6 +357,9 @@ bool C(">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><a href="https://www.luogu.com.cn/problem/P3853" target="_blank" rel="noopener">原题链接</a></p>
+<p>有关最小的最大值或者最大的最小值都可以用二分搜索来解决。本题left代表不满足条件的值，right代表满足条件的值。在二分搜索的过程中right的值不断缩小，知道left与right相差不大于一,此时的right就是所有满足条件的值中的最小者。</p>
+<p>题目已经事先给出了几个路标，可以把它们看成一个个独立的区间，分别判断。具体方法是用区间长度除以当前的mid值，这样得到的结果就是让各路标间距离大于mid所需的路标值，需要注意的是当区间可以整除mid时，所需的路标数量要减一。</p>
+<p>这样把所有区间所需的路标值累加起来。如果结果小于等于给定的数量，说明可以做到。因为多出来的路标只能放在已有的路标间，指挥导致路标间距减小，不影响相邻路标间距离的最大值。反之说明不符合条件。</p>
 <pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
 #include&ltalgorithm>
 
@@ -371,7 +367,7 @@ using namespace std;
 
 int point[100005], dis[100005], l, n, k;
 
-bool C(int x)
+bool C(int x)//判断条件是否成立
 {
     int ans=0;//别忘记初始化
     for(int i=0; i&ltn-1; i++)
@@ -528,14 +524,7 @@ int main(void)
                     <div class="summary block-with-text">
                         
                             原题链接
-#include&ltiostream>
-#include&ltalgorithm>
-
-using namespace std;
-
-int point[100005], dis[100005], l, n, k;
-
-bool C(
+有关最小的最大值或者最大的最小值都可以用二分搜索来解决。本题left代表不满足条件的值，right代表满足条件的值。在二分搜索的过程中right的值不断缩小，知道left与right相差不大于一,此时的right就是所有满足条件的
                         
                     </div>
                     <div class="publish-info">
