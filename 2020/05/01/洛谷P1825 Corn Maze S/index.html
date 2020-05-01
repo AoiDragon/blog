@@ -4,9 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="洛谷P3853 路标设置, AoiDragon">
+    <meta name="keywords" content="洛谷P1825 Corn Maze S, AoiDragon">
     <meta name="description" content="原题链接
-有关最小的最大值或者最大的最小值都可以用二分搜索来解决。本题left代表不满足条件的值，right代表满足条件的值。在二分搜索的过程中right的值不断缩小，知道left与right相差不大于一,此时的right就是所有满足条件的">
+有坑的BFS。其他部分与正常的BFS一样，关键就在于对传送门的处理。如果把传送门与普通的道路等同，也设定为只能走一次，那么请看如下的样例。
+###=###
+#.....#
+###A###
+#.....#
+#@#####
+###A.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +20,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>洛谷P3853 路标设置 | AoiDragon</title>
+    <title>洛谷P1825 Corn Maze S | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -188,12 +194,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P3853 路标设置</h1>
+                    <h1 class="description center-align post-title">洛谷P1825 Corn Maze S</h1>
                 </div>
             </div>
         </div>
@@ -310,8 +316,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E4%BA%8C%E5%88%86/">
-                                <span class="chip bg-color">二分</span>
+                            <a href="/tags/BFS/">
+                                <span class="chip bg-color">BFS</span>
                             </a>
                         
                             <a href="/tags/%E6%B4%9B%E8%B0%B7/">
@@ -339,7 +345,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-29
+                    2020-05-01
                 </div>
                 
 
@@ -356,50 +362,85 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><a href="https://www.luogu.com.cn/problem/P3853" target="_blank" rel="noopener">原题链接</a></p>
-<p>有关最小的最大值或者最大的最小值都可以用二分搜索来解决。本题left代表不满足条件的值，right代表满足条件的值。在二分搜索的过程中right的值不断缩小，知道left与right相差不大于一,此时的right就是所有满足条件的值中的最小者。</p>
-<p>题目已经事先给出了几个路标，可以把它们看成一个个独立的区间，分别判断。具体方法是用区间长度除以当前的mid值，这样得到的结果就是让各路标间距离大于mid所需的路标值，需要注意的是当区间可以整除mid时，所需的路标数量要减一。</p>
-<p>这样把所有区间所需的路标值累加起来。如果结果小于等于给定的数量，说明可以做到。因为多出来的路标只能放在已有的路标间，指挥导致路标间距减小，不影响相邻路标间距离的最大值。反之说明不符合条件。</p>
+                <p><a href="https://www.luogu.com.cn/problem/P1825" target="_blank" rel="noopener">原题链接</a></p>
+<p>有坑的BFS。其他部分与正常的BFS一样，关键就在于对传送门的处理。如果把传送门与普通的道路等同，也设定为只能走一次，那么请看如下的样例。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">###=###
+#.....#
+###A###
+#.....#
+#@#####
+###A..#
+#######<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这个样例中，到达终点的最短路径需要在两个传送门间反复横跳，两个传送门各被用了两次。（本题中似乎不能在传送至另一个传送门后立刻返回先前的传送门，要先走一步再返回）</p>
+<p>所以解决方法就是把传送门看作特殊的点，不算在vis数组中。另外将对传送门地点的判断放在遍历dx, dy数组之前，这样如果当前的点再传送门上，就能正确的遍历传送后的点。</p>
 <pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
 #include&ltalgorithm>
+#include&ltqueue>
 
 using namespace std;
 
-int point[100005], dis[100005], l, n, k;
+int n, m, sx, sy, vis[305][305], tempx, tempy;
+int dx[4]={1, 0, -1, 0};
+int dy[4]={0, 1, 0, -1};
+char maze[305][305];
+struct point{
+    int x, y, time;
+};
+queue&ltpoint> q;
 
-bool C(int x)//判断条件是否成立
+int bfs()
 {
-    int ans=0;//别忘记初始化
-    for(int i=0; i&ltn-1; i++)
+    while(!q.empty())
     {
-        int t=dis[i]/x;
-        if(dis[i]%x==0)//比如区间长度为四十，最大间距为10，实际只需在10、20、30放3个点即可，而不是40/10=4个
-            t--;
-        ans+=t;
+        point now=q.front();
+        q.pop();
+        int nx=now.x, ny=now.y;
+        if(maze[nx][ny]=='=')
+            return now.time;
+        if(maze[nx][ny]>='A'&&maze[nx][ny]&lt='Z')
+        {
+            for(int i=0; i&ltn; i++)
+                for(int j=0; j&ltm; j++)
+                    if(maze[i][j]==maze[nx][ny]&&(i!=nx||j!=ny))
+                    {
+                        tempx=i;//这里不能直接修改nx，否则如果先遍历到了另一个传送门，nx,ny的值改变，后面遍历到第二个传送门时，这个条件还是符合的，nxny会被改回来
+                        tempy=j;
+                    }
+            nx=tempx;
+            ny=tempy;
+        }
+        for(int i=0; i&lt4; i++)
+        {
+            int tx=nx+dx[i];
+            int ty=ny+dy[i];
+            if(tx>=0&&ty>=0&&tx&ltn&&ty&ltm&&maze[tx][ty]!='#'&&vis[tx][ty]!=1)
+            {
+                vis[tx][ty]=1;
+                q.push({tx, ty, now.time+1});
+            }
+        }
     }
-    return ans&lt=k;
+    return 0;
 }
 
 int main(void)
 {
-    cin>>l>>n>>k;
+    cin>>n>>m;
     for(int i=0; i&ltn; i++)
-        cin>>point[i];
-    for(int i=0; i&ltn-1; i++)
-        dis[i]=point[i+1]-point[i];
-    int left=0, right=l+1, mid=(right+left)/2;//right要设置大一些，设成l会由于int的自动向下取整导致比想要的结果偏小
-    while(right-left>1)//right 都是符合条件的值，left都是不符合条件的值
-    {
-        mid=(right+left)/2;
-        if(C(mid))//mid满足条件，就把mid也归为right中的一员
-            right=mid;
-        else//mid不满足条件,归为left
-            left=mid;
-    }
-    //退出循环时，符合条件的值与不符合条件的值相差1以内，所以right一定是符合条件的最小值
-    cout&ltright&ltendl;
+        for(int j=0; j&ltm; j++)
+        {
+            cin>>maze[i][j];
+            if(maze[i][j]=='@')
+            {
+                sx=i;
+                sy=j;
+            }
+        }
+    vis[sx][sy]=1;
+    q.push({sx, sy, 0});
+    cout&lt&ltbfs()&lt&ltendl;   
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -425,7 +466,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/04/29/%E6%B4%9B%E8%B0%B7P3853%20%E8%B7%AF%E6%A0%87%E8%AE%BE%E7%BD%AE/">https://aoidragon.github.io/2020/04/29/%E6%B4%9B%E8%B0%B7P3853%20%E8%B7%AF%E6%A0%87%E8%AE%BE%E7%BD%AE/</a>
+                    <a href="https://aoidragon.github.io/2020/05/01/%E6%B4%9B%E8%B0%B7P1825%20Corn%20Maze%20S/">https://aoidragon.github.io/2020/05/01/%E6%B4%9B%E8%B0%B7P1825%20Corn%20Maze%20S/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -463,8 +504,8 @@ int main(void)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E4%BA%8C%E5%88%86/">
-                                    <span class="chip bg-color">二分</span>
+                                <a href="/tags/BFS/">
+                                    <span class="chip bg-color">BFS</span>
                                 </a>
                             
                                 <a href="/tags/%E6%B4%9B%E8%B0%B7/">
@@ -506,9 +547,71 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/05/01/%E6%B4%9B%E8%B0%B7P1825%20Corn%20Maze%20S/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="洛谷P1825 Corn Maze S">
+                        
+                        <span class="card-title">洛谷P1825 Corn Maze S</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            原题链接
+有坑的BFS。其他部分与正常的BFS一样，关键就在于对传送门的处理。如果把传送门与普通的道路等同，也设定为只能走一次，那么请看如下的样例。
+###=###
+#.....#
+###A###
+#.....#
+#@#####
+###A.
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ACM%E9%A2%98%E8%A7%A3/" class="post-category">
+                                    ACM题解
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/BFS/">
+                        <span class="chip bg-color">BFS</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B4%9B%E8%B0%B7/">
+                        <span class="chip bg-color">洛谷</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2020/04/30/%E6%B4%9B%E8%B0%B7P1886%20%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
                     <div class="card-image">
@@ -528,9 +631,9 @@ int main(void)
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -552,66 +655,6 @@ int main(void)
                     
                     <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">
                         <span class="chip bg-color">单调队列</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/04/23/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94dp%E4%B8%93%E9%A2%98-1/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——dp专题">
-                        
-                        <span class="card-title">《挑战程序设计竞赛》——dp专题</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            1.POJ-3176  Cow Bowling原题链接
-#include&ltiostream>
-#include&ltalgorithm>
-#include&ltcstring>
-
-using namespace std;
-
-int s[
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/ACM%E9%A2%98%E8%A7%A3/" class="post-category">
-                                    ACM题解
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/dp/">
-                        <span class="chip bg-color">dp</span>
-                    </a>
-                    
-                    <a href="/tags/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/">
-                        <span class="chip bg-color">《挑战程序设计竞赛》</span>
                     </a>
                     
                 </div>

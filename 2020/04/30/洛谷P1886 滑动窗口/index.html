@@ -4,9 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="洛谷P3853 路标设置, AoiDragon">
+    <meta name="keywords" content="洛谷P1886 滑动窗口, AoiDragon">
     <meta name="description" content="原题链接
-有关最小的最大值或者最大的最小值都可以用二分搜索来解决。本题left代表不满足条件的值，right代表满足条件的值。在二分搜索的过程中right的值不断缩小，知道left与right相差不大于一,此时的right就是所有满足条件的">
+本题是单调队列的模板题。单调队列可以从头部和尾部插入和删除元素，并保持队列中元素的递增或递减排列。
+在加入元素时，依次与队尾元素比较，如果队尾的元素小于等于（或大于等于，依队列的单调性而定），就将其弹出，直到队尾元素大于当前加入的">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>洛谷P3853 路标设置 | AoiDragon</title>
+    <title>洛谷P1886 滑动窗口 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -188,12 +189,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P3853 路标设置</h1>
+                    <h1 class="description center-align post-title">洛谷P1886 滑动窗口</h1>
                 </div>
             </div>
         </div>
@@ -310,12 +311,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E4%BA%8C%E5%88%86/">
-                                <span class="chip bg-color">二分</span>
-                            </a>
-                        
                             <a href="/tags/%E6%B4%9B%E8%B0%B7/">
                                 <span class="chip bg-color">洛谷</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">
+                                <span class="chip bg-color">单调队列</span>
                             </a>
                         
                     </div>
@@ -339,7 +340,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-29
+                    2020-04-30
                 </div>
                 
 
@@ -356,50 +357,56 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><a href="https://www.luogu.com.cn/problem/P3853" target="_blank" rel="noopener">原题链接</a></p>
-<p>有关最小的最大值或者最大的最小值都可以用二分搜索来解决。本题left代表不满足条件的值，right代表满足条件的值。在二分搜索的过程中right的值不断缩小，知道left与right相差不大于一,此时的right就是所有满足条件的值中的最小者。</p>
-<p>题目已经事先给出了几个路标，可以把它们看成一个个独立的区间，分别判断。具体方法是用区间长度除以当前的mid值，这样得到的结果就是让各路标间距离大于mid所需的路标值，需要注意的是当区间可以整除mid时，所需的路标数量要减一。</p>
-<p>这样把所有区间所需的路标值累加起来。如果结果小于等于给定的数量，说明可以做到。因为多出来的路标只能放在已有的路标间，指挥导致路标间距减小，不影响相邻路标间距离的最大值。反之说明不符合条件。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
+                <p><a href="https://www.luogu.com.cn/problem/P1886" target="_blank" rel="noopener">原题链接</a></p>
+<p>本题是单调队列的模板题。单调队列可以从头部和尾部插入和删除元素，并保持队列中元素的递增或递减排列。</p>
+<p>在加入元素时，依次与队尾元素比较，如果队尾的元素小于等于（或大于等于，依队列的单调性而定），就将其弹出，直到队尾元素大于当前加入的元素。然后将该元素入队。</p>
+<p>然后是判断队首元素是否已越界。这里只用if判断队首元素是否等于i-k+1,而不用while。我们从头开始看，以区间长度3为例。当i=3时，构成了第一个区间，此时队首元素就是最大值，如果它恰好在原序列中也排在第一个，那么后续由于窗口移动，我们再也不会用到它，所以将其弹出；如果首元素在原序列中不是第一个，那么接下来可能还会用到，保留。这样从一开始就对是否弹出做判断保证了每次可能越界的元素最多只有一个，用一个if判断即可。</p>
+<p>这里的单调队列存储的是加入队列的数字在原序列中的位置，也可以直接存储数字，不过需要补充一个记录位置的数组，用于判断队首元素是否已经不在范围内。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltcstdio>
 #include&ltalgorithm>
+#include&ltcstring>
 
 using namespace std;
 
-int point[100005], dis[100005], l, n, k;
-
-bool C(int x)//判断条件是否成立
-{
-    int ans=0;//别忘记初始化
-    for(int i=0; i&ltn-1; i++)
-    {
-        int t=dis[i]/x;
-        if(dis[i]%x==0)//比如区间长度为四十，最大间距为10，实际只需在10、20、30放3个点即可，而不是40/10=4个
-            t--;
-        ans+=t;
-    }
-    return ans&lt=k;
-}
+long int a[1000005], mmin[1000005], mmax[1000005];
+int que[1000005];
 
 int main(void)
 {
-    cin>>l>>n>>k;
+    int n, k;
+    scanf("%d%d", &n, &k);
     for(int i=0; i&ltn; i++)
-        cin>>point[i];
-    for(int i=0; i&ltn-1; i++)
-        dis[i]=point[i+1]-point[i];
-    int left=0, right=l+1, mid=(right+left)/2;//right要设置大一些，设成l会由于int的自动向下取整导致比想要的结果偏小
-    while(right-left>1)//right 都是符合条件的值，left都是不符合条件的值
+        scanf("%ld", &a[i]);
+    int front=0, back=0;//back是最后一个元素的后一位
+    for(int i=0; i&ltn; i++)
     {
-        mid=(right+left)/2;
-        if(C(mid))//mid满足条件，就把mid也归为right中的一员
-            right=mid;
-        else//mid不满足条件,归为left
-            left=mid;
+        if(que[front]&lti-k+1)//i-que[front]>k-1
+            front++;
+        while(front&ltback&&a[que[back-1]]>=a[i])
+            back--;
+        que[back++]=i;
+        if(i-k+1>=0)
+            mmin[i-k+1]=a[que[front]];
     }
-    //退出循环时，符合条件的值与不符合条件的值相差1以内，所以right一定是符合条件的最小值
-    cout&ltright&ltendl;
+    front=back=0;
+    memset(que, 0, sizeof(que));
+    for(int i=0; i&ltn; i++)
+    {
+        if(que[front]&lti-k+1)//判断是否越界
+            front++;
+        while(front&ltback&&a[que[back-1]]&lt=a[i])//从队尾弹出
+            back--;
+        que[back++]=i;//放入新元素
+        if(i-k+1>=0)
+            mmax[i-k+1]=a[que[front]];
+    }
+    for(int i=0; i&ltn-k+1; i++)
+        printf("%ld ", mmin[i]);
+    printf("\n");
+    for(int i=0; i&ltn-k+1; i++)
+        printf("%ld ", mmax[i]);
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -425,7 +432,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/04/29/%E6%B4%9B%E8%B0%B7P3853%20%E8%B7%AF%E6%A0%87%E8%AE%BE%E7%BD%AE/">https://aoidragon.github.io/2020/04/29/%E6%B4%9B%E8%B0%B7P3853%20%E8%B7%AF%E6%A0%87%E8%AE%BE%E7%BD%AE/</a>
+                    <a href="https://aoidragon.github.io/2020/04/30/%E6%B4%9B%E8%B0%B7P1886%20%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">https://aoidragon.github.io/2020/04/30/%E6%B4%9B%E8%B0%B7P1886%20%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -463,12 +470,12 @@ int main(void)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E4%BA%8C%E5%88%86/">
-                                    <span class="chip bg-color">二分</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%B4%9B%E8%B0%B7/">
                                     <span class="chip bg-color">洛谷</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">
+                                    <span class="chip bg-color">单调队列</span>
                                 </a>
                             
                         </div>
@@ -510,26 +517,31 @@ int main(void)
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/30/%E6%B4%9B%E8%B0%B7P1886%20%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
+                <a href="/2020/05/01/%E6%B4%9B%E8%B0%B7P1825%20Corn%20Maze%20S/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="洛谷P1886 滑动窗口">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="洛谷P1825 Corn Maze S">
                         
-                        <span class="card-title">洛谷P1886 滑动窗口</span>
+                        <span class="card-title">洛谷P1825 Corn Maze S</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             原题链接
-本题是单调队列的模板题。单调队列可以从头部和尾部插入和删除元素，并保持队列中元素的递增或递减排列。
-在加入元素时，依次与队尾元素比较，如果队尾的元素小于等于（或大于等于，依队列的单调性而定），就将其弹出，直到队尾元素大于当前加入的
+有坑的BFS。其他部分与正常的BFS一样，关键就在于对传送门的处理。如果把传送门与普通的道路等同，也设定为只能走一次，那么请看如下的样例。
+###=###
+#.....#
+###A###
+#.....#
+#@#####
+###A.
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-30
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-01
                         </span>
                         <span class="publish-author">
                             
@@ -546,12 +558,12 @@ int main(void)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%B4%9B%E8%B0%B7/">
-                        <span class="chip bg-color">洛谷</span>
+                    <a href="/tags/BFS/">
+                        <span class="chip bg-color">BFS</span>
                     </a>
                     
-                    <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">
-                        <span class="chip bg-color">单调队列</span>
+                    <a href="/tags/%E6%B4%9B%E8%B0%B7/">
+                        <span class="chip bg-color">洛谷</span>
                     </a>
                     
                 </div>
@@ -565,31 +577,25 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/23/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94dp%E4%B8%93%E9%A2%98-1/">
+                <a href="/2020/04/29/%E6%B4%9B%E8%B0%B7P3853%20%E8%B7%AF%E6%A0%87%E8%AE%BE%E7%BD%AE/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——dp专题">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="洛谷P3853 路标设置">
                         
-                        <span class="card-title">《挑战程序设计竞赛》——dp专题</span>
+                        <span class="card-title">洛谷P3853 路标设置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1.POJ-3176  Cow Bowling原题链接
-#include&ltiostream>
-#include&ltalgorithm>
-#include&ltcstring>
-
-using namespace std;
-
-int s[
+                            原题链接
+有关最小的最大值或者最大的最小值都可以用二分搜索来解决。本题left代表不满足条件的值，right代表满足条件的值。在二分搜索的过程中right的值不断缩小，知道left与right相差不大于一,此时的right就是所有满足条件的
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
                             </span>
                         <span class="publish-author">
                             
@@ -606,12 +612,12 @@ int s[
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/dp/">
-                        <span class="chip bg-color">dp</span>
+                    <a href="/tags/%E4%BA%8C%E5%88%86/">
+                        <span class="chip bg-color">二分</span>
                     </a>
                     
-                    <a href="/tags/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/">
-                        <span class="chip bg-color">《挑战程序设计竞赛》</span>
+                    <a href="/tags/%E6%B4%9B%E8%B0%B7/">
+                        <span class="chip bg-color">洛谷</span>
                     </a>
                     
                 </div>
