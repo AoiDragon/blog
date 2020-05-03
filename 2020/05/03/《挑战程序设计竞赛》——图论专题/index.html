@@ -4,15 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="洛谷P1825 Corn Maze S, AoiDragon">
-    <meta name="description" content="原题链接
-有坑的BFS。其他部分与正常的BFS一样，关键就在于对传送门的处理。如果把传送门与普通的道路等同，也设定为只能走一次，那么请看如下的样例。
-###=###
-#.....#
-###A###
-#.....#
-#@#####
-###A.">
+    <meta name="keywords" content="《挑战程序设计竞赛》——图论专题, AoiDragon">
+    <meta name="description" content="1.POJ-3259 Wormholes原题链接
+判断图中有无负环的模板题。乍一看需要用多元最短路，但实际上spfa就可。因为只要图中存在负环，最短路就一定会不断经过它，因为走一次负环等同于两点间路程的减少。所以可以直接用spfa求解。
+当">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>洛谷P1825 Corn Maze S | AoiDragon</title>
+    <title>《挑战程序设计竞赛》——图论专题 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -194,12 +189,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P1825 Corn Maze S</h1>
+                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——图论专题</h1>
                 </div>
             </div>
         </div>
@@ -316,12 +311,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/BFS/">
-                                <span class="chip bg-color">BFS</span>
+                            <a href="/tags/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/">
+                                <span class="chip bg-color">《挑战程序设计竞赛》</span>
                             </a>
                         
-                            <a href="/tags/%E6%B4%9B%E8%B0%B7/">
-                                <span class="chip bg-color">洛谷</span>
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
                             </a>
                         
                     </div>
@@ -345,7 +340,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-01
+                    2020-05-03
                 </div>
                 
 
@@ -362,85 +357,91 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><a href="https://www.luogu.com.cn/problem/P1825" target="_blank" rel="noopener">原题链接</a></p>
-<p>有坑的BFS。其他部分与正常的BFS一样，关键就在于对传送门的处理。如果把传送门与普通的道路等同，也设定为只能走一次，那么请看如下的样例。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">###=###
-#.....#
-###A###
-#.....#
-#@#####
-###A..#
-#######<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这个样例中，到达终点的最短路径需要在两个传送门间反复横跳，两个传送门各被用了两次。（本题中似乎不能在传送至另一个传送门后立刻返回先前的传送门，要先走一步再返回）</p>
-<p>所以解决方法就是把传送门看作特殊的点，不算在vis数组中。另外将对传送门地点的判断放在遍历dx, dy数组之前，这样如果当前的点再传送门上，就能正确的遍历传送后的点。</p>
+                <h1 id="1-POJ-3259-Wormholes"><a href="#1-POJ-3259-Wormholes" class="headerlink" title="1.POJ-3259 Wormholes"></a>1.POJ-3259 Wormholes</h1><p><a href="https://vjudge.net/problem/POJ-3259" target="_blank" rel="noopener">原题链接</a></p>
+<p>判断图中有无负环的模板题。乍一看需要用多元最短路，但实际上spfa就可。因为只要图中存在负环，最短路就一定会不断经过它，因为走一次负环等同于两点间路程的减少。所以可以直接用spfa求解。</p>
+<p>当一个点入列超过n-1次时，就说明出现了负环。这是因为不存在负环时，每个点最多在一条最短路中出现一次，而一共只有n-1条单源最短路。大于n-1次说明该点在某条最短路中被经过了多次，一定存在负环。</p>
 <pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
 #include&ltqueue>
+#include&ltalgorithm>
+#include&ltvector>
+#include&ltutility>
+#include&ltcstring>
 
 using namespace std;
 
-int n, m, sx, sy, vis[305][305], tempx, tempy;
-int dx[4]={1, 0, -1, 0};
-int dy[4]={0, 1, 0, -1};
-char maze[305][305];
-struct point{
-    int x, y, time;
-};
-queue&ltpoint> q;
+typedef pair&ltint, int> P;
+vector&ltP> G[2505];
+bool vis[505];
+int num[505], dis[505];
+queue&ltint> q;
+int f, n, m, w;
+const int INF=0x3f3f3f3f;
 
-int bfs()
+bool spfa()
 {
+    memset(vis, 0, sizeof(vis));
+    memset(num, 0, sizeof(num));
+    memset(dis, INF, sizeof(dis));
+    q.push(1);
+    num[1]++;
+    vis[1]=1;
+    dis[1]=0;
     while(!q.empty())
     {
-        point now=q.front();
+        int now=q.front();
         q.pop();
-        int nx=now.x, ny=now.y;
-        if(maze[nx][ny]=='=')
-            return now.time;
-        if(maze[nx][ny]>='A'&&maze[nx][ny]&lt='Z')
+        vis[now]=0;
+        for(int i=0; i&ltG[now].size(); i++)
         {
-            for(int i=0; i&ltn; i++)
-                for(int j=0; j&ltm; j++)
-                    if(maze[i][j]==maze[nx][ny]&&(i!=nx||j!=ny))
-                    {
-                        tempx=i;//这里不能直接修改nx，否则如果先遍历到了另一个传送门，nx,ny的值改变，后面遍历到第二个传送门时，这个条件还是符合的，nxny会被改回来
-                        tempy=j;
-                    }
-            nx=tempx;
-            ny=tempy;
-        }
-        for(int i=0; i&lt4; i++)
-        {
-            int tx=nx+dx[i];
-            int ty=ny+dy[i];
-            if(tx>=0&&ty>=0&&tx&ltn&&ty&ltm&&maze[tx][ty]!='#'&&vis[tx][ty]!=1)
+            int to=G[now][i].first;
+            int w=G[now][i].second;
+            if(dis[now]+w&ltdis[to])
             {
-                vis[tx][ty]=1;
-                q.push({tx, ty, now.time+1});
+                dis[to]=dis[now]+w;
+                if(vis[to]==0)
+                {
+                    q.push(to);
+                    vis[to]=1;
+                    num[to]++;
+                }
             }
+            if(num[to]>n-1)
+                return true;
         }
     }
-    return 0;
+    return false;
 }
 
 int main(void)
 {
-    cin>>n>>m;
-    for(int i=0; i&ltn; i++)
-        for(int j=0; j&ltm; j++)
+    cin>>f;
+    while(f--)
+    {
+        cin>>n>>m>>w;
+        for(int i=0; i&lt=2500; i++)
+            G[i].clear();
+        while(!q.empty())
+            q.pop();
+        for(int i=0;i&ltm; i++)
         {
-            cin>>maze[i][j];
-            if(maze[i][j]=='@')
-            {
-                sx=i;
-                sy=j;
-            }
+            int s, e, t;
+            cin>>s>>e>>t;
+            G[s].push_back({e, t});
+            G[e].push_back({s, t});
         }
-    vis[sx][sy]=1;
-    q.push({sx, sy, 0});
-    cout&lt&ltbfs()&lt&ltendl;   
+        for(int i=0; i&ltw; i++)
+        {
+            int s, e, t;
+            cin>>s>>e>>t;
+            G[s].push_back({e, -t});
+        }
+        if(spfa())
+            cout&lt&lt"YES"&lt&ltendl;
+        else
+            cout&lt&lt"NO"&lt&ltendl;
+    }
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -466,7 +467,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/05/01/%E6%B4%9B%E8%B0%B7P1825%20Corn%20Maze%20S/">https://aoidragon.github.io/2020/05/01/%E6%B4%9B%E8%B0%B7P1825%20Corn%20Maze%20S/</a>
+                    <a href="https://aoidragon.github.io/2020/05/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E5%9B%BE%E8%AE%BA%E4%B8%93%E9%A2%98/">https://aoidragon.github.io/2020/05/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E5%9B%BE%E8%AE%BA%E4%B8%93%E9%A2%98/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -504,12 +505,12 @@ int main(void)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/BFS/">
-                                    <span class="chip bg-color">BFS</span>
+                                <a href="/tags/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/">
+                                    <span class="chip bg-color">《挑战程序设计竞赛》</span>
                                 </a>
                             
-                                <a href="/tags/%E6%B4%9B%E8%B0%B7/">
-                                    <span class="chip bg-color">洛谷</span>
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                         </div>
@@ -547,9 +548,10 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/05/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E5%9B%BE%E8%AE%BA%E4%B8%93%E9%A2%98/">
                     <div class="card-image">
@@ -569,9 +571,9 @@ int main(void)
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -584,6 +586,7 @@ int main(void)
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -606,26 +609,31 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/30/%E6%B4%9B%E8%B0%B7P1886%20%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
+                <a href="/2020/05/01/%E6%B4%9B%E8%B0%B7P1825%20Corn%20Maze%20S/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="洛谷P1886 滑动窗口">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="洛谷P1825 Corn Maze S">
                         
-                        <span class="card-title">洛谷P1886 滑动窗口</span>
+                        <span class="card-title">洛谷P1825 Corn Maze S</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             原题链接
-本题是单调队列的模板题。单调队列可以从头部和尾部插入和删除元素，并保持队列中元素的递增或递减排列。
-在加入元素时，依次与队尾元素比较，如果队尾的元素小于等于（或大于等于，依队列的单调性而定），就将其弹出，直到队尾元素大于当前加入的
+有坑的BFS。其他部分与正常的BFS一样，关键就在于对传送门的处理。如果把传送门与普通的道路等同，也设定为只能走一次，那么请看如下的样例。
+###=###
+#.....#
+###A###
+#.....#
+#@#####
+###A.
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-01
                             </span>
                         <span class="publish-author">
                             
@@ -642,12 +650,12 @@ int main(void)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%B4%9B%E8%B0%B7/">
-                        <span class="chip bg-color">洛谷</span>
+                    <a href="/tags/BFS/">
+                        <span class="chip bg-color">BFS</span>
                     </a>
                     
-                    <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">
-                        <span class="chip bg-color">单调队列</span>
+                    <a href="/tags/%E6%B4%9B%E8%B0%B7/">
+                        <span class="chip bg-color">洛谷</span>
                     </a>
                     
                 </div>
