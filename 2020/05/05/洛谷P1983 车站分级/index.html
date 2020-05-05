@@ -4,10 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="《挑战程序设计竞赛》——图论专题, AoiDragon">
-    <meta name="description" content="1.POJ-3259 Wormholes原题链接
-判断图中有无负环的模板题。乍一看需要用多元最短路，但实际上spfa就可。因为只要图中存在负环，最短路就一定会不断经过它，因为走一次负环等同于两点间路程的减少。所以可以直接用spfa求解。
-当">
+    <meta name="keywords" content="洛谷P1983 车站分级, AoiDragon">
+    <meta name="description" content="原题链接
+第一眼看上去我实在没把这道题和拓扑排序想到一起去。但仔细思考一下，题目中要求列车经过的级别大于等于始发站的站点都要停靠，也就是说没有被停靠的站点的级别一定小于停靠的站点。从级别低的站点向级别高的站点连一条单向边，代表二者间的关系，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>《挑战程序设计竞赛》——图论专题 | AoiDragon</title>
+    <title>洛谷P1983 车站分级 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -189,12 +188,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——图论专题</h1>
+                    <h1 class="description center-align post-title">洛谷P1983 车站分级</h1>
                 </div>
             </div>
         </div>
@@ -311,12 +310,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/">
-                                <span class="chip bg-color">《挑战程序设计竞赛》</span>
+                            <a href="/tags/%E6%B4%9B%E8%B0%B7/">
+                                <span class="chip bg-color">洛谷</span>
                             </a>
                         
-                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                <span class="chip bg-color">图论</span>
+                            <a href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/">
+                                <span class="chip bg-color">拓扑排序</span>
                             </a>
                         
                     </div>
@@ -340,7 +339,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-03
+                    2020-05-05
                 </div>
                 
 
@@ -357,133 +356,77 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-POJ-3259-Wormholes"><a href="#1-POJ-3259-Wormholes" class="headerlink" title="1.POJ-3259 Wormholes"></a>1.POJ-3259 Wormholes</h1><p><a href="https://vjudge.net/problem/POJ-3259" target="_blank" rel="noopener">原题链接</a></p>
-<p>判断图中有无负环的模板题。乍一看需要用多元最短路，但实际上spfa就可。因为只要图中存在负环，最短路就一定会不断经过它，因为走一次负环等同于两点间路程的减少。所以可以直接用spfa求解。</p>
-<p>当一个点入列超过n-1次时，就说明出现了负环。这是因为不存在负环时，每个点最多在一条最短路中出现一次，而一共只有n-1条单源最短路。大于n-1次说明该点在某条最短路中被经过了多次，一定存在负环。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltqueue>
+                <p><a href="https://www.luogu.com.cn/problem/P1983" target="_blank" rel="noopener">原题链接</a></p>
+<p>第一眼看上去我实在没把这道题和拓扑排序想到一起去。但仔细思考一下，题目中要求列车经过的级别大于等于始发站的站点都要停靠，也就是说没有被停靠的站点的级别一定小于停靠的站点。从级别低的站点向级别高的站点连一条单向边，代表二者间的关系，这样我们就得到了一张有向无环图。</p>
+<p>现在我们可以用拓扑排序了，但如何将排序和确定级别相关联呢？由于级别高的车站都会有从级别低的车站发出的边，也就是说入度不为0，所以开始时所有入度为0的点便是级别最低的点。将这些点去除并减去与它们相连的点的入度后，剩下所有的点的级别都大于等于2。同理，此时级别最低的点的入度也应为0，这样重复第一遍的过程，就得到了级别为2的点。接下来以此类推，就可以得到所有点的等级。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltcstdio>
 #include&ltalgorithm>
+#include&ltcstring>
+#include&ltqueue>
 #include&ltvector>
 #include&ltutility>
-#include&ltcstring>
 
 using namespace std;
 
-typedef pair&ltint, int> P;
-vector&ltP> G[2505];
-bool vis[505];
-int num[505], dis[505];
-queue&ltint> q;
-int f, n, m, w;
-const int INF=0x3f3f3f3f;
+typedef pair&ltint, int> p;
+int n, m, num, ans;
+int vis[1005], s[1005], deg[1005], flag[1005][1005];
+vector&ltint> g[1005];
+queue&ltp> q;
 
-bool spfa()
+int toposort()
 {
-    memset(vis, 0, sizeof(vis));
-    memset(num, 0, sizeof(num));
-    memset(dis, INF, sizeof(dis));
-    q.push(1);
-    num[1]++;
-    vis[1]=1;
-    dis[1]=0;
     while(!q.empty())
     {
-        int now=q.front();
+        p now=q.front();
         q.pop();
-        vis[now]=0;
-        for(int i=0; i&ltG[now].size(); i++)
+        int point=now.first, level=now.second;
+        for(int i=0; i&ltg[point].size(); i++)
         {
-            int to=G[now][i].first;
-            int w=G[now][i].second;
-            if(dis[now]+w&ltdis[to])
-            {
-                dis[to]=dis[now]+w;
-                if(vis[to]==0)
-                {
-                    q.push(to);
-                    vis[to]=1;
-                    num[to]++;
-                }
-            }
-            if(num[to]>n-1)
-                return true;
+            deg[g[point][i]]--;
+            if(deg[g[point][i]]==0)
+                q.push({g[point][i], level+1});
         }
+        ans=max(ans, level);
     }
-    return false;
+    return ans;
 }
 
 int main(void)
 {
-    cin>>f;
-    while(f--)
+    scanf("%d%d", &n, &m);
+    for(int i=1; i&lt=m; i++)
     {
-        cin>>n>>m>>w;
-        for(int i=0; i&lt=2500; i++)
-            G[i].clear();
-        while(!q.empty())
-            q.pop();
-        for(int i=0;i&ltm; i++)
+        memset(vis, 0, sizeof(vis));
+        scanf("%d", &num);//停靠车站数
+        for(int j=1; j&lt=num; j++)
         {
-            int s, e, t;
-            cin>>s>>e>>t;
-            G[s].push_back({e, t});
-            G[e].push_back({s, t});
+            scanf("%d", &s[j]);
+            vis[s[j]]=1;
         }
-        for(int i=0; i&ltw; i++)
+        for(int j=s[1]; j&lt=s[num]; j++)
         {
-            int s, e, t;
-            cin>>s>>e>>t;
-            G[s].push_back({e, -t});
+            if(!vis[j])//从未停靠站向停靠站连边
+                for(int k=1; k&lt=num; k++)
+                {
+                    if(!flag[j][s[k]])//防止重复连边
+                    {
+                        g[j].push_back(s[k]);
+                        deg[s[k]]++;
+                        flag[j][s[k]]=1;
+                    }
+                }
         }
-        if(spfa())
-            cout&lt&lt"YES"&lt&ltendl;
-        else
-            cout&lt&lt"NO"&lt&ltendl;
     }
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="2-POJ-2139-Six-Degrees-of-Cowvin-Bacon"><a href="#2-POJ-2139-Six-Degrees-of-Cowvin-Bacon" class="headerlink" title="2.POJ-2139 Six Degrees of Cowvin Bacon"></a>2.POJ-2139 Six Degrees of Cowvin Bacon</h1><p><a href="https://vjudge.net/problem/POJ-2139" target="_blank" rel="noopener">原题链接</a></p>
-<p>多源最短路问题，用Floyd算法，<a href="https://www.cnblogs.com/sky-stars/p/11204139.html" target="_blank" rel="noopener">附上一篇讲解较为详细的博客</a></p>
-<p>g[i] [j]代表从第i个点到第j个点且只经过前k个点的最短路。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
-#include&ltcstring>
-
-using namespace std;
-
-int g[305][305], a[10005], ans=0x3f3f3f3f;
-
-int main(void)
-{
-    int n, m;
-    cin>>n>>m;
-    memset(g, 0x3f, sizeof(g));
-    for(int i=0; i&lt=n; i++)
-        g[i][i]=0;
-    for(int i=0; i&ltm; i++)
-    {
-        int k;
-        cin>>k;
-        for(int j=0; j&ltk; j++)
-            cin>>a[j];
-        for(int j=0; j&ltk-1; j++)
-            for(int l=j+1; l&ltk; l++)
-                g[a[j]][a[l]]=g[a[l]][a[j]]=1;
-    }
-    for(int k=1; k&lt=n; k++)
-        for(int i=1; i&lt=n; i++)
-            for(int j=1; j&lt=n; j++)
-                g[i][j]=min(g[i][j], g[i][k]+g[k][j]);
     for(int i=1; i&lt=n; i++)
-    {
-        int temp=0;
-        for(int j=1; j&lt=n; j++)
-            temp+=g[i][j];
-        ans=min(ans, temp);
-    }
-    cout&lt&lt(100*ans/(n-1))&lt&ltendl;
+        if(deg[i]==0)
+            q.push({i, 1});
+    printf("%d\n", toposort());
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}
+
+//拓扑排序使每个点入列时入度都为零，本题中当一个站点入度为0，说明等级比他低的站点已经全部出列，由于出列顺序是从低等级向高等级渐进的，所以只需
+//将最后一个指向该站点的站点的级别加一即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -509,7 +452,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/05/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E5%9B%BE%E8%AE%BA%E4%B8%93%E9%A2%98/">https://aoidragon.github.io/2020/05/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E5%9B%BE%E8%AE%BA%E4%B8%93%E9%A2%98/</a>
+                    <a href="https://aoidragon.github.io/2020/05/05/%E6%B4%9B%E8%B0%B7P1983%20%E8%BD%A6%E7%AB%99%E5%88%86%E7%BA%A7/">https://aoidragon.github.io/2020/05/05/%E6%B4%9B%E8%B0%B7P1983%20%E8%BD%A6%E7%AB%99%E5%88%86%E7%BA%A7/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -547,12 +490,12 @@ int main(void)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/">
-                                    <span class="chip bg-color">《挑战程序设计竞赛》</span>
+                                <a href="/tags/%E6%B4%9B%E8%B0%B7/">
+                                    <span class="chip bg-color">洛谷</span>
                                 </a>
                             
-                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                                    <span class="chip bg-color">图论</span>
+                                <a href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/">
+                                    <span class="chip bg-color">拓扑排序</span>
                                 </a>
                             
                         </div>
@@ -590,9 +533,10 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/05/05/%E6%B4%9B%E8%B0%B7P1983%20%E8%BD%A6%E7%AB%99%E5%88%86%E7%BA%A7/">
                     <div class="card-image">
@@ -611,9 +555,9 @@ int main(void)
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-05
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -626,6 +570,7 @@ int main(void)
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -648,31 +593,26 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/01/%E6%B4%9B%E8%B0%B7P1825%20Corn%20Maze%20S/">
+                <a href="/2020/05/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E5%9B%BE%E8%AE%BA%E4%B8%93%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="洛谷P1825 Corn Maze S">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——图论专题">
                         
-                        <span class="card-title">洛谷P1825 Corn Maze S</span>
+                        <span class="card-title">《挑战程序设计竞赛》——图论专题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            原题链接
-有坑的BFS。其他部分与正常的BFS一样，关键就在于对传送门的处理。如果把传送门与普通的道路等同，也设定为只能走一次，那么请看如下的样例。
-###=###
-#.....#
-###A###
-#.....#
-#@#####
-###A.
+                            1.POJ-3259 Wormholes原题链接
+判断图中有无负环的模板题。乍一看需要用多元最短路，但实际上spfa就可。因为只要图中存在负环，最短路就一定会不断经过它，因为走一次负环等同于两点间路程的减少。所以可以直接用spfa求解。
+当
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-03
                             </span>
                         <span class="publish-author">
                             
@@ -689,12 +629,12 @@ int main(void)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/BFS/">
-                        <span class="chip bg-color">BFS</span>
+                    <a href="/tags/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/">
+                        <span class="chip bg-color">《挑战程序设计竞赛》</span>
                     </a>
                     
-                    <a href="/tags/%E6%B4%9B%E8%B0%B7/">
-                        <span class="chip bg-color">洛谷</span>
+                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                        <span class="chip bg-color">图论</span>
                     </a>
                     
                 </div>
