@@ -484,6 +484,54 @@ int main(void)
     cout&lt&lt(100*ans/(n-1))&lt&ltendl;
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="3-POJ-1258-Agri-Net"><a href="#3-POJ-1258-Agri-Net" class="headerlink" title="3.POJ-1258 Agri-Net"></a>3.POJ-1258 Agri-Net</h1><p><a href="https://vjudge.net/problem/POJ-1258" target="_blank" rel="noopener">原题链接</a></p>
+<p>最小生成树的模板题。最小生成树有两种常用算法，本题我是用Prim算法写的。</p>
+<p>Prim算法的原理是不断枚举和当前的最小生成树这个集合内的点距离(简记为到树的距离)最短的点，将其加入到树中，更新剩余的点到树的距离。不断重复上述过程，直到所有点都被加入树中。</p>
+<p>另一种算法是Kruskal算法。首先对边权从小到大排序，依次将其加入树中。在加入前，需要判断加入这条边会不会形成环，这里需要用到并查集。设边e连接顶点u,v，如果u,v之前并未通过一系列边连通在一起，那么这条边的加入就不会形成圈。所以加入一条边后，我们就用并查集将边的顶点放在一类中，再加入新的边时，只需判断两个顶点在已有并查集中是否属于同一类。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
+#include&ltcstring>
+#include&ltalgorithm>
+
+using namespace std;
+
+int g[105][105], vis[105], mincost[105], val, n;
+
+int prim()
+{
+    int ans=0;
+    memset(vis, 0, sizeof(vis));
+    memset(mincost, 0x3f, sizeof(mincost));
+    mincost[1]=0;//只设置起点的距离，但不要把起点放进树里
+    while(true)//直到所有点都被在树中时结束
+    {
+        int v=-1;
+        for(int i=1; i&lt=n; i++)
+            if(!vis[i]&&(v==-1||mincost[v]>mincost[i]))//遍历不在树中的点，并求出与树间距离最小的点
+                v=i;
+        if(v==-1)//所有的点已在树中
+            break;
+        ans+=mincost[v];
+        vis[v]=1;
+        for(int i=1; i&lt=n; i++)//更新树与其他点间的最小距离
+            mincost[i]=min(mincost[i], g[v][i]);
+    }
+    return ans;
+}
+
+int main(void)
+{
+    while(cin>>n)
+    {
+        for(int i=1; i&lt=n; i++)
+            for(int j=1; j&lt=n; j++)
+            {
+                cin>>val;
+                g[i][j]=val;
+            }
+        cout&lt&ltprim()&lt&ltendl;
+    }
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
