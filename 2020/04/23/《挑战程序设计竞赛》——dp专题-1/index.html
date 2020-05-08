@@ -536,6 +536,43 @@ int main(void)
     cout&lt&ltdp[0][m-1]&lt&ltendl;
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="6-POJ-3046-Ant-Counting"><a href="#6-POJ-3046-Ant-Counting" class="headerlink" title="6.POJ-3046 Ant Counting"></a>6.POJ-3046 Ant Counting</h1><p><a href="https://vjudge.net/problem/POJ-3046" target="_blank" rel="noopener">原题链接</a></p>
+<p>递推关系式在我还不会LaTeX的情况下实在太难表现了，<a href="https://www.cnblogs.com/sky-stars/p/11341756.html" target="_blank" rel="noopener">就用这个博客代替吧</a><del>说到底还是条懒狗</del></p>
+<p>如果想不明白建议手写一遍，添加一项的操作是为了凑出和d[i] [j]形式相同的式子, 变形为d[i] [j-1]。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
+#include&ltalgorithm>
+
+using namespace std;
+
+const int mod=1000000;
+int a[1005], dp[1005][100005], ans;
+
+int main(void)
+{
+    int t, n, s, b, temp;
+    cin>>t>>n>>s>>b;
+    for(int i=1; i&lt=n; i++)
+    {
+        cin>>temp;
+        a[temp]++;
+    }
+    for(int i=0; i&lt=t; i++)
+        dp[i][0]=1;
+    for(int i=1; i&lt=t; i++)
+    {
+        for(int j=1; j&lt=b; j++)
+        {
+            if(j>=a[i]+1)
+                dp[i][j]=(dp[i-1][j]+dp[i][j-1]-dp[i-1][j-a[i]-1]+mod)%mod;
+            else
+                dp[i][j]=(dp[i-1][j]+dp[i][j-1]+mod)%mod;
+        }
+    }
+    for(int i=s; i&lt=b; i++)
+        ans=(ans+dp[t][i]+mod)%mod;
+    cout&lt&ltans&lt&ltendl;
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

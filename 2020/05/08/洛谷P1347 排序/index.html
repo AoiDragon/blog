@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="洛谷P1983 车站分级, AoiDragon">
+    <meta name="keywords" content="洛谷P1347 排序, AoiDragon">
     <meta name="description" content="原题链接
-第一眼看上去我实在没把这道题和拓扑排序想到一起去。但仔细思考一下，题目中要求列车经过的级别大于等于始发站的站点都要停靠，也就是说没有被停靠的站点的级别一定小于停靠的站点。从级别低的站点向级别高的站点连一条单向边，代表二者间的关系，">
+有了之前车站分级(洛谷P1983)的铺垫，这次很快看出来要用拓扑排序。A&amp;lt;B等价于从A向B连一条边，如果存在唯一的拓扑序，则将其输出；如果没有这样的拓扑序，也就是有环，输出矛盾的表述；如果拓扑序不唯一，输出不唯一的表述。但这">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>洛谷P1983 车站分级 | AoiDragon</title>
+    <title>洛谷P1347 排序 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -188,12 +188,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P1983 车站分级</h1>
+                    <h1 class="description center-align post-title">洛谷P1347 排序</h1>
                 </div>
             </div>
         </div>
@@ -339,7 +339,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-05
+                    2020-05-08
                 </div>
                 
 
@@ -356,77 +356,95 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><a href="https://www.luogu.com.cn/problem/P1983" target="_blank" rel="noopener">原题链接</a></p>
-<p>第一眼看上去我实在没把这道题和拓扑排序想到一起去。但仔细思考一下，题目中要求列车经过的级别大于等于始发站的站点都要停靠，也就是说没有被停靠的站点的级别一定小于停靠的站点。从级别低的站点向级别高的站点连一条单向边，代表二者间的关系，这样我们就得到了一张有向无环图。</p>
-<p>现在我们可以用拓扑排序了，但如何将排序和确定级别相关联呢？由于级别高的车站都会有从级别低的车站发出的边，也就是说入度不为0，所以开始时所有入度为0的点便是级别最低的点。将这些点去除并减去与它们相连的点的入度后，剩下所有的点的级别都大于等于2。同理，此时级别最低的点的入度也应为0，这样重复第一遍的过程，就得到了级别为2的点。接下来以此类推，就可以得到所有点的等级。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltcstdio>
+                <p><a href="https://www.luogu.com.cn/problem/P1347" target="_blank" rel="noopener">原题链接</a></p>
+<p>有了之前车站分级(洛谷P1983)的铺垫，这次很快看出来要用拓扑排序。A&lt;B等价于从A向B连一条边，如果存在唯一的拓扑序，则将其输出；如果没有这样的拓扑序，也就是有环，输出矛盾的表述；如果拓扑序不唯一，输出不唯一的表述。但这题需要注意的点更多。</p>
+<ul>
+<li>题目要求在发现矛盾或符合要求时立刻结束程序，并且要记录当前所用的条件序号。这要求我们必须每次读入一个条件就做一次拓扑排序。</li>
+<li>当拓扑序<strong>唯一</strong>时，符合题目条件。这里的判断可以通过队列中元素的个数确定。拓扑排序时我们把入度为0 的点放入队列，如果拓扑序唯一，那么每经历一次处理后入度为0的点应该是唯一确定的，所以队列中元素个数应始终为1。</li>
+<li>当图中有环时，不存在拓扑序。可以在队列为空后再遍历一遍各点的入度，如果存在点的入度不为0，说明拓扑序不存在，图中有环。</li>
+<li>如果上面两个条件均未满足，那么拓扑序不唯一。</li>
+</ul>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
 #include&ltalgorithm>
 #include&ltcstring>
+#include&ltcstdio>
 #include&ltqueue>
 #include&ltvector>
-#include&ltutility>
 
 using namespace std;
 
-typedef pair&ltint, int> p;
-int n, m, num, ans;
-int vis[1005], s[1005], deg[1005], flag[1005][1005];
-vector&ltint> g[1005];
-queue&ltp> q;
+int n, m, deg[30], vis[30], temp[30], ans[30], sum;
+string s;
+vector&ltint> g[30];
+queue&ltint> q;
 
 int toposort()
 {
+    int num=0, flag=0;
+    for(int i=0; i&lt30; i++)//当前的拓扑序之后还会用到，所以复制一个做处理，不改变原来的
+        temp[i]=deg[i];
+    memset(ans, 0, sizeof(ans));
+    while(!q.empty())
+        q.pop();
+    for(int i=1; i&lt=n; i++)
+        if(vis[i]==1&&temp[i]==0)
+        {
+            ans[num++]=i;
+            q.push(i);
+        }
     while(!q.empty())
     {
-        p now=q.front();
+        if(q.size()>1)//拓扑序不唯一
+            flag=1;
+        int now=q.front();
         q.pop();
-        int point=now.first, level=now.second;
-        for(int i=0; i&ltg[point].size(); i++)
+        for(int i=0; i&ltg[now].size(); i++)
         {
-            deg[g[point][i]]--;
-            if(deg[g[point][i]]==0)
-                q.push({g[point][i], level+1});
+            temp[g[now][i]]--;
+            if(temp[g[now][i]]==0)
+            {
+                q.push(g[now][i]);
+                ans[num++]=g[now][i];
+            }
         }
-        ans=max(ans, level);
     }
-    return ans;
+    if(!flag&&num==n)
+        return 1;
+    for(int i=1; i&lt=n; i++)
+        if(temp[i]>0)//有环
+            return 2;
+    return 0;
 }
 
 int main(void)
 {
-    scanf("%d%d", &n, &m);
+    cin>>n>>m;
     for(int i=1; i&lt=m; i++)
     {
-        memset(vis, 0, sizeof(vis));
-        scanf("%d", &num);//停靠车站数
-        for(int j=1; j&lt=num; j++)
+        cin>>s;
+        int a=s[0]-'A'+1;
+        int b=s[2]-'A'+1;
+        g[a].push_back(b);
+        deg[b]++;
+        vis[a]=vis[b]=1;
+        int t=toposort();
+        if(t==1)
         {
-            scanf("%d", &s[j]);
-            vis[s[j]]=1;
+            printf("Sorted sequence determined after %d relations: ",i);
+            for(int j=0; j&ltn; j++)
+                printf("%c",ans[j]+'A'-1);
+            printf(".\n");
+            return 0;
         }
-        for(int j=s[1]; j&lt=s[num]; j++)
+        if(t==2)
         {
-            if(!vis[j])//从未停靠站向停靠站连边
-                for(int k=1; k&lt=num; k++)
-                {
-                    if(!flag[j][s[k]])//防止重复连边
-                    {
-                        g[j].push_back(s[k]);
-                        deg[s[k]]++;
-                        flag[j][s[k]]=1;
-                    }
-                }
+            printf("Inconsistency found after %d relations.\n",i);
+            return 0;
         }
     }
-    for(int i=1; i&lt=n; i++)
-        if(deg[i]==0)
-            q.push({i, 1});
-    printf("%d\n", toposort());
+    cout&lt&lt"Sorted sequence cannot be determined."&lt&ltendl;
     return 0;
-}
-
-//拓扑排序使每个点入列时入度都为零，本题中当一个站点入度为0，说明等级比他低的站点已经全部出列，由于出列顺序是从低等级向高等级渐进的，所以只需
-//将最后一个指向该站点的站点的级别加一即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -452,7 +470,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/05/05/%E6%B4%9B%E8%B0%B7P1983%20%E8%BD%A6%E7%AB%99%E5%88%86%E7%BA%A7/">https://aoidragon.github.io/2020/05/05/%E6%B4%9B%E8%B0%B7P1983%20%E8%BD%A6%E7%AB%99%E5%88%86%E7%BA%A7/</a>
+                    <a href="https://aoidragon.github.io/2020/05/08/%E6%B4%9B%E8%B0%B7P1347%20%E6%8E%92%E5%BA%8F/">https://aoidragon.github.io/2020/05/08/%E6%B4%9B%E8%B0%B7P1347%20%E6%8E%92%E5%BA%8F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -533,9 +551,10 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/05/08/%E6%B4%9B%E8%B0%B7P1347%20%E6%8E%92%E5%BA%8F/">
                     <div class="card-image">
@@ -554,9 +573,9 @@ int main(void)
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-08
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -569,6 +588,7 @@ int main(void)
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -591,26 +611,25 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/03/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E5%9B%BE%E8%AE%BA%E4%B8%93%E9%A2%98/">
+                <a href="/2020/05/05/%E6%B4%9B%E8%B0%B7P1983%20%E8%BD%A6%E7%AB%99%E5%88%86%E7%BA%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——图论专题">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="洛谷P1983 车站分级">
                         
-                        <span class="card-title">《挑战程序设计竞赛》——图论专题</span>
+                        <span class="card-title">洛谷P1983 车站分级</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1.POJ-3259 Wormholes原题链接
-判断图中有无负环的模板题。乍一看需要用多元最短路，但实际上spfa就可。因为只要图中存在负环，最短路就一定会不断经过它，因为走一次负环等同于两点间路程的减少。所以可以直接用spfa求解。
-当
+                            原题链接
+第一眼看上去我实在没把这道题和拓扑排序想到一起去。但仔细思考一下，题目中要求列车经过的级别大于等于始发站的站点都要停靠，也就是说没有被停靠的站点的级别一定小于停靠的站点。从级别低的站点向级别高的站点连一条单向边，代表二者间的关系，
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-05
                             </span>
                         <span class="publish-author">
                             
@@ -627,12 +646,12 @@ int main(void)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/">
-                        <span class="chip bg-color">《挑战程序设计竞赛》</span>
+                    <a href="/tags/%E6%B4%9B%E8%B0%B7/">
+                        <span class="chip bg-color">洛谷</span>
                     </a>
                     
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
+                    <a href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/">
+                        <span class="chip bg-color">拓扑排序</span>
                     </a>
                     
                 </div>
