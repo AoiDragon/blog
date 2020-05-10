@@ -573,6 +573,47 @@ int main(void)
     cout&lt&ltans&lt&ltendl;
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="7-POJ-3181-Dollar-Dayz"><a href="#7-POJ-3181-Dollar-Dayz" class="headerlink" title="7.POJ-3181 Dollar Dayz"></a>7.POJ-3181 Dollar Dayz</h1><p><a href="https://vjudge.net/problem/POJ-3181" target="_blank" rel="noopener">原题链接</a></p>
+<p>大致题意是求数m的拆分方法数量。这种问题可以归结为完全背包问题，将dp[i] [j]定义为只用前i个数（这里就是1……i）拆分数j时的方案总数。转移方程如下：</p>
+<pre class="line-numbers language-c++"><code class="language-c++">dp[0][0]=1;//初始化条件
+for(int i=1; i<=n; i++)
+    for(int j=1; j<=k; j++)//把整数看作背包问题中的物品，这里的i既是物品序号也是物品体积
+        dp[i][j]=dp[i-1][j-i]+dp[i-1][j];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>优化后可化为</p>
+<pre class="line-numbers language-c++"><code class="language-c++">dp[0]=1;
+for(int i=1; i<=n; i++)
+    for(int j=1; j<=k; j++)
+        dp[j]+=dp[j-i];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>本题另一个关键点在于数据过于庞大，long long 都不够用。这里有两种处理方法，一种是高精度加减法，另一种是用两个数组，一个存后18位，一个存前面的位数，<a href="https://www.cnblogs.com/kuangbin/archive/2012/09/20/2695165.html" target="_blank" rel="noopener">这篇博客介绍的较为详细</a>。我用的是第二种方法。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
+#include&ltcstdio>
+
+using namespace std;
+
+long long a[1100], b[1100], INF=1;
+
+int main(void)
+{    
+    int n, k;
+    cin>>n>>k;
+    for(int i=0; i&lt18; i++)
+        INF*=10;
+    a[0]=1;
+    for(int i=1; i&lt=k; i++)
+    {
+        for(int j=1; j&lt=n; j++)
+        {
+            if(j&lti)
+                continue;
+            b[j]=b[j]+b[j-i]+(a[j]+a[j-i])/INF;
+            a[j]=(a[j]+a[j-i])%INF;
+        }
+    }
+    if(b[n])
+        printf("%lld", b[n]);
+    printf("%lld\n", a[n]);
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
