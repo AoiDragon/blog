@@ -4,11 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="洛谷P1278 单词游戏, AoiDragon">
+    <meta name="keywords" content="洛谷P1807 最长路, AoiDragon">
     <meta name="description" content="原题链接
-给定一系列由字母组成的字符串，将它们拼接在一起。只有当一个字符串末尾的字符与另一个字符串的首字符相同时，二者才可以拼在一起。求拼接后字符串的最大长度。
-第一反应是通过dfs递归回溯，但这样会t掉三个点。
-有两种解决方法。第一种是假">
+不用想那么多，把spfa的判断条件改一下即可。
+#include&amp;ltiostream&gt;
+#include&amp;ltalgorithm&gt;
+#include&amp;ltcstring&gt;
+#include&amp;ltvector&gt;
+#include&amp;">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>洛谷P1278 单词游戏 | AoiDragon</title>
+    <title>洛谷P1807 最长路 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -190,12 +193,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P1278 单词游戏</h1>
+                    <h1 class="description center-align post-title">洛谷P1807 最长路</h1>
                 </div>
             </div>
         </div>
@@ -312,12 +315,16 @@
                     
                     <div class="article-tag">
                         
+                            <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
+                                <span class="chip bg-color">最短路</span>
+                            </a>
+                        
                             <a href="/tags/%E6%B4%9B%E8%B0%B7/">
                                 <span class="chip bg-color">洛谷</span>
                             </a>
                         
-                            <a href="/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9dp/">
-                                <span class="chip bg-color">状态压缩dp</span>
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
                             </a>
                         
                     </div>
@@ -341,7 +348,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-12
+                    2020-05-24
                 </div>
                 
 
@@ -358,108 +365,57 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><a href="https://www.luogu.com.cn/problem/P1278" target="_blank" rel="noopener">原题链接</a></p>
-<p>给定一系列由字母组成的字符串，将它们拼接在一起。只有当一个字符串末尾的字符与另一个字符串的首字符相同时，二者才可以拼在一起。求拼接后字符串的最大长度。</p>
-<p>第一反应是通过dfs递归回溯，但这样会t掉三个点。</p>
-<p>有两种解决方法。第一种是假定在时间达到题目要求之前就已经遍历到了最佳答案，这样在dfs函数中添加对于程序运行时间的判断，如果运行达到时间上限，就直接结束程序。这种方法虽然投机取巧，能够AC也是因为题目数据不够好，但有所了解总归是好的。</p>
+                <p><a href="https://www.luogu.com.cn/problem/P1807" target="_blank" rel="noopener">原题链接</a></p>
+<p>不用想那么多，把spfa的判断条件改一下即可。</p>
 <pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
 #include&ltalgorithm>
 #include&ltcstring>
-#include&ltctime>
+#include&ltvector>
+#include&ltqueue>
 
 using namespace std;
 
-string str[20];
-char s[20], e[20];
-int vis[20], n, ans, temp, tim;
+typedef pair&ltint, int> P;
+int m, n, vis[100005], dis[100005];
+vector&ltP> G[100005];
+queue&ltint> q;
 
-void dfs(int x)
+int main(void)
 {
-    for(int i=0; i&ltn; i++)
+    cin>>n>>m;
+    for(int i=0; i&ltm; i++)
     {
-        if(i==x)
-            continue;
-        if(e[x]==s[i]&&!vis[i])
+        int u, v, w;
+        cin>>u>>v>>w;
+        G[u].push_back({v, w});
+    }
+    memset(dis, -1, sizeof(vis));
+    dis[1]=0;
+    vis[1]=1;
+    q.push(1);
+    while(!q.empty())
+    {
+        int now=q.front();
+        q.pop();
+        vis[now]=0;
+        for(int i=0; i&ltG[now].size(); i++)
         {
-            vis[i]=1;
-            temp+=str[i].size();
-            dfs(i);
-            temp-=str[i].size();
-            vis[i]=0;
+            int v=G[now][i].first;
+            int w=G[now][i].second;
+            if(dis[v]&ltdis[now]+w)//就是这里
+            {
+                dis[v]=dis[now]+w;
+                if(!vis[v])
+                {
+                    q.push(v);
+                    vis[v]=1;
+                }
+            }
         }
     }
-    ans=max(ans, temp);
-    if(clock()-tim>10000)//超时
-    {
-        cout&lt&ltans&lt&ltendl;
-        exit(0);
-    }    
-    return;
-}
-
-int main(void)
-{
-    tim=clock();//开始计时
-    cin>>n;
-    for(int i=0; i&ltn; i++)
-    {
-        cin>>str[i];
-        int a=str[i].size();
-        s[i]=str[i][0];//记录每个字符串的首字母
-        e[i]=str[i][a-1];//尾字母
-    }
-    for(int i=0; i&ltn; i++)
-    {
-        vis[i]=1;
-        temp+=str[i].size();
-        dfs(i);
-        vis[i]=0;
-        temp=0;
-    }
-    cout&lt&ltans&lt&ltendl;
+    cout&lt&ltdis[n]&lt&ltendl;
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>正经的解决方法是采用状态压缩dp。一般的dp数组的下标一般是对题目给出的物品各属性的遍历，例如在背包问题中我们第一维遍历物品体积，第二维遍历物品价值。而状态压缩dp将状态作为数组的下标并对其进行遍历。具体实现方式是通过二进制。</p>
-<p>如果我们用1表示选取一个物品，0表示未选择一个物品，那么对于在5个物品中选择第1、3、5个的状态就可以表示为10101。我们还可以通过位运算判断一个点是否已经被选取。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">if(k& (1 << (i-1) ) )//判断状态k中第i个物品是否被选取<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>还是以刚才的情况举例，判断第2个物品是否被选取，我们就做10101&amp;10，得到0，说明2号物品未被选取。这样做的原理就是通过右移一定的位数，获得一个除了想验证的位数外全为0的二进制数，这样在与状态做与运算时，其他点结果一定为0。于是如果这一点未被选取过，结果为0&amp;1=0，否则不为0。</p>
-<p>本题的dp数组还需要添加一维，表示当前状态最后一次使用的字符串，用于判断能否连接。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
-#include&ltcstring>
-
-using namespace std;
-
-string str[20];
-char s[20], e[20];
-int dp[1&lt&lt16][20], n, ans;
-
-int main(void)
-{
-    cin>>n;
-    for(int i=1; i&lt=n; i++)
-    {
-        cin>>str[i];
-        dp[1&lt&lt(i-1)][i]=str[i].size();//对只选择一个字符串时的初始化
-        int a=str[i].size();
-        s[i]=str[i][0];
-        e[i]=str[i][a-1];
-    }
-    for(int k=0; k&lt(1&lt&ltn); k++)
-        for(int i=1; i&lt=n; i++)
-            for(int j=1; j&lt=n; j++)
-            {
-                if(i==j)
-                    continue;
-                if(e[i]==s[j]&&!(k&(1&lt&lt(j-1))))//能接上且当前组合没有用到j
-                    dp[k+(1&lt&lt(j-1))][j]=max(dp[k+(1&lt&lt(j-1))][j], dp[k][i]+(int)str[j].size());//第一项是已经遍历过的以j结尾的串长，第二项是将j连到新串上的新值
-            }
-    for(int i=0; i&lt(1&lt&ltn); i++)
-        for(int j=1; j&lt=n; j++)
-            ans=max(ans, dp[i][j]);
-    cout&lt&ltans&lt&ltendl;
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -485,7 +441,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/05/12/%E6%B4%9B%E8%B0%B7P1278%20%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/">https://aoidragon.github.io/2020/05/12/%E6%B4%9B%E8%B0%B7P1278%20%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/</a>
+                    <a href="https://aoidragon.github.io/2020/05/24/%E6%B4%9B%E8%B0%B7P1807%20%E6%9C%80%E9%95%BF%E8%B7%AF/">https://aoidragon.github.io/2020/05/24/%E6%B4%9B%E8%B0%B7P1807%20%E6%9C%80%E9%95%BF%E8%B7%AF/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -523,12 +479,16 @@ int main(void)
                     
                         <div class="article-tag">
                             
+                                <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
+                                    <span class="chip bg-color">最短路</span>
+                                </a>
+                            
                                 <a href="/tags/%E6%B4%9B%E8%B0%B7/">
                                     <span class="chip bg-color">洛谷</span>
                                 </a>
                             
-                                <a href="/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9dp/">
-                                    <span class="chip bg-color">状态压缩dp</span>
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
                                 </a>
                             
                         </div>
@@ -570,25 +530,22 @@ int main(void)
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/05/24/%E6%B4%9B%E8%B0%B7P1807%20%E6%9C%80%E9%95%BF%E8%B7%AF/">
+                <a href="/2020/05/24/%E6%B4%9B%E8%B0%B7P1127%20%E8%AF%8D%E9%93%BE/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="洛谷P1807 最长路">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="洛谷P1127 词链">
                         
-                        <span class="card-title">洛谷P1807 最长路</span>
+                        <span class="card-title">洛谷P1127 词链</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            原题链接
-不用想那么多，把spfa的判断条件改一下即可。
-#include&ltiostream>
-#include&ltalgorithm>
-#include&ltcstring>
-#include&ltvector>
-#include&
+                            原题链接w
+如果一个单词的首字母与另一个单词的尾字母相同，则这两个单词可以连接起来，求字典序最小的排列方式。
+通过连接方式我们可以确定要用dfs，但本题有几个细节需要注意。
+首先是如何确定起点。我们固然可以依次搜索，但数据范围让这种做法注定
                         
                     </div>
                     <div class="publish-info">
@@ -610,16 +567,12 @@ int main(void)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
-                        <span class="chip bg-color">最短路</span>
+                    <a href="/tags/DFS/">
+                        <span class="chip bg-color">DFS</span>
                     </a>
                     
                     <a href="/tags/%E6%B4%9B%E8%B0%B7/">
                         <span class="chip bg-color">洛谷</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
                     </a>
                     
                 </div>
@@ -633,28 +586,27 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/11/%E6%B4%9B%E8%B0%B7P1434%20%E6%BB%91%E9%9B%AA%20/">
+                <a href="/2020/05/12/%E6%B4%9B%E8%B0%B7P1278%20%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="洛谷P1434 滑雪">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="洛谷P1278 单词游戏">
                         
-                        <span class="card-title">洛谷P1434 滑雪</span>
+                        <span class="card-title">洛谷P1278 单词游戏</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             原题链接
-要求从所给数字矩阵中找到一条最长的道路，道路经过的数字需要保持递增。
-第一反应是dfs，然后t了一个点，wa了两个点…
-wa的原因在于可能出现只有一个点的情况，应该输出1。添加一个特判条件即可。修改后的dfs可以拿到90分。
-#i
+给定一系列由字母组成的字符串，将它们拼接在一起。只有当一个字符串末尾的字符与另一个字符串的首字符相同时，二者才可以拼在一起。求拼接后字符串的最大长度。
+第一反应是通过dfs递归回溯，但这样会t掉三个点。
+有两种解决方法。第一种是假
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-12
                             </span>
                         <span class="publish-author">
                             
@@ -675,12 +627,8 @@ wa的原因在于可能出现只有一个点的情况，应该输出1。添加�
                         <span class="chip bg-color">洛谷</span>
                     </a>
                     
-                    <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/">
-                        <span class="chip bg-color">记忆化搜索</span>
-                    </a>
-                    
-                    <a href="/tags/dfs/">
-                        <span class="chip bg-color">dfs</span>
+                    <a href="/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9dp/">
+                        <span class="chip bg-color">状态压缩dp</span>
                     </a>
                     
                 </div>
