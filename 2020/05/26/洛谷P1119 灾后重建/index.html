@@ -4,11 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="洛谷P1127 词链, AoiDragon">
-    <meta name="description" content="原题链接w
-如果一个单词的首字母与另一个单词的尾字母相同，则这两个单词可以连接起来，求字典序最小的排列方式。
-通过连接方式我们可以确定要用dfs，但本题有几个细节需要注意。
-首先是如何确定起点。我们固然可以依次搜索，但数据范围让这种做法注定">
+    <meta name="keywords" content="洛谷P1119 灾后重建, AoiDragon">
+    <meta name="description" content="原题链接
+题目有多组询问，是多源最短路问题，所以肯定要用floyd。但本题中所有的节点不是一开始都在图中。如果模拟这个过程循环“向图中连点—floyd”这一过程，就会取得30分的好成绩超时。
+如果能明白floyd的本质，就可以找到优化方法。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>洛谷P1127 词链 | AoiDragon</title>
+    <title>洛谷P1119 灾后重建 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -190,12 +189,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">洛谷P1127 词链</h1>
+                    <h1 class="description center-align post-title">洛谷P1119 灾后重建</h1>
                 </div>
             </div>
         </div>
@@ -312,8 +311,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/DFS/">
-                                <span class="chip bg-color">DFS</span>
+                            <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
+                                <span class="chip bg-color">最短路</span>
                             </a>
                         
                             <a href="/tags/%E6%B4%9B%E8%B0%B7/">
@@ -341,7 +340,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-24
+                    2020-05-26
                 </div>
                 
 
@@ -358,95 +357,64 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><a href="https://www.luogu.com.cn/problem/P1127" target="_blank" rel="noopener">原题链接w</a></p>
-<p>如果一个单词的首字母与另一个单词的尾字母相同，则这两个单词可以连接起来，求字典序最小的排列方式。</p>
-<p>通过连接方式我们可以确定要用dfs，但本题有几个细节需要注意。</p>
-<p>首先是如何确定起点。我们固然可以依次搜索，但数据范围让这种做法注定会超时。而如果我们统计各个字母在词首和词尾出现的次数会发现，第一个单词的词首字母的出现次数一定比这个字母在词尾出现的次数多一。因为如果在中间出现，一定是成对的。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">ab ba abd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>但也有可能出现不符合这种规律的例子</p>
-<pre class="line-numbers language-c++"><code class="language-c++">bcb bcb<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这种情况我们直接从第一个单词开始dfs就可以了，为了确保字典序最小，我们需要先对单词进行排序。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
-#include&ltcstring>
+                <p><a href="https://www.luogu.com.cn/problem/P1119" target="_blank" rel="noopener">原题链接</a></p>
+<p>题目有多组询问，是多源最短路问题，所以肯定要用floyd。但本题中所有的节点不是一开始都在图中。如果模拟这个过程循环“向图中连点—floyd”这一过程，就会<del>取得30分的好成绩</del>超时。</p>
+<p>如果能明白floyd的本质，就可以找到优化方法。floyd实际上是通过遍历路径经过的中间点来更新的，对于模板题，我们只需要三重循环一次遍历即可。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">for(int k=0; k&ltn; k++)
+    for(int i=0; i&ltn; i++)
+        for(int j=0; j&ltn; j++)
+            dp[i][j]=min(dp[i][j], dp[i][k]+dp[k][j]);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>本题与模板的区别其实就在于中间点并不是随时都可以遍历的，那我们只需要把在遍历中间点时判断这个点是否已经建好就可以了。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">
+#include&ltiostream>
+#include&ltcstdio>
 
 using namespace std;
 
-int n, head[30], tail[30], start=-1, vis[1005], flag, num, res;
-string str[1005], ans[1005], temp[1005];
+int g[205][205], t[205], n, m, q, num;
+const int INF=0x3f3f3f3f;
 
-int dfs(int x)
+inline void floyd(int k)
 {
-    if(num==n)
-    {
-        for(int i=0; i&lt=n-1; i++)
-            ans[i]=temp[i];
-        res=1;
-    }
     for(int i=0; i&ltn; i++)
-    {
-        if(i==x)
-            continue;
-        if(str[x].back()==str[i].front()&&!vis[i])
-        {
-            vis[i]=1;
-            temp[num]=str[i];
-            num++;
-            dfs(i);
-            if(res)//找到结果就不用搜了
-                return res;
-            num--;
-            temp[num]='0';
-            vis[i]=0;
-        }
-    }
-    return res;
+        for(int j=0; j&ltn; j++)
+            if(g[i][j]>g[i][k]+g[j][k])
+                g[i][j]=g[j][i]=g[i][k]+g[j][k];
+    return;
 }
 
 int main(void)
 {
-    cin>>n;
+    scanf("%d%d", &n, &m);
     for(int i=0; i&ltn; i++)
+        scanf("%d", &t[i]);
+    for(int i=0; i&ltn; i++)
+        for(int j=0; j&ltn; j++)
+            g[j][i]=g[i][j]=INF;
+    for(int i=0; i&ltn; i++)
+        g[i][i]=0;
+    int a, b, c;
+    for(int i=0; i&ltm; i++)
     {
-        cin>>str[i];
-        head[str[i][0]-'a']++;
-        tail[str[i].back()-'a']++;
+        scanf("%d%d%d", &a, &b, &c);
+        g[a][b]=g[b][a]=c;
     }
-    for(int i=0; i&lt26; i++)
-        if(head[i]==tail[i]+1)
-        {
-            start=i;
-            break;
-        }
-    sort(str, str+n);
-    for(int i=0; i&ltn; i++)
+    scanf("%d", &q);
+    for(int i=0; i&ltq; i++)
     {
-        if(str[i][0]==start+'a'||start==-1)//start=-1对应不符合规律的情况
+        scanf("%d%d%d", &a, &b, &c);
+        while(t[num]&lt=c&&num&ltn)//判断节点是否已建好
         {
-            vis[i]=1;
-            temp[0]=str[i];
+            floyd(num);
             num++;
-            if(dfs(i))
-            {
-                flag=1;
-                break;
-            }
-            memset(vis, sizeof(vis), 0);//可能有多个符合条件的字母，要再次初始化
-            num=0;
         }
+        if(t[a]>c||t[b]>c||g[a][b]==INF)
+            printf("-1\n");
+        else
+            printf("%d\n", g[a][b]);
     }
-    if(flag)
-    {
-        for(int i=0; i&ltn-1; i++)
-            cout&lt&ltans[i]&lt&lt'.';
-        cout&lt&ltans[n-1]&lt&ltendl;
-    }
-    else
-        cout&lt&lt"***"&lt&ltendl;
     return 0;
-}
-
-//图论的解决方法其实和dfs一样，只不过图论是在图上做dfs相当于预处理了可以相连的点，而直接dfs需要自己判断一下<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -472,7 +440,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/05/24/%E6%B4%9B%E8%B0%B7P1127%20%E8%AF%8D%E9%93%BE/">https://aoidragon.github.io/2020/05/24/%E6%B4%9B%E8%B0%B7P1127%20%E8%AF%8D%E9%93%BE/</a>
+                    <a href="https://aoidragon.github.io/2020/05/26/%E6%B4%9B%E8%B0%B7P1119%20%E7%81%BE%E5%90%8E%E9%87%8D%E5%BB%BA/">https://aoidragon.github.io/2020/05/26/%E6%B4%9B%E8%B0%B7P1119%20%E7%81%BE%E5%90%8E%E9%87%8D%E5%BB%BA/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -510,8 +478,8 @@ int main(void)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/DFS/">
-                                    <span class="chip bg-color">DFS</span>
+                                <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
+                                    <span class="chip bg-color">最短路</span>
                                 </a>
                             
                                 <a href="/tags/%E6%B4%9B%E8%B0%B7/">
@@ -557,21 +525,22 @@ int main(void)
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/05/26/%E6%B4%9B%E8%B0%B7P1119%20%E7%81%BE%E5%90%8E%E9%87%8D%E5%BB%BA/">
+                <a href="/2020/05/26/%E6%B4%9B%E8%B0%B7P1462%20%E9%80%9A%E5%BE%80%E5%A5%A5%E6%A0%BC%E7%91%9E%E7%8E%9B%E7%9A%84%E9%81%93%E8%B7%AF/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="洛谷P1119 灾后重建">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="洛谷P1462 通往奥格瑞玛的道路">
                         
-                        <span class="card-title">洛谷P1119 灾后重建</span>
+                        <span class="card-title">洛谷P1462 通往奥格瑞玛的道路</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             原题链接
-题目有多组询问，是多源最短路问题，所以肯定要用floyd。但本题中所有的节点不是一开始都在图中。如果模拟这个过程循环“向图中连点—floyd”这一过程，就会取得30分的好成绩超时。
-如果能明白floyd的本质，就可以找到优化方法。
+题目描述有点绕。一条路径中各城市收取的过路费会有一个最大值，求这些最大值的最小值。
+一看到最大值的最小值，那肯定需要用到二分，关键就在于怎么把二分和最短路联系起来。
+我们可以把二分中判断mid是否符合要求的部分设置为判断当前是否有
                         
                     </div>
                     <div class="publish-info">
@@ -597,6 +566,10 @@ int main(void)
                         <span class="chip bg-color">最短路</span>
                     </a>
                     
+                    <a href="/tags/%E4%BA%8C%E5%88%86/">
+                        <span class="chip bg-color">二分</span>
+                    </a>
+                    
                     <a href="/tags/%E6%B4%9B%E8%B0%B7/">
                         <span class="chip bg-color">洛谷</span>
                     </a>
@@ -612,25 +585,22 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/24/%E6%B4%9B%E8%B0%B7P1807%20%E6%9C%80%E9%95%BF%E8%B7%AF/">
+                <a href="/2020/05/24/%E6%B4%9B%E8%B0%B7P1127%20%E8%AF%8D%E9%93%BE/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="洛谷P1807 最长路">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="洛谷P1127 词链">
                         
-                        <span class="card-title">洛谷P1807 最长路</span>
+                        <span class="card-title">洛谷P1127 词链</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            原题链接
-不用想那么多，把spfa的判断条件改一下即可。
-#include&ltiostream>
-#include&ltalgorithm>
-#include&ltcstring>
-#include&ltvector>
-#include&
+                            原题链接w
+如果一个单词的首字母与另一个单词的尾字母相同，则这两个单词可以连接起来，求字典序最小的排列方式。
+通过连接方式我们可以确定要用dfs，但本题有几个细节需要注意。
+首先是如何确定起点。我们固然可以依次搜索，但数据范围让这种做法注定
                         
                     </div>
                     <div class="publish-info">
@@ -652,16 +622,12 @@ int main(void)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
-                        <span class="chip bg-color">最短路</span>
+                    <a href="/tags/DFS/">
+                        <span class="chip bg-color">DFS</span>
                     </a>
                     
                     <a href="/tags/%E6%B4%9B%E8%B0%B7/">
                         <span class="chip bg-color">洛谷</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%9B%BE%E8%AE%BA/">
-                        <span class="chip bg-color">图论</span>
                     </a>
                     
                 </div>
