@@ -4,15 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="《挑战程序设计竞赛》——dp专题, AoiDragon">
-    <meta name="description" content="1.POJ-3176  Cow Bowling原题链接
-#include&amp;ltiostream&gt;
-#include&amp;ltalgorithm&gt;
-#include&amp;ltcstring&gt;
-
-using namespace std;
-
-int s[">
+    <meta name="keywords" content="洛谷P1077 摆花, AoiDragon">
+    <meta name="description" content="原题链接
+小明的花店新开张，为了吸引顾客，他想在花店的门口摆上一排花，共$m$盆。通过调查顾客的喜好，小明列出了顾客最喜欢的$n$种花，从$1$到$n$标号。为了在门口展出更多种花，规定第$i$种花不能超过$a[i]$盆，摆花时同一种花放在">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +14,7 @@ int s[">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>《挑战程序设计竞赛》——dp专题 | AoiDragon</title>
+    <title>洛谷P1077 摆花 | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -194,12 +188,12 @@ int s[">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">《挑战程序设计竞赛》——dp专题</h1>
+                    <h1 class="description center-align post-title">洛谷P1077 摆花</h1>
                 </div>
             </div>
         </div>
@@ -316,12 +310,12 @@ int s[">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/">
-                                <span class="chip bg-color">《挑战程序设计竞赛》</span>
-                            </a>
-                        
                             <a href="/tags/dp/">
                                 <span class="chip bg-color">dp</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B4%9B%E8%B0%B7/">
+                                <span class="chip bg-color">洛谷</span>
                             </a>
                         
                     </div>
@@ -345,7 +339,7 @@ int s[">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-23
+                    2020-06-10
                 </div>
                 
 
@@ -362,258 +356,9 @@ int s[">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-POJ-3176-Cow-Bowling"><a href="#1-POJ-3176-Cow-Bowling" class="headerlink" title="1.POJ-3176  Cow Bowling"></a>1.POJ-3176  Cow Bowling</h1><p><a href="https://vjudge.net/problem/POJ-3176" target="_blank" rel="noopener">原题链接</a></p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
-#include&ltcstring>
-
-using namespace std;
-
-int s[355][355], dp[355][355];
-
-int main(void)
-{
-    int n, ans;
-    while(cin>>n)
-    {
-        ans=0;
-        memset(s, 0, sizeof(s));
-        memset(dp, 0, sizeof(dp));
-        for(int i=1; i&lt=n; i++)//第一行和第一列从下标为1开始，留白，不用对边界特判
-            for(int j=1; j&lt=i; j++)
-            {
-                cin>>s[i][j];
-                dp[i][j]=s[i][j]+max(dp[i-1][j-1], dp[i-1][j]);
-            }
-        for(int i=1; i&lt=n; i++)
-            ans=max(ans, dp[n][i]);
-        cout&lt&ltans&lt&ltendl;
-    }
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>dp问题的关键就是确定状态方程的值和转移方式。状态方程的值一般与题目要求我们求出的值一致，本题中是途经数字之和的最大值。本题中每一层的状态均有上一层相邻的状态转移而来，选出上一层较大者再加上自身即可。对最后一层的所有结果取最大值就得到最终结果。</p>
-<h1 id="2-POJ-2229-Sumsets"><a href="#2-POJ-2229-Sumsets" class="headerlink" title="2.POJ-2229 Sumsets"></a>2.POJ-2229 Sumsets</h1><p><a href="">原题链接</a>(<a href="https://vjudge.net/problem/POJ-2229">https://vjudge.net/problem/POJ-2229</a>)</p>
-<p>本题实际上是完全背包问题。问题也可以表述为从体积为2^i(i=0,1,2,3……)的物品中任选，是其能够填满一个体积为n的背包，其中每件物品可以选择任意次。</p>
-<p>dp[i] [j]代表从前i件物品中选取总体积为j的方案数</p>
-<pre class="line-numbers language-c++"><code class="language-c++">for(int i=0; i&ltnum; i++)
-    for(int j=1; j<=n; j++)
-    {
-        dp[i][j]=dp[i-1][j];
-        if(j>=w[i])
-            dp[i][j]+=dp[i-1][j-w[i]];
-    }
-//前者是不选第i件物品的情况，此时方案数与在前i-1件物品中选取总体积为j的方案数相同,即dp[i-1][j]
-//后者是选择第i件物品的情况，则选取前i-1物品后需要为w[i]预留位置，即dp[i-1][j-w[i]]
-//需要对j进行特判，看是否放得下<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>先写出二维形式有助于理解转移方程的原理，接下来就可以进行状态压缩了。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">for(int i=0; i&ltnum; i++)
-    for(int j=w[i]; j<=n; j++)
-        dp[j]+=dp[j-w[i]];
-//如果j<w[i]，则方程为dp[j]=dp[j]，所以可以省略，j直接从w[i]开始遍历<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
-
-using namespace std;
-
-const int MaxN=1e6+5;
-int dp[MaxN], w[MaxN], num;
-
-int main(void)
-{
-    int n;
-    cin>>n;
-    w[0]=1;
-    dp[0]=1;
-    for(num=1; w[num-1]&lt=n; num++)
-        w[num]=w[num-1]*2;
-    for(int i=0; i&ltnum; i++)
-        for(int j=w[i]; j&lt=n; j++)
-            dp[j]=(dp[j]+dp[j-w[i]])%(int)1e9;
-    cout&lt&ltdp[n]&lt&ltendl;
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="3-POJ-2385-Apple-Catching"><a href="#3-POJ-2385-Apple-Catching" class="headerlink" title="3.POJ-2385 Apple Catching"></a>3.POJ-2385 Apple Catching</h1><p><a href="https://vjudge.net/problem/POJ-2385" target="_blank" rel="noopener">原题链接</a></p>
-<p>题目不难，但这是第一次碰上没做过的dp问题能够自己独立ac的，纪念一下。dp还是要多练才会有题感。</p>
-<p>dp[i] [j]代表第i次移动时(准确的说是第i-1次，这里将默认从树1的开始算作第一次移动，方便dp数组对最开始的转状态的转移)，第j个果子掉落后奶牛吃到的果子的最大值。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
-
-using namespace std;
-
-int pos;
-int dp[35][1005], apple[1005];
-
-int main(void)
-{
-    int t, w;
-    cin>>t>>w;
-    for(int i=1; i&lt=t; i++)
-        cin>>apple[i];
-    pos=0;
-    for(int i=1; i&lt=w+1; i++)
-    {
-        for(int j=1; j&lt=t; j++)
-        {
-            //有两种方式转移到当前状态，不换树和换树
-            dp[i][j]=max(dp[i][j-1], dp[i-1][j-1]);           
-            if(apple[j]==pos+1)
-                dp[i][j]+=1;
-        }
-        pos=(pos+1)%2;
-    }
-    cout&lt&ltdp[w+1][t]&lt&ltendl;
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="4-POJ-3616-Milking-Time"><a href="#4-POJ-3616-Milking-Time" class="headerlink" title="4.POJ-3616 Milking Time"></a>4.POJ-3616 Milking Time</h1><p><a href="https://vjudge.net/problem/POJ-3616" target="_blank" rel="noopener">原题链接</a></p>
-<p>是之前没见过的dp类型，没鼓捣出来。</p>
-<p>对于这种时间安排的问题，无论是贪心还是dp基本上都需要先对给出的时间进行排序。本题将各时间间隔按结束时间先后排序。dp[i]代表前i个时间间隔中获得牛奶的最大值。在转移方程上，先只算自己这个时间间隔内获得的牛奶，再依次遍历这次之前的时间间隔（由于事先的排序，遍历到的都是结束时间早于当前状态的时间间隔）。同时判断能不能兼容。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
-
-using namespace std;
-
-struct node{
-    int a, b, eff;
-}farmer[1005];
-int dp[1005], res=0;
-
-bool cmp(node x, node y)
-{
-    return x.b&lty.b;
-}
-
-int main(void)
-{
-    int n, m, r;
-    cin>>n>>m>>r;
-    for(int i=1; i&lt=m; i++)
-        cin>>farmer[i].a>>farmer[i].b>>farmer[i].eff;
-    sort(farmer, farmer+m+1, cmp);
-    for(int i=1; i&lt=m; i++)
-    {        
-        dp[i]=farmer[i].eff;
-        for(int j=1; j&lti; j++)
-            if(farmer[j].b+r&lt=farmer[i].a)//判断能不能兼容
-                dp[i]=max(dp[i], dp[j]+farmer[i].eff);
-    }
-    for(int i=1; i&lt=m; i++)
-        res=max(res, dp[i]);
-    cout&lt&ltres&lt&ltendl;
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="5-POJ-3280-Cheapest-Palindrome"><a href="#5-POJ-3280-Cheapest-Palindrome" class="headerlink" title="5.POJ-3280 Cheapest Palindrome"></a>5.POJ-3280 Cheapest Palindrome</h1><p><a href="https://vjudge.net/problem/POJ-3280" target="_blank" rel="noopener">原题链接</a></p>
-<p>对一个字符串进行添加或删除字符操作，使之变为回文字符串。这类问题需要明确，对一个字符的删除或添加实际上是等价的。所以只需要取删除和添加成本中的较小值。</p>
-<p>以dp[i] [j]代表从使字符串从第i位到到第j位变为回文字符串的成本最小值。如果当前这一段字符串两侧的字符相同，那么成本与除去两侧字符的字符串相同。如果不同，就选择两侧中处理成本较低的一侧。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
-
-using namespace std;
-
-char str[2005], ch;
-int add, del, w[27], dp[2005][2005];
-
-int main(void)
-{
-    int n, m;
-    cin>>n>>m;
-    for(int i=0; i&ltm; i++)
-        cin>>str[i];
-    for(int i=0; i&ltn; i++)
-    {
-        cin>>ch>>add>>del;
-        w[ch-'a']=min(add, del);
-    }
-    for(int i=m-2; i>=0; i--)
-    {
-        for(int j=i+1; j&ltm; j++)
-        {
-            if(str[i]==str[j])
-                dp[i][j]=dp[i+1][j-1];
-            else 
-                dp[i][j]=min(dp[i+1][j]+w[str[i]-'a'], dp[i][j-1]+w[str[j]-'a']);
-        }
-    }
-    cout&lt&ltdp[0][m-1]&lt&ltendl;
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="6-POJ-3046-Ant-Counting"><a href="#6-POJ-3046-Ant-Counting" class="headerlink" title="6.POJ-3046 Ant Counting"></a>6.POJ-3046 Ant Counting</h1><p><a href="https://vjudge.net/problem/POJ-3046" target="_blank" rel="noopener">原题链接</a></p>
-<p>递推关系式在我还不会LaTeX的情况下实在太难表现了，<a href="https://www.cnblogs.com/sky-stars/p/11341756.html" target="_blank" rel="noopener">就用这个博客代替吧</a><del>说到底还是条懒狗</del></p>
-<p>如果想不明白建议手写一遍，添加一项的操作是为了凑出和d[i] [j]形式相同的式子, 变形为d[i] [j-1]。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
-
-using namespace std;
-
-const int mod=1000000;
-int a[1005], dp[1005][100005], ans;
-
-int main(void)
-{
-    int t, n, s, b, temp;
-    cin>>t>>n>>s>>b;
-    for(int i=1; i&lt=n; i++)
-    {
-        cin>>temp;
-        a[temp]++;
-    }
-    for(int i=0; i&lt=t; i++)
-        dp[i][0]=1;
-    for(int i=1; i&lt=t; i++)
-    {
-        for(int j=1; j&lt=b; j++)
-        {
-            if(j>=a[i]+1)
-                dp[i][j]=(dp[i-1][j]+dp[i][j-1]-dp[i-1][j-a[i]-1]+mod)%mod;
-            else
-                dp[i][j]=(dp[i-1][j]+dp[i][j-1]+mod)%mod;
-        }
-    }
-    for(int i=s; i&lt=b; i++)
-        ans=(ans+dp[t][i]+mod)%mod;
-    cout&lt&ltans&lt&ltendl;
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="7-POJ-3181-Dollar-Dayz"><a href="#7-POJ-3181-Dollar-Dayz" class="headerlink" title="7.POJ-3181 Dollar Dayz"></a>7.POJ-3181 Dollar Dayz</h1><p><a href="https://vjudge.net/problem/POJ-3181" target="_blank" rel="noopener">原题链接</a></p>
-<p>大致题意是求数m的拆分方法数量。这种问题可以归结为完全背包问题，将dp[i] [j]定义为只用前i个数（这里就是1……i）拆分数j时的方案总数。转移方程如下：</p>
-<pre class="line-numbers language-c++"><code class="language-c++">dp[0][0]=1;//初始化条件
-for(int i=1; i<=n; i++)
-    for(int j=1; j<=k; j++)//把整数看作背包问题中的物品，这里的i既是物品序号也是物品体积
-        dp[i][j]=dp[i-1][j-i]+dp[i-1][j];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>优化后可化为</p>
-<pre class="line-numbers language-c++"><code class="language-c++">dp[0]=1;
-for(int i=1; i<=n; i++)
-    for(int j=1; j<=k; j++)
-        dp[j]+=dp[j-i];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>本题另一个关键点在于数据过于庞大，long long 都不够用。这里有两种处理方法，一种是高精度加减法，另一种是用两个数组，一个存后18位，一个存前面的位数，<a href="https://www.cnblogs.com/kuangbin/archive/2012/09/20/2695165.html" target="_blank" rel="noopener">这篇博客介绍的较为详细</a>。我用的是第二种方法。</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltcstdio>
-
-using namespace std;
-
-long long a[1100], b[1100], INF=1;
-
-int main(void)
-{    
-    int n, k;
-    cin>>n>>k;
-    for(int i=0; i&lt18; i++)
-        INF*=10;
-    a[0]=1;
-    for(int i=1; i&lt=k; i++)
-    {
-        for(int j=1; j&lt=n; j++)
-        {
-            if(j&lti)
-                continue;
-            b[j]=b[j]+b[j-i]+(a[j]+a[j-i])/INF;
-            a[j]=(a[j]+a[j-i])%INF;
-        }
-    }
-    if(b[n])
-        printf("%lld", b[n]);
-    printf("%lld\n", a[n]);
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <p><a href="https://www.luogu.com.cn/problem/P1077" target="_blank" rel="noopener">原题链接</a></p>
+<p>小明的花店新开张，为了吸引顾客，他想在花店的门口摆上一排花，共$m$盆。通过调查顾客的喜好，小明列出了顾客最喜欢的$n$种花，从$1$到$n$标号。为了在门口展出更多种花，规定第$i$种花不能超过$a[i]$盆，摆花时同一种花放在一起，且不同种类的花需按标号的从小到大的顺序依次摆列。</p>
+<p>试编程计算，一共有多少种不同的摆花方案。</p>
 
             </div>
             <hr/>
@@ -639,7 +384,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/04/23/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94dp%E4%B8%93%E9%A2%98-1/">https://aoidragon.github.io/2020/04/23/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94dp%E4%B8%93%E9%A2%98-1/</a>
+                    <a href="https://aoidragon.github.io/2020/06/10/%E6%B4%9B%E8%B0%B7P1077%20%E6%91%86%E8%8A%B1/">https://aoidragon.github.io/2020/06/10/%E6%B4%9B%E8%B0%B7P1077%20%E6%91%86%E8%8A%B1/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -677,12 +422,12 @@ int main(void)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/">
-                                    <span class="chip bg-color">《挑战程序设计竞赛》</span>
-                                </a>
-                            
                                 <a href="/tags/dp/">
                                     <span class="chip bg-color">dp</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B4%9B%E8%B0%B7/">
+                                    <span class="chip bg-color">洛谷</span>
                                 </a>
                             
                         </div>
@@ -720,30 +465,31 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/04/29/%E6%B4%9B%E8%B0%B7P3853%20%E8%B7%AF%E6%A0%87%E8%AE%BE%E7%BD%AE/">
+                <a href="/2020/06/10/%E6%B4%9B%E8%B0%B7P1077%20%E6%91%86%E8%8A%B1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="洛谷P3853 路标设置">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="洛谷P1077 摆花">
                         
-                        <span class="card-title">洛谷P3853 路标设置</span>
+                        <span class="card-title">洛谷P1077 摆花</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             原题链接
-有关最小的最大值或者最大的最小值都可以用二分搜索来解决。本题left代表不满足条件的值，right代表满足条件的值。在二分搜索的过程中right的值不断缩小，知道left与right相差不大于一,此时的right就是所有满足条件的
+小明的花店新开张，为了吸引顾客，他想在花店的门口摆上一排花，共$m$盆。通过调查顾客的喜好，小明列出了顾客最喜欢的$n$种花，从$1$到$n$标号。为了在门口展出更多种花，规定第$i$种花不能超过$a[i]$盆，摆花时同一种花放在
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -756,15 +502,16 @@ int main(void)
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%B4%9B%E8%B0%B7/">
-                        <span class="chip bg-color">洛谷</span>
+                    <a href="/tags/dp/">
+                        <span class="chip bg-color">dp</span>
                     </a>
                     
-                    <a href="/tags/%E4%BA%8C%E5%88%86/">
-                        <span class="chip bg-color">二分</span>
+                    <a href="/tags/%E6%B4%9B%E8%B0%B7/">
+                        <span class="chip bg-color">洛谷</span>
                     </a>
                     
                 </div>
@@ -778,26 +525,30 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/07/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B%E2%80%94%E2%80%94%E7%A9%B7%E5%B0%BD%E6%90%9C%E7%B4%A2%E4%B8%93%E9%A2%98/">
+                <a href="/2020/06/07/%E6%B4%9B%E8%B0%B7P2758%20%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="《挑战程序设计竞赛》——穷尽搜索专题">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="洛谷P2758 编辑距离">
                         
-                        <span class="card-title">《挑战程序设计竞赛》——穷尽搜索专题</span>
+                        <span class="card-title">洛谷P2758 编辑距离</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. POJ 1979 Red and Black原题链接
-思路本题类似书中用做例题的POJ2386，要求我们遍历整张图。由于只需遍历一次，所以我们可以直接将走过的点看作障碍，省去vis数组的使用。
-代码#include&ltiostrea
+                            原题链接
+设A和B是两个字符串。我们要用最少的字符操作次数，将字符串A转换为字符串B。这里所说的字符操作共有三种：
+1、删除一个字符；
+2、插入一个字符；
+3、将一个字符改为另一个字符；
+！皆为小写字母！
+一开始我单纯地以为可以求最长公共子
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-07
                             </span>
                         <span class="publish-author">
                             
@@ -814,16 +565,12 @@ int main(void)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%8A%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E3%80%8B/">
-                        <span class="chip bg-color">《挑战程序设计竞赛》</span>
+                    <a href="/tags/dp/">
+                        <span class="chip bg-color">dp</span>
                     </a>
                     
-                    <a href="/tags/DFS/">
-                        <span class="chip bg-color">DFS</span>
-                    </a>
-                    
-                    <a href="/tags/BFS/">
-                        <span class="chip bg-color">BFS</span>
+                    <a href="/tags/%E6%B4%9B%E8%B0%B7/">
+                        <span class="chip bg-color">洛谷</span>
                     </a>
                     
                 </div>
@@ -961,6 +708,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
     <footer class="page-footer bg-color">

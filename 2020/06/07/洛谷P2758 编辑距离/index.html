@@ -32,7 +32,7 @@
     
     <script src="/libs/jquery/jquery.min.js"></script>
     
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-duotone-light.css" type="text/css">
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-darcula.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
@@ -389,6 +389,7 @@
 </li>
 </ol>
 <p>我们只需要求出三个中最小的即可。</p>
+<p>做完这道题，感觉线性dp像是一个切片的过程。在考虑转移方程时如果过分执着于整体，反而会有许多不必要的担心。正确的做法是应该是把整体分割成一个个小部分，思考每个部分是如何从前面的部分转移过来的。</p>
 <pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
 #include&ltalgorithm>
 
@@ -526,36 +527,30 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/06/07/%E6%B4%9B%E8%B0%B7P2758%20%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/">
+                <a href="/2020/06/10/%E6%B4%9B%E8%B0%B7P1077%20%E6%91%86%E8%8A%B1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="洛谷P2758 编辑距离">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="洛谷P1077 摆花">
                         
-                        <span class="card-title">洛谷P2758 编辑距离</span>
+                        <span class="card-title">洛谷P1077 摆花</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             原题链接
-设A和B是两个字符串。我们要用最少的字符操作次数，将字符串A转换为字符串B。这里所说的字符操作共有三种：
-1、删除一个字符；
-2、插入一个字符；
-3、将一个字符改为另一个字符；
-！皆为小写字母！
-一开始我单纯地以为可以求最长公共子
+小明的花店新开张，为了吸引顾客，他想在花店的门口摆上一排花，共$m$盆。通过调查顾客的喜好，小明列出了顾客最喜欢的$n$种花，从$1$到$n$标号。为了在门口展出更多种花，规定第$i$种花不能超过$a[i]$盆，摆花时同一种花放在
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-10
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -568,7 +563,6 @@ int main(void)
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
