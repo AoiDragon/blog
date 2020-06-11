@@ -359,6 +359,28 @@
                 <p><a href="https://www.luogu.com.cn/problem/P1077" target="_blank" rel="noopener">原题链接</a></p>
 <p>小明的花店新开张，为了吸引顾客，他想在花店的门口摆上一排花，共$m$盆。通过调查顾客的喜好，小明列出了顾客最喜欢的$n$种花，从$1$到$n$标号。为了在门口展出更多种花，规定第$i$种花不能超过$a[i]$盆，摆花时同一种花放在一起，且不同种类的花需按标号的从小到大的顺序依次摆列。</p>
 <p>试编程计算，一共有多少种不同的摆花方案。</p>
+<p>可采用类似背包问题的思考方式。以$dp[i][j]$代表只摆前$i$种花且一共摆了$j$盆的情况。那对于第$i$种花来说，它可以摆$min(a[i], j)$盆，相应的$dp[i-1][ ]$就要为它留下从$0$到$min(a[i], j)$盆的空位。这样转移方程就出来了。</p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
+#include&ltalgorithm>
+
+using namespace std;
+
+int a[105], m, n, dp[105][105], sum;
+
+int main(void)
+{
+    cin>>n>>m;
+    for(int i=1; i&lt=n; i++)
+        cin>>a[i];
+    for(int i=0; i&lt=n; i++)
+        dp[i][0]=1;
+    for(int i=1; i&lt=n; i++)
+        for(int j=1; j&lt=m; j++)
+            for(int k=0; k&lt=a[i]&&k&lt=j; k++)
+                dp[i][j]=(dp[i][j]+dp[i-1][j-k])%1000007;
+    cout&lt&ltdp[n][m]&lt&ltendl;
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
