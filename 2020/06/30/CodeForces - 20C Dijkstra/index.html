@@ -4,10 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="HDU 1024 Max Sum Plus Plus, AoiDragon">
-    <meta name="description" content="题目传送门https://vjudge.net/contest/357166#problem/G
-题意给定一个长度为n的整数序列（包含负数），取m个子序列，求这m个子序列和的最大值。
-题解普通的想法是以$dp[i][j]$表示选取了第$j$">
+    <meta name="keywords" content="CodeForces - 20C Dijkstra, AoiDragon">
+    <meta name="description" content="题目传送门
+题意给定一个带权无向图。你需要求出从点 1 到点 n的最短路。
+第一行有两个正整数 n 和 m (2 ≤ n ≤ $10^5$, 0 ≤ m ≤ $10^5$)，n 表示点数， m 表示边数。接下来的m行中，每行有三个整数：ai">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>HDU 1024 Max Sum Plus Plus | AoiDragon</title>
+    <title>CodeForces - 20C Dijkstra | AoiDragon</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -189,12 +189,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">HDU 1024 Max Sum Plus Plus</h1>
+                    <h1 class="description center-align post-title">CodeForces - 20C Dijkstra</h1>
                 </div>
             </div>
         </div>
@@ -311,8 +311,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/dp/">
-                                <span class="chip bg-color">dp</span>
+                            <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
+                                <span class="chip bg-color">最短路</span>
                             </a>
                         
                             <a href="/tags/%E5%86%AC%E8%AE%AD%E8%A1%A5%E9%A2%98/">
@@ -340,7 +340,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-06-19
+                    2020-06-30
                 </div>
                 
 
@@ -357,77 +357,101 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><a href="">题目传送门</a><a href="https://vjudge.net/contest/357166#problem/G">https://vjudge.net/contest/357166#problem/G</a></p>
-<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一个长度为n的整数序列（包含负数），取m个子序列，求这m个子序列和的最大值。</p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>普通的想法是以$dp[i][j]$表示选取了第$j$个数字时，前$j$个数字分成$i$个子序列的情况下的最大值。那我们单独分析这第$j$个数字，有两种情况。第一种是分在了第$i$个分组，那么转移方程为$dp[i][j]=dp[i][j-1]+s[j]$。如果不是分在第$i$个分组，那么一定在前$i-1$个组里。则转移方程为$dp[i][j]=max(dp[i-1][k])+s[j]$,其中$i-1&lt;k&lt;j-1$。因为$i-1$个组至少需要$i-1$个数。</p>
-<p>但如果再对k进行遍历，复杂度就会达到$O(n^3)$，明显会超时。所以我们先做第一步优化。在遍历$j$的同时把到当前数为止的$dp$数组最大值求出来。</p>
+                <p><a href="https://vjudge.net/problem/CodeForces-20C" target="_blank" rel="noopener">题目传送门</a></p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一个带权无向图。你需要求出从点 1 到点 <em>n</em>的最短路。</p>
+<p>第一行有两个正整数 <em>n</em> 和 <em>m</em> (2 ≤ <em>n</em> ≤ $10^5$, 0 ≤ <em>m</em> ≤ $10^5$)，<em>n</em> 表示点数， <em>m</em> 表示边数。接下来的<em>m</em>行中，每行有三个整数：<em>ai</em>, <em>bi</em> 和 <em>wi</em> (1 ≤ <em>ai</em>, <em>bi</em> ≤ <em>n</em>, 1 ≤ <em>wi</em> ≤ $10^6$)，其中 <em>ai</em>, <em>bi<em>为边的两个端点，</em>wi</em> 为边的长度。</p>
+<p>图中可能存在环和重边。</p>
+<p>如果不存在最短路则输出-1；否则输出对应的最短路径上的点。如果有多个解，输出任意一个就行。</p>
+<p>$Example$</p>
+<p>$Input   $</p>
+<pre><code>5 6
+1 2 2
+2 5 5
+2 3 4
+1 4 1
+4 3 3
+3 5 1</code></pre><p>$Output   $</p>
+<pre><code>1 4 3 5 </code></pre><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>在spfa的模板上做一些修改即可。第一点是添加一个pre数组用来记录每个点前置的点。当点$i$的距离被点$j$更新时，令pre[i]=j。这样跑完一遍最短路后，就可以从终点开始遍历出最短路经过的节点。第二点是数据量比较大，有一些不必要的搜索步骤可以省略。如果dis[i]&gt;dis[n]，那么这个点就不会对最短路的更新做出贡献，可以直接跳过。最后记得dis数组要开long long。</p>
 <pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
 #include&ltalgorithm>
-#include&ltcstdio>
+#include&ltvector>
+#include&ltqueue>
 #include&ltcstring>
 
 using namespace std;
 
-int m, n, dp[500005][1000005], s[1000005], mmax;
+typedef pair&ltint, int> P;
+int m, n, vis[100005], num[100005], pre[100005], ans[100005];
+const long long INF=1e18;
+long long dis[100005];
+queue&ltint> q;
+vector&ltP> g[100005];
+
+void dijkstra()
+{
+    while(!q.empty())
+    {
+        int now=q.front();
+        q.pop();
+        vis[now]=0;
+        if(dis[now]>dis[n])
+            continue;
+        for(int i=0; i&ltg[now].size(); i++)
+        {
+            int v=g[now][i].first;
+            int w=g[now][i].second;
+            if(dis[v]>dis[now]+w)
+            {
+                dis[v]=dis[now]+w;
+                pre[v]=now;
+                if(!vis[v])
+                {
+                    q.push(v);
+                    vis[v]=1;
+                    num[v]++;
+                    if(num[v]>=n)
+                        return;
+                }  
+            }
+        }
+    }
+    return;
+}
 
 int main(void)
 {
-    while(cin>>m>>n)
+    cin>>n>>m;
+    for(int i=0; i&lt=n; i++)
+        dis[i]=INF;
+    for(int i=0; i&ltm; i++)
     {
-        mmax=0;
-        memset(dp, 0, sizeof(dp));
-        for(int i=1; i&lt=n; i++)
-            scanf("%d", &s[i]);
-        for(int i=1; i&lt=m; i++)
+        int a, b, w;
+        cin>>a>>b>>w;
+        g[a].push_back({b, w});
+        g[b].push_back({a, w});
+    }
+    q.push(1);
+    vis[1]=1;
+    dis[1]=0;
+    num[1]++;
+    dijkstra();
+    if(dis[n]==INF)
+        cout&lt&lt-1&lt&ltendl;
+    else
+    {
+        int now=n, k=0;
+        while(now!=1)
         {
-            for(int j=1; j&lt=n; j++)
-            {
-                mmax=max(mmax, dp[i-1][j-1]);
-                dp[i][j]=max(dp[i][j], max(dp[i][j-1]+s[j], mmax+s[j]));
-            }
+            ans[k]=now;
+            now=pre[now];
+            k++;
         }
-        cout&lt&ltdp[m][n]&lt&ltendl;
+        ans[k]=1;
+        for(int i=k; i>=0; i--)
+            cout&lt&ltans[i]&lt&lt(i==0?'\n':' ');
     }
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>但这样还远远不够，因为题目的数据实在太大了。而$m$的数据并没有给上限，最坏的情况数组会超内存。所以还需要进一步优化。采用类似背包问题的优化方式，将数组的第一维去掉，变成$dp[j]$。第一种情况转移方程变成$dp[j]=dp[j-1]+s[j]$,第二种我们需要用一个数组记录$dp[i-1][k]$的最大值.</p>
-<pre class="line-numbers language-c++"><code class="language-c++">#include&ltiostream>
-#include&ltalgorithm>
-#include&ltcstdio>
-#include&ltcstring>
-
-using namespace std;
-
-const int INF=0x3f3f3f3f;
-int m, n, dp[10005], s[10005], M[10005], temp;
-
-int main(void)
-{
-    while(cin>>m>>n)
-    {
-        memset(dp, 0, sizeof(dp));
-        memset(M, 0, sizeof(M));
-        for(int i=1; i&lt=n; i++)
-            scanf("%d", &s[i]);
-        for(int i=1; i&lt=m; i++)
-        {
-            temp=-INF;//可能有负数
-            for(int j=i; j&lt=n; j++)
-            {
-                dp[j]=max(dp[j-1], M[j-1])+s[j];
-                //这里求之前的最大值我绕了好久
-                //不清楚为什么只更新到M[j-1],这样下一次循环用到的M[j-1]就
-                //相当于这次的M[j],没有更新过
-                //但要注意M[j-1]实际上是dp[i-1][k]的最大值，就是需要不更新。
-                //已经更新过的M[1...j-2]是dp[i][k]的最大值，在i下个的下个循环中用
-                M[j-1]=temp;
-                temp=max(temp, dp[j]);
-            }
-        }
-        cout&lt&ltdp[n]&lt&ltendl;
-    }
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -453,7 +477,7 @@ int main(void)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://aoidragon.github.io/2020/06/19/HDU%201024%20Max%20Sum%20Plus%20Plus/">https://aoidragon.github.io/2020/06/19/HDU%201024%20Max%20Sum%20Plus%20Plus/</a>
+                    <a href="https://aoidragon.github.io/2020/06/30/CodeForces%20-%2020C%20Dijkstra/">https://aoidragon.github.io/2020/06/30/CodeForces%20-%2020C%20Dijkstra/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -491,8 +515,8 @@ int main(void)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/dp/">
-                                    <span class="chip bg-color">dp</span>
+                                <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">
+                                    <span class="chip bg-color">最短路</span>
                                 </a>
                             
                                 <a href="/tags/%E5%86%AC%E8%AE%AD%E8%A1%A5%E9%A2%98/">
@@ -534,9 +558,10 @@ int main(void)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/06/30/CodeForces%20-%2020C%20Dijkstra/">
                     <div class="card-image">
@@ -556,9 +581,9 @@ int main(void)
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -571,6 +596,7 @@ int main(void)
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -593,25 +619,26 @@ int main(void)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/06/17/HDU%202159%20FATE/">
+                <a href="/2020/06/19/HDU%201024%20Max%20Sum%20Plus%20Plus/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="HDU 2159 FATE">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="HDU 1024 Max Sum Plus Plus">
                         
-                        <span class="card-title">HDU 2159 FATE</span>
+                        <span class="card-title">HDU 1024 Max Sum Plus Plus</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目传送门
-题目描述最近xhd正在玩一款叫做FATE的游戏，为了得到极品装备，xhd在不停的杀怪做任务。久而久之xhd开始对杀怪产生的厌恶感，但又不得不通过杀怪来升完这最后一级。现在的问题是，xhd升掉最后一级还需n的经验值，xhd还留有m
+                            题目传送门https://vjudge.net/contest/357166#problem/G
+题意给定一个长度为n的整数序列（包含负数），取m个子序列，求这m个子序列和的最大值。
+题解普通的想法是以$dp[i][j]$表示选取了第$j$
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-19
                             </span>
                         <span class="publish-author">
                             
@@ -771,13 +798,6 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
-    });
-</script>
 
 
     <footer class="page-footer bg-color">
